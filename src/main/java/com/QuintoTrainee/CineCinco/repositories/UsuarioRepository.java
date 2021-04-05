@@ -10,7 +10,7 @@ import com.QuintoTrainee.CineCinco.entities.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, String>{
 	
-	@Query("SELECT c FROM Usuario c WHERE c.mail =:mail")
+	@Query("SELECT c FROM Usuario c WHERE c.email =:mail")
     public Usuario buscarPorMail(@Param("mail") String mail);
 
 }
