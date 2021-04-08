@@ -44,7 +44,10 @@ public class Funcion {
 	
 	//cambiar a manytomany
 	@ManyToOne
-	private Sala salas;
+	private Sala sala;
+
+	@OneToMany
+	private List<Butaca> butacas;
 	
 	private double precioEntrada;
 	
@@ -56,9 +59,6 @@ public class Funcion {
 	
 	//lo pongo en el modelo?
 	private boolean llena;
-	
-	@OneToMany
-	private List<Butaca> butacas;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date alta;
