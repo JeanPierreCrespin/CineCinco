@@ -25,16 +25,17 @@ public class Usuario {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	private String userId;
+	private String id;
 	
 	private String password;
 	
 	private String email;
 	
-	private String nombreUsuario;
+	private String nombreCompleto;
 	
 	private String username;
 	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaNacimiento;
 	
 	private String infoTarjeta;

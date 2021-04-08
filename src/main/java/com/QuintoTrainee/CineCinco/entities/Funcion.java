@@ -26,12 +26,13 @@ public class Funcion {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	private String funcionId;
+	private String id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fecha;
 	
-	private String horario;
+	@Temporal(TemporalType.TIME)
+	private Date horario;
 	
 	@Enumerated(EnumType.STRING)
 	private Idioma idioma;
@@ -41,15 +42,19 @@ public class Funcion {
 	@ManyToOne
 	private Pelicula pelicula;
 	
+	//cambiar a manytomany
 	@ManyToOne
-	private Sala sala;
+	private Sala salas;
 	
 	private double precioEntrada;
 	
+	//lo pongo en el modelo?
 	private int cantidadVacios;
 	
+	//lo pongo en el modelo?
 	private int cantidadOcupados;
 	
+	//lo pongo en el modelo?
 	private boolean llena;
 	
 	@OneToMany

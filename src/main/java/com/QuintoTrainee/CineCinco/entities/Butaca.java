@@ -19,9 +19,9 @@ public class Butaca {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	private String butacaId;
+	private String id;
 	
-	private String nombreButaca;
+	private String nombre;
 	
 	private boolean ocupado;
 	

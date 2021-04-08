@@ -19,9 +19,9 @@ public class Sala {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	private String salaId;
+	private String id;
 	
-	private String nombreSala;
+	private String nombre;
 	
 	private int cantidadButacas;
 	

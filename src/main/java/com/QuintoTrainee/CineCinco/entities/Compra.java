@@ -25,7 +25,7 @@ public class Compra {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	private String compraId;
+	private String id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaCompra;

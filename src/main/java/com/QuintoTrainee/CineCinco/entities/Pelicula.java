@@ -2,11 +2,13 @@ package com.QuintoTrainee.CineCinco.entities;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -23,9 +25,13 @@ public class Pelicula {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	private String peliculaId;
+	private String id;
 	
-	private String nombrePelicula;
+	private String titulo;
+	
+	@Lob
+	@Column(name = "sinopsis", length = 4000)
+	private String sinopsis;
 	
 	@Enumerated(EnumType.STRING)
 	private Genero genero;
