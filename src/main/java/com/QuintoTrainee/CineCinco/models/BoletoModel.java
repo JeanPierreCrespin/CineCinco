@@ -15,8 +15,10 @@ public class BoletoModel implements Serializable {
 	private String id;
 	
 	private FuncionModel funcion;
+	private String idFuncion;
 	
-	private BoletoModel boleto;
+	private ButacaModel butaca;
+	private String idButaca;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date alta;

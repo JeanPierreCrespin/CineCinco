@@ -28,8 +28,10 @@ public class FuncionModel implements Serializable {
 	private boolean idiomaExtranjero;
 	
 	private PeliculaModel pelicula;
+	private String idPelicula;
 	
 	private SalaModel sala;
+	private String idSala;
 	
 	private List<ButacaModel> butacas;
 	
