@@ -1,5 +1,6 @@
 package com.QuintoTrainee.CineCinco.models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,14 +11,16 @@ import com.QuintoTrainee.CineCinco.enums.Idioma;
 import lombok.Data;
 
 @Data
-public class FuncionModel {
+public class FuncionModel implements Serializable {
+
+	private static final long serialVersionUID = -7042903749511417665L;
 
 	private String id;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date fecha;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "HH:mm:ss")
 	private Date horario;
 	
 	private Idioma idioma;

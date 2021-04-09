@@ -1,5 +1,6 @@
 package com.QuintoTrainee.CineCinco.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -7,7 +8,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 
 @Data
-public class BoletoModel {
+public class BoletoModel implements Serializable {
+
+	private static final long serialVersionUID = 1586023621114676267L;
 
 	private String id;
 	

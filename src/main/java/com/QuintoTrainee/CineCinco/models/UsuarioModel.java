@@ -1,5 +1,6 @@
 package com.QuintoTrainee.CineCinco.models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,9 @@ import com.QuintoTrainee.CineCinco.enums.Rol;
 import lombok.Data;
 
 @Data
-public class UsuarioModel {
+public class UsuarioModel implements Serializable {
+
+	private static final long serialVersionUID = -2785730486451467206L;
 
 	private String id;
 	
