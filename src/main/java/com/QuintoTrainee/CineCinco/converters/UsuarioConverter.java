@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class UsuarioConverter extends Converter<UsuarioModel, Usuario>{
 	
 	private final UsuarioRepository usuarioRepository;
+	//private final UsuarioRepository usuarioRepository;
 	
 	public Usuario modelToEntity(UsuarioModel model) throws WebException {
 		
@@ -31,13 +32,10 @@ public class UsuarioConverter extends Converter<UsuarioModel, Usuario>{
 		}
 		
 		try {
-
 			BeanUtils.copyProperties(model, entity);
-
 		} catch (Exception e) {
 			throw new WebException("Error al convertir el modelo " + entity.toString() + " a entidad");
 		}
-		
 		
 		return entity;
 	}
@@ -48,6 +46,13 @@ public class UsuarioConverter extends Converter<UsuarioModel, Usuario>{
 
 		try {
 
+			//List<Compra> comprasEntidad = entity.getCompras();
+			//List<CompraModel> comprasModelo = new ArrayList<>();
+			
+			//for(Compra compra : comprasEntidad) {
+				//comprasModelo.add(compraConverter.entityToModel(compra));
+			//}
+			
 			BeanUtils.copyProperties(entity, model);
 
 		} catch (Exception e) {
