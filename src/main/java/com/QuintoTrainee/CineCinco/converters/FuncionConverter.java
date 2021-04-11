@@ -14,7 +14,6 @@ import com.QuintoTrainee.CineCinco.entities.Sala;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
 import com.QuintoTrainee.CineCinco.models.ButacaModel;
 import com.QuintoTrainee.CineCinco.models.FuncionModel;
-import com.QuintoTrainee.CineCinco.models.SalaModel;
 import com.QuintoTrainee.CineCinco.repositories.ButacaRepository;
 import com.QuintoTrainee.CineCinco.repositories.FuncionRepository;
 import com.QuintoTrainee.CineCinco.repositories.PeliculaRepository;
@@ -24,94 +23,109 @@ import lombok.RequiredArgsConstructor;
 
 @Component("FuncionConverter")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class FuncionConverter extends Converter<FuncionModel, Funcion>{
+public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 
 	private final FuncionRepository funcionRepository;
 	private final ButacaRepository butacaRepository;
 	private final SalaRepository salaRepository;
 	private final PeliculaRepository peliculaRepository;
-	
+	private final ButacaConverter butacaConverter;
+	private final SalaConverter salaConverter;
+	private final PeliculaConverter peliculaConverter;
+
 	public Funcion modelToEntity(FuncionModel model) throws WebException {
-		
+
 		Funcion entity;
-		
-		if(model.getId() != null && !model.getId().isEmpty()) {
+
+		if (model.getId() != null && !model.getId().isEmpty()) {
 			entity = funcionRepository.getOne(model.getId());
-		}else {
+		} else {
 			entity = new Funcion();
 		}
-		
+
 		try {
-			
-			 
+
 			Butaca entityButaca = null;
 			List<Butaca> entityButacas = new ArrayList<>();
-			
-			if(model.getButacas() != null ) {
-				for(ButacaModel a: model.getButacas() ) {
-					 
-				    entityButaca = butacaRepository.getOne(a.getId());
-			    	
-			    	entityButacas.add(entityButaca);
+
+			if (model.getButacas() != null) {
+				for (ButacaModel a : model.getButacas()) {
+
+					entityButaca = butacaRepository.getOne(a.getId());
+
+					entityButacas.add(entityButaca);
 				}
-		    }
-			
+			}
+
 			entity.setButacas(entityButacas);
-			
-			Sala entitySala  = null;
-			if(model.getIdSala() != null) {
+
+			Sala entitySala = null;
+			if (model.getIdSala() != null) {
 				entitySala = salaRepository.getOne(model.getId());
 
 			}
-			
+
 			entity.setSala(entitySala);
-			
+
 			Pelicula entityPelicula = null;
-			if(model.getIdPelicula() != null) {
+			if (model.getIdPelicula() != null) {
 				entityPelicula = peliculaRepository.getOne(model.getIdPelicula());
 			}
-			
+
 			entity.setPelicula(entityPelicula);
-			
-			
+
 			BeanUtils.copyProperties(model, entity);
 		} catch (Exception e) {
 			throw new WebException("Error al convertir el modelo " + entity.toString() + " a entidad");
 		}
-		
+
 		return entity;
 	}
-
 
 	public FuncionModel entityToModel(Funcion entity) throws WebException {
 		FuncionModel model = new FuncionModel();
 		try {
-			
-			Butaca entityButaca = null;
-			List<Butaca> entityButacas = new ArrayList<>();
-			
-			if(entity.getButacas() != null) {
-				for(ButacaModel a: model.getButacas() ) {
-					 
-				    entityButaca = butacaRepository.getOne(a.getId());
-			    	
-			    	entityButacas.add(entityButaca);
-				}
-			
+
+			List<ButacaModel> modelButacas = new ArrayList<>();
+			if (entity.getButacas() != null) {
+				modelButacas = butacaConverter.entitiesToModels(entity.getButacas());
+
 			}
-		}catch(Exception e) {
+
+			model.setButacas(modelButacas);
+
+			if (entity.getSala() != null) {
+				model.setIdSala(entity.getSala().getId());
+				model.setSala(salaConverter.entityToModel(salaRepository.getOne(entity.getSala().getId())));
+			}
+
+			if (entity.getPelicula() != null) {
+				model.setIdPelicula(entity.getPelicula().getId());
+				model.setPelicula(peliculaConverter.entityToModel(entity.getPelicula()));
+				// pregunta
+			}
+
+			BeanUtils.copyProperties(entity, model);
+		} catch (Exception e) {
 			throw new WebException("Error al convertir la entidad " + entity.toString() + " a modelo");
 		}
-		return null;
+		return model;
 	}
 
-	@Override
-	public List<Funcion> modelsToEntities(List<FuncionModel> models) throws WebException {
-		return null;
+	public List<Funcion> modelsToEntities(List<FuncionModel> m) throws WebException {
+		List<Funcion> entities = new ArrayList<>();
+		for (FuncionModel model : m) {
+			entities.add(modelToEntity(model));
+		}
+		return entities;
 	}
 
 	public List<FuncionModel> entitiesToModels(List<Funcion> entities) throws WebException {
-		return null;
+		List<FuncionModel> models = new ArrayList<>();
+		for (Funcion a : entities) {
+			models.add(entityToModel(a));
+		}
+		return models;
 	}
 
 }
