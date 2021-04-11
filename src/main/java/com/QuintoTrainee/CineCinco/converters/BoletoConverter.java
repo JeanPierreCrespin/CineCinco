@@ -1,13 +1,20 @@
 package com.QuintoTrainee.CineCinco.converters;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.QuintoTrainee.CineCinco.entities.Boleto;
+import com.QuintoTrainee.CineCinco.entities.Butaca;
+import com.QuintoTrainee.CineCinco.entities.Funcion;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
 import com.QuintoTrainee.CineCinco.models.BoletoModel;
+import com.QuintoTrainee.CineCinco.repositories.BoletoRepository;
+import com.QuintoTrainee.CineCinco.repositories.ButacaRepository;
+import com.QuintoTrainee.CineCinco.repositories.FuncionRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,28 +22,86 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class BoletoConverter extends Converter<BoletoModel, Boleto>{
 
-	@Override
-	public Boleto modelToEntity(BoletoModel m) throws WebException {
-		// TODO Auto-generated method stub
-		return null;
+	private final BoletoRepository boletoRepository;
+	private final ButacaRepository butacaRepository;
+	private final FuncionRepository funcionRepository;
+	private final ButacaConverter butacaConverter;
+    private final FuncionConverter funcionConverter;
+	
+	
+	public Boleto modelToEntity(BoletoModel model) throws WebException {
+		
+		Boleto entity;
+		
+		if(model.getId() != null && !model.getId().isEmpty()) {
+			entity = boletoRepository.getOne(model.getId());
+		} else {
+			entity = new Boleto();
+		}
+		
+		try {
+			
+			Butaca entityButaca =null;
+			if(model.getIdButaca() != null) {
+				entityButaca = butacaRepository.getOne(model.getId());
+			}
+			
+			entity.setButaca(entityButaca);
+			
+			Funcion entityFuncion = null;
+			if(model.getIdFuncion() != null) {
+				entityFuncion = funcionRepository.getOne(model.getId());
+			}
+			
+			entity.setFuncion(entityFuncion);
+			
+			BeanUtils.copyProperties(model, entity);
+			
+		} catch (Exception e) {
+			throw new WebException("error al convertir el modelo " + model.toString() + " a entidad");
+		}
+		return entity;
 	}
 
-	@Override
-	public BoletoModel entityToModel(Boleto e) throws WebException {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public BoletoModel entityToModel(Boleto entity) throws WebException {
+		BoletoModel model = new BoletoModel();
+		try {
+			
+			if(entity.getButaca() != null) {
+				model.setIdButaca(entity.getButaca().getId());
+				model.setButaca(butacaConverter.entityToModel(butacaRepository.getOne(entity.getButaca().getId())));
+			}
+			
+			if(entity.getFuncion() != null) {
+				model.setIdFuncion(entity.getFuncion().getId());
+				model.setFuncion(funcionConverter.entityToModel(funcionRepository.getOne(entity.getFuncion().getId())));
+			}
+			
+			BeanUtils.copyProperties(entity, model);
+			
+		} catch (Exception e) {
+			throw new WebException("Error al convertir la entidad " + entity.toString() + " a modelo");
+		}
+		return model;
 	}
 
-	@Override
+	
 	public List<Boleto> modelsToEntities(List<BoletoModel> m) throws WebException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Boleto> entities = new ArrayList<>();
+		for(BoletoModel model : m) {
+			entities.add(modelToEntity(model));
+		}
+		return entities;
 	}
 
-	@Override
-	public List<BoletoModel> entitiesToModels(List<Boleto> e) throws WebException {
-		// TODO Auto-generated method stub
-		return null;
+
+	public List<BoletoModel> entitiesToModels(List<Boleto> entities) throws WebException {
+		List<BoletoModel> models = new ArrayList<>();
+		for(Boleto a : entities) {
+			models.add(entityToModel(a));
+		}
+		return models;
 	}
 
 }
