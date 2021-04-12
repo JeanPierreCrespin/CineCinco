@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 public class UsuarioConverter extends Converter<UsuarioModel, Usuario>{
 	
 	private final UsuarioRepository usuarioRepository;
-	//private final UsuarioRepository usuarioRepository;
 	
 	public Usuario modelToEntity(UsuarioModel model) throws WebException {
 		
