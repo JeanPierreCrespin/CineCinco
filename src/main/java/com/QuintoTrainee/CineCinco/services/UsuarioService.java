@@ -25,6 +25,12 @@ public class UsuarioService implements UserDetailsService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
+	public void hardDelete() {}  //eliminar de la base de datos
+	public void softDelete() {}  //asignar una fecha de baja
+	public void registrar() {}   //recibe un modelo y persiste la entidad correspondiente en la base de datos
+	public void modificar() {}   //recibe un modelo, modifica la entidad correspondiente y la persiste
+	public void validar() {}     //valida los atributos del modelo
+	
 	@Override
 	public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
 
