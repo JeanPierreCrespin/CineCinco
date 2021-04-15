@@ -20,18 +20,18 @@ public class Butaca {
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
-	
+
 	private String nombre;
-	
+
 	private boolean ocupado;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date alta;
-    
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date baja;
-    
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modificacion;
-	
+
 }

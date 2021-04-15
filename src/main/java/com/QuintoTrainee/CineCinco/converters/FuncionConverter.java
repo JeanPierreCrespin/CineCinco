@@ -14,7 +14,6 @@ import com.QuintoTrainee.CineCinco.entities.Sala;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
 import com.QuintoTrainee.CineCinco.models.ButacaModel;
 import com.QuintoTrainee.CineCinco.models.FuncionModel;
-import com.QuintoTrainee.CineCinco.repositories.ButacaRepository;
 import com.QuintoTrainee.CineCinco.repositories.FuncionRepository;
 import com.QuintoTrainee.CineCinco.repositories.PeliculaRepository;
 import com.QuintoTrainee.CineCinco.repositories.SalaRepository;
@@ -26,7 +25,6 @@ import lombok.RequiredArgsConstructor;
 public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 
 	private final FuncionRepository funcionRepository;
-	private final ButacaRepository butacaRepository;
 	private final SalaRepository salaRepository;
 	private final PeliculaRepository peliculaRepository;
 	private final ButacaConverter butacaConverter;
@@ -45,18 +43,11 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 
 		try {
 
-			Butaca entityButaca = null;
 			List<Butaca> entityButacas = new ArrayList<>();
 
 			if (model.getButacas() != null) {
-				for (ButacaModel a : model.getButacas()) {
-
-					entityButaca = butacaRepository.getOne(a.getId());
-
-					entityButacas.add(entityButaca);
-				}
+				butacaConverter.modelsToEntities(model.getButacas());
 			}
-
 			entity.setButacas(entityButacas);
 
 			Sala entitySala = null;
@@ -64,14 +55,12 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 				entitySala = salaRepository.getOne(model.getId());
 
 			}
-
 			entity.setSala(entitySala);
 
 			Pelicula entityPelicula = null;
 			if (model.getIdPelicula() != null) {
 				entityPelicula = peliculaRepository.getOne(model.getIdPelicula());
 			}
-
 			entity.setPelicula(entityPelicula);
 
 			BeanUtils.copyProperties(model, entity);
@@ -83,16 +72,24 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 	}
 
 	public FuncionModel entityToModel(Funcion entity) throws WebException {
+
 		FuncionModel model = new FuncionModel();
+
 		try {
 
 			List<ButacaModel> modelButacas = new ArrayList<>();
+			List<String> idsButacas = new ArrayList<>();
+
 			if (entity.getButacas() != null) {
 				modelButacas = butacaConverter.entitiesToModels(entity.getButacas());
+			}
 
+			for (ButacaModel butacaModel : modelButacas) {
+				idsButacas.add(butacaModel.getId());
 			}
 
 			model.setButacas(modelButacas);
+			model.setIdsButacas(idsButacas);
 
 			if (entity.getSala() != null) {
 				model.setIdSala(entity.getSala().getId());
@@ -101,9 +98,28 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 
 			if (entity.getPelicula() != null) {
 				model.setIdPelicula(entity.getPelicula().getId());
-				model.setPelicula(peliculaConverter.entityToModel(entity.getPelicula()));
-				// pregunta
+				model.setPelicula(
+						peliculaConverter.entityToModel(peliculaRepository.getOne(entity.getPelicula().getId())));
 			}
+
+			int cantidadVacios = 0, cantidadOcupados = 0;
+			boolean llena = false;
+
+			for (Butaca butaca : entity.getButacas()) {
+				if (butaca.isOcupado()) {
+					cantidadOcupados += 1;
+				} else {
+					cantidadVacios += 1;
+				}
+			}
+
+			if (cantidadVacios == 0) {
+				llena = true;
+			}
+
+			model.setCantidadOcupados(cantidadOcupados);
+			model.setCantidadVacios(cantidadVacios);
+			model.setLlena(llena);
 
 			BeanUtils.copyProperties(entity, model);
 		} catch (Exception e) {
@@ -112,9 +128,9 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 		return model;
 	}
 
-	public List<Funcion> modelsToEntities(List<FuncionModel> m) throws WebException {
+	public List<Funcion> modelsToEntities(List<FuncionModel> models) throws WebException {
 		List<Funcion> entities = new ArrayList<>();
-		for (FuncionModel model : m) {
+		for (FuncionModel model : models) {
 			entities.add(modelToEntity(model));
 		}
 		return entities;
@@ -122,8 +138,8 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 
 	public List<FuncionModel> entitiesToModels(List<Funcion> entities) throws WebException {
 		List<FuncionModel> models = new ArrayList<>();
-		for (Funcion a : entities) {
-			models.add(entityToModel(a));
+		for (Funcion entity : entities) {
+			models.add(entityToModel(entity));
 		}
 		return models;
 	}

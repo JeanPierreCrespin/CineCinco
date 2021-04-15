@@ -21,38 +21,38 @@ import lombok.Data;
 @Data
 @Entity
 public class Usuario {
-	
+
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
-	
+
 	private String password;
-	
+
 	private String email;
-	
+
 	private String nombreCompleto;
-	
+
 	private String username;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaNacimiento;
-	
+
 	private String infoTarjeta;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Rol rol;
-	
+
 	@OneToMany
 	private List<Compra> compras;
-    
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date alta;
-    
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date baja;
-    
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modificacion;
-	
+
 }

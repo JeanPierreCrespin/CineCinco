@@ -26,23 +26,23 @@ public class Pelicula {
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
-	
+
 	private String titulo;
-	
+
 	@Lob
 	@Column(name = "sinopsis", length = 4000)
 	private String sinopsis;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Genero genero;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date alta;
-    
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date baja;
-    
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modificacion;
-	
+
 }

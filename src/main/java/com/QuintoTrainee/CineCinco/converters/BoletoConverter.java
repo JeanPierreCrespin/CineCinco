@@ -20,86 +20,80 @@ import lombok.RequiredArgsConstructor;
 
 @Component("BoletoConverter")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class BoletoConverter extends Converter<BoletoModel, Boleto>{
+public class BoletoConverter extends Converter<BoletoModel, Boleto> {
 
 	private final BoletoRepository boletoRepository;
 	private final ButacaRepository butacaRepository;
 	private final FuncionRepository funcionRepository;
 	private final ButacaConverter butacaConverter;
-    private final FuncionConverter funcionConverter;
-	
-	
+	private final FuncionConverter funcionConverter;
+
 	public Boleto modelToEntity(BoletoModel model) throws WebException {
-		
+
 		Boleto entity;
-		
-		if(model.getId() != null && !model.getId().isEmpty()) {
+
+		if (model.getId() != null && !model.getId().isEmpty()) {
 			entity = boletoRepository.getOne(model.getId());
 		} else {
 			entity = new Boleto();
 		}
-		
+
 		try {
-			
-			Butaca entityButaca =null;
-			if(model.getIdButaca() != null) {
+
+			Butaca entityButaca = null;
+			if (model.getIdButaca() != null) {
 				entityButaca = butacaRepository.getOne(model.getId());
 			}
-			
 			entity.setButaca(entityButaca);
-			
+
 			Funcion entityFuncion = null;
-			if(model.getIdFuncion() != null) {
+			if (model.getIdFuncion() != null) {
 				entityFuncion = funcionRepository.getOne(model.getId());
 			}
-			
 			entity.setFuncion(entityFuncion);
-			
+
 			BeanUtils.copyProperties(model, entity);
-			
+
 		} catch (Exception e) {
 			throw new WebException("error al convertir el modelo " + model.toString() + " a entidad");
 		}
 		return entity;
 	}
 
-	
 	public BoletoModel entityToModel(Boleto entity) throws WebException {
 		BoletoModel model = new BoletoModel();
 		try {
-			
-			if(entity.getButaca() != null) {
+
+			if (entity.getButaca() != null) {
 				model.setIdButaca(entity.getButaca().getId());
 				model.setButaca(butacaConverter.entityToModel(butacaRepository.getOne(entity.getButaca().getId())));
 			}
-			
-			if(entity.getFuncion() != null) {
+
+			if (entity.getFuncion() != null) {
 				model.setIdFuncion(entity.getFuncion().getId());
 				model.setFuncion(funcionConverter.entityToModel(funcionRepository.getOne(entity.getFuncion().getId())));
 			}
-			
+
 			BeanUtils.copyProperties(entity, model);
-			
+
 		} catch (Exception e) {
 			throw new WebException("Error al convertir la entidad " + entity.toString() + " a modelo");
 		}
 		return model;
 	}
 
-	
-	public List<Boleto> modelsToEntities(List<BoletoModel> m) throws WebException {
+	public List<Boleto> modelsToEntities(List<BoletoModel> models) throws WebException {
 		List<Boleto> entities = new ArrayList<>();
-		for(BoletoModel model : m) {
+		for (BoletoModel model : models) {
 			entities.add(modelToEntity(model));
 		}
 		return entities;
 	}
 
-
 	public List<BoletoModel> entitiesToModels(List<Boleto> entities) throws WebException {
 		List<BoletoModel> models = new ArrayList<>();
-		for(Boleto a : entities) {
-			models.add(entityToModel(a));
+		for (Boleto entity : entities) {
+			models.add(entityToModel(entity));
 		}
 		return models;
 	}

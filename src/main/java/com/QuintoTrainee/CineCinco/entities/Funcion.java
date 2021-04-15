@@ -27,46 +27,36 @@ public class Funcion {
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fecha;
-	
+
 	@Temporal(TemporalType.TIME)
 	private Date horario;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Idioma idioma;
-	
+
 	private boolean idiomaExtranjero;
-	
+
 	@ManyToOne
 	private Pelicula pelicula;
-	
-	//cambiar a manytomany
+
 	@ManyToOne
 	private Sala sala;
 
 	@OneToMany
 	private List<Butaca> butacas;
-	
+
 	private double precioEntrada;
-	
-	//lo pongo en el modelo?
-	private int cantidadVacios;
-	
-	//lo pongo en el modelo?
-	private int cantidadOcupados;
-	
-	//lo pongo en el modelo?
-	private boolean llena;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date alta;
-    
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date baja;
-    
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modificacion;
-	
+
 }

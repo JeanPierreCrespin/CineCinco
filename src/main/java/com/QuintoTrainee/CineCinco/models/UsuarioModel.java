@@ -16,18 +16,20 @@ public class UsuarioModel implements Serializable {
 	private static final long serialVersionUID = -2785730486451467206L;
 
 	private String id;
-	
+
 	private String nombreCompleto;
-	
+
 	private String username;
-	
+
 	private String email;
-	
+
 	private String infoTarjeta;
 
 	private Rol rol;
-	
+
 	private List<CompraModel> compras;
+	private List<String> idsCompras;
+	private String comprasSeleccionadas;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date fechaNacimiento;
@@ -37,7 +39,7 @@ public class UsuarioModel implements Serializable {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date baja;
-	
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date modificacion;
 }

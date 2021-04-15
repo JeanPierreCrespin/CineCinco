@@ -18,86 +18,90 @@ import lombok.RequiredArgsConstructor;
 
 @Component("UsuarioConverter")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class UsuarioConverter extends Converter<UsuarioModel, Usuario>{
-	
+public class UsuarioConverter extends Converter<UsuarioModel, Usuario> {
+
 	private final UsuarioRepository usuarioRepository;
-	
+
 	private final CompraConverter compraConverter;
-	
+
 	public Usuario modelToEntity(UsuarioModel model) throws WebException {
-		
+
 		Usuario entity;
-		
-		if(model.getId() != null && !model.getId().isEmpty()) {
+
+		if (model.getId() != null && !model.getId().isEmpty()) {
 			entity = usuarioRepository.getOne(model.getId());
 		} else {
 			entity = new Usuario();
 		}
-		
+
 		try {
-			
+
 			List<Compra> entityCompras = new ArrayList<>();
-			
-			if(model.getCompras() != null) {
+
+			if (model.getCompras() != null) {
 				entityCompras = compraConverter.modelsToEntities(model.getCompras());
 			}
-			
+
 			entity.setCompras(entityCompras);
-			
+
 			BeanUtils.copyProperties(model, entity);
-			
+
 		} catch (Exception e) {
 			throw new WebException("Error al convertir el modelo " + entity.toString() + " a entidad");
 		}
-		
+
 		return entity;
 	}
 
 	public UsuarioModel entityToModel(Usuario entity) throws WebException {
-		
+
 		UsuarioModel model = new UsuarioModel();
 
 		try {
 
 			List<CompraModel> modelCompras = new ArrayList<>();
-			
-			if(entity.getCompras() != null) {
+			List<String> idsCompras = new ArrayList<>();
+
+			if (entity.getCompras() != null) {
 				modelCompras = compraConverter.entitiesToModels(entity.getCompras());
 			}
-			
+
+			for (CompraModel compraModel : modelCompras) {
+				idsCompras.add(compraModel.getId());
+			}
+
 			model.setCompras(modelCompras);
-			
+			model.setIdsCompras(idsCompras);
+
 			BeanUtils.copyProperties(entity, model);
 
 		} catch (Exception e) {
 			throw new WebException("Error al convertir la entidad " + entity.toString() + " a modelo");
 		}
-		
+
 		return model;
 	}
 
 	public List<Usuario> modelsToEntities(List<UsuarioModel> models) throws WebException {
-		
+
 		List<Usuario> entities = new ArrayList<>();
-		
-		for(UsuarioModel model : models) {
+
+		for (UsuarioModel model : models) {
 			entities.add(modelToEntity(model));
 		}
-		
+
 		return entities;
 	}
 
 	public List<UsuarioModel> entitiesToModels(List<Usuario> entities) throws WebException {
-		
+
 		List<UsuarioModel> models = new ArrayList<>();
-		
+
 		for (Usuario entity : entities) {
 			models.add(entityToModel(entity));
 		}
-		
+
 		return models;
 	}
-
-
 
 }

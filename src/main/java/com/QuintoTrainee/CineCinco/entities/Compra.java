@@ -26,28 +26,28 @@ public class Compra {
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaCompra;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaAprobacionPago;
-	
+
 	@OneToMany
 	private List<Boleto> boletos;
-	
+
 	private double precioTotal;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Estado estado;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date alta;
-    
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date baja;
-    
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modificacion;
-	
+
 }

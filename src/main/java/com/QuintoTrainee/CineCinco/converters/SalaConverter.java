@@ -16,61 +16,61 @@ import lombok.RequiredArgsConstructor;
 
 @Component("SalaConverter")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class SalaConverter extends Converter<SalaModel,Sala>{
+public class SalaConverter extends Converter<SalaModel, Sala> {
 
 	private final SalaRepository salaRepository;
-	
+
 	public Sala modelToEntity(SalaModel model) throws WebException {
-		
+
 		Sala entity;
-		
-		if(model.getId() != null && !model.getId().isEmpty()) {
+
+		if (model.getId() != null && !model.getId().isEmpty()) {
 			entity = salaRepository.getOne(model.getId());
-		}else {
+		} else {
 			entity = new Sala();
 		}
-		
+
 		try {
 			BeanUtils.copyProperties(model, entity);
 		} catch (Exception e) {
 			throw new WebException("Error al convertir el modelo " + entity.toString() + " a entidad");
 		}
-		
+
 		return entity;
 	}
 
 	public SalaModel entityToModel(Sala entity) throws WebException {
-		
+
 		SalaModel model = new SalaModel();
-		
+
 		try {
 			BeanUtils.copyProperties(entity, model);
 		} catch (Exception e) {
 			throw new WebException("Error al convertir la entidad " + entity.toString() + " a modelo");
 		}
-		
+
 		return model;
 	}
 
 	public List<Sala> modelsToEntities(List<SalaModel> models) throws WebException {
-		
+
 		List<Sala> entities = new ArrayList<>();
-		
-		for(SalaModel model : models) {
+
+		for (SalaModel model : models) {
 			entities.add(modelToEntity(model));
 		}
-		
+
 		return entities;
 	}
 
 	public List<SalaModel> entitiesToModels(List<Sala> entities) throws WebException {
-		
+
 		List<SalaModel> models = new ArrayList<>();
-		
-		for(Sala entity : entities) {
+
+		for (Sala entity : entities) {
 			models.add(entityToModel(entity));
 		}
-		
+
 		return models;
 	}
 

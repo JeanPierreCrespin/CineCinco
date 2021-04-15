@@ -5,6 +5,8 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.QuintoTrainee.CineCinco.enums.Genero;
+
 import lombok.Data;
 
 @Data
@@ -15,16 +17,18 @@ public class PeliculaModel implements Serializable {
 	private String id;
 
 	private String titulo;
-	
+
 	private String sinopsis;
-	
+
+	private Genero genero;
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date alta;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date baja;
-	
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date modificacion;
-	
+
 }
