@@ -7,8 +7,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.QuintoTrainee.CineCinco.entities.Compra;
 import com.QuintoTrainee.CineCinco.entities.Usuario;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
+import com.QuintoTrainee.CineCinco.models.CompraModel;
 import com.QuintoTrainee.CineCinco.models.UsuarioModel;
 import com.QuintoTrainee.CineCinco.repositories.UsuarioRepository;
 
@@ -19,6 +21,8 @@ import lombok.RequiredArgsConstructor;
 public class UsuarioConverter extends Converter<UsuarioModel, Usuario>{
 	
 	private final UsuarioRepository usuarioRepository;
+	
+	private final CompraConverter compraConverter;
 	
 	public Usuario modelToEntity(UsuarioModel model) throws WebException {
 		
@@ -31,7 +35,17 @@ public class UsuarioConverter extends Converter<UsuarioModel, Usuario>{
 		}
 		
 		try {
+			
+			List<Compra> entityCompras = new ArrayList<>();
+			
+			if(model.getCompras() != null) {
+				entityCompras = compraConverter.modelsToEntities(model.getCompras());
+			}
+			
+			entity.setCompras(entityCompras);
+			
 			BeanUtils.copyProperties(model, entity);
+			
 		} catch (Exception e) {
 			throw new WebException("Error al convertir el modelo " + entity.toString() + " a entidad");
 		}
@@ -45,12 +59,13 @@ public class UsuarioConverter extends Converter<UsuarioModel, Usuario>{
 
 		try {
 
-			//List<Compra> comprasEntidad = entity.getCompras();
-			//List<CompraModel> comprasModelo = new ArrayList<>();
+			List<CompraModel> modelCompras = new ArrayList<>();
 			
-			//for(Compra compra : comprasEntidad) {
-				//comprasModelo.add(compraConverter.entityToModel(compra));
-			//}
+			if(entity.getCompras() != null) {
+				modelCompras = compraConverter.entitiesToModels(entity.getCompras());
+			}
+			
+			model.setCompras(modelCompras);
 			
 			BeanUtils.copyProperties(entity, model);
 

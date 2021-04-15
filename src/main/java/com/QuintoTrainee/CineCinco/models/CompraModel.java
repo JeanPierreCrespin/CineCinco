@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.QuintoTrainee.CineCinco.enums.Estado;
+
 import lombok.Data;
 
 @Data
@@ -24,6 +26,8 @@ public class CompraModel implements Serializable {
 	private List<BoletoModel> boletos;
 	
 	private double precioTotal;
+	
+	private Estado estado;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date alta;
