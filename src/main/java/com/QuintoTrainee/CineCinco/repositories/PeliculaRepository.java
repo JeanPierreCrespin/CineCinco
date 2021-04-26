@@ -11,6 +11,6 @@ import com.QuintoTrainee.CineCinco.entities.Pelicula;
 public interface PeliculaRepository extends JpaRepository<Pelicula, String>{
 
 	@Query("SELECT p from Pelicula p WHERE p.titulo LIKE :titulo")
-	public Pelicula buscarPorTitulo(@Param("titulo") String titutlo);
+	public Pelicula buscarPorTitulo(@Param("titulo") String titulo);
 	
 }
