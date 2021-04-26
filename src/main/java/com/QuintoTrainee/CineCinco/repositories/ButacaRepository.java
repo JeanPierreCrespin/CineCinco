@@ -10,8 +10,8 @@ import com.QuintoTrainee.CineCinco.entities.Butaca;
 @Repository
 public interface ButacaRepository extends JpaRepository<Butaca,String>{
 	
-	@Query("SELECT c FROM Butaca c WHERE c.butaca.id = :id")
-	public Butaca buscarButacaPorId(String id);
+	@Query("SELECT c FROM Butaca c WHERE c.id = :id")
+	public Butaca buscarButacaPorId(@Param("id") String id);
 
 	
 	
