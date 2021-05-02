@@ -1,7 +1,5 @@
 package com.QuintoTrainee.CineCinco.controllers;
 
-import java.util.Date;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.QuintoTrainee.CineCinco.enums.Rol;
 import com.QuintoTrainee.CineCinco.models.UsuarioModel;
 import com.QuintoTrainee.CineCinco.services.UsuarioService;
+import com.QuintoTrainee.CineCinco.utils.UtilDate;
 
 import lombok.RequiredArgsConstructor;
 
@@ -44,7 +43,7 @@ public class BackTestController {
 
 		try {
 			usuarioModel.setRol(Rol.CLIENTE);
-			usuarioModel.setFechaNacimiento(new Date());
+			usuarioModel.setFechaNacimiento(UtilDate.parseFechaGuiones(fecha_nacimiento));
 			usuarioService.guardar(usuarioModel, password, repeated_password);
 		} catch (Exception ex) {
 			return "redirect:/registroBACK?error=" + ex.getMessage();
