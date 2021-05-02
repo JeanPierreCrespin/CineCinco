@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import org.joda.time.DateTimeComparator;
+
 import com.QuintoTrainee.CineCinco.converters.UsuarioConverter;
 import com.QuintoTrainee.CineCinco.entities.Usuario;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
@@ -54,6 +56,14 @@ public class UsuarioService implements UserDetailsService {
 		if (usuarioModel.getFechaNacimiento() == null) {
 			throw new WebException("El Usuario tiene que tener una fecha de nacimiento");
 		}
+		
+		DateTimeComparator dateOnlyComparator  = DateTimeComparator.getDateOnlyInstance();
+		int comparacionFecha = dateOnlyComparator.compare(usuarioModel.getFechaNacimiento(), new Date());
+		
+		if (comparacionFecha >= 0) {
+			throw new WebException("El Usuario tiene que tener una fecha de nacimiento anterior a la fecha actual");
+		}
+		
 		if (usuarioModel.getRol() == null) {
 			throw new WebException("El Usuario tiene que tener una Rol");
 		}
