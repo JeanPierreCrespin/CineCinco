@@ -34,11 +34,6 @@ public class MainController {
 		return "inicio.html";
 	}
 	
-	@GetMapping("/login")
-	public String login() {
-		return "login.html";
-	}
-	
 	@GetMapping("/pago")
 	public String pago() {
 		return "pago.html";
@@ -49,9 +44,4 @@ public class MainController {
 		return "peliculas.html";
 	}
 	
-	@GetMapping("/registro")
-	public String registro() {
-		return "registro.html";
-	}
-
 }
