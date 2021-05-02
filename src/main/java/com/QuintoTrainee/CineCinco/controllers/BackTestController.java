@@ -19,7 +19,7 @@ import com.QuintoTrainee.CineCinco.utils.UtilDate;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/BACK/")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class BackTestController {
 
@@ -28,14 +28,14 @@ public class BackTestController {
 	
 	
 	//REGISTRO
-	@GetMapping("/registroBACK")
-	public String registroBACK(ModelMap modelo) {
+	@GetMapping("/registro")
+	public String registro(ModelMap modelo) {
 		modelo.addAttribute("usuario", new UsuarioModel());
 		return "/TestBack/registro.html";
 	}
 	
-	@PostMapping("/registrarUsuarioBACK")
-	public String registrarUsuarioBACK(ModelMap modelo,
+	@PostMapping("/registrarUsuario")
+	public String registrarUsuario(ModelMap modelo,
 			@Valid @ModelAttribute("usuario") UsuarioModel usuarioModel, 
 			@RequestParam(required = true) String password,
 			@RequestParam(required = true) String repeated_password,
@@ -46,15 +46,15 @@ public class BackTestController {
 			usuarioModel.setFechaNacimiento(UtilDate.parseFechaGuiones(fecha_nacimiento));
 			usuarioService.guardar(usuarioModel, password, repeated_password);
 		} catch (Exception ex) {
-			return "redirect:/registroBACK?error=" + ex.getMessage();
+			return "redirect:/BACK/registro?error=" + ex.getMessage();
 		}
 
-		return "redirect:/registroBACK";
+		return "redirect:/BACK/registro";
 	}
 	
 	//LOGIN
-	@GetMapping("/loginBACK")
-    public String loginBACK(ModelMap modelo) {
+	@GetMapping("/login")
+    public String login(ModelMap modelo) {
         return "/TestBack/login.html";
     }
 	

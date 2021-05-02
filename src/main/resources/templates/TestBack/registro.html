@@ -16,7 +16,7 @@
         <div class="container">
             <h1>REGISTRO</h1>
             <hr>
-            <form action="/registrarUsuarioBACK" method="post" th:object="${usuario}">
+            <form action="/registrarUsuario" method="post" th:object="${usuario}">
                 <label for="username">Nombre y Apellido</label>
                 <input type="text" placeholder="ingrese su nombre y apellido" class="form-control" th:field="*{nombreCompleto}">
                 <label for="username">Nombre de Usuario</label>
