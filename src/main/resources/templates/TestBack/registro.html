@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <!--Meta links Requeridos-->
         <meta charset="UTF-8">
@@ -29,10 +29,10 @@
              <div class="collapse navbar-collapse" id="navbarSupportedContent">
                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                  <li class="nav-item">
-                   <a class="nav-link active" aria-current="page" href="#">Home</a>
+                   <a class="nav-link active" aria-current="page" onclick="window.location.href = '/inicio'" th:if="${session.usuariosession == null}">Home</a>
                  </li>
                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" onclick="window.location.href = '/'">Iniciar Sesion</a>
+                    <a class="nav-link active" aria-current="page" onclick="window.location.href = '/login'" th:if="${session.usuariosession == null}">Iniciar Sesion</a>
                   </li>
                </ul>
              </div>

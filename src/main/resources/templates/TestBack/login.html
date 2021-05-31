@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
 
         <!--Meta Links Requeridos-->
@@ -31,7 +31,7 @@
              <div class="collapse navbar-collapse" id="navbarSupportedContent">
                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                  <li class="nav-item">
-                   <a class="nav-link active" aria-current="page" href="#">Home</a>
+                   <a class="nav-link active" aria-current="page" onclick="window.location.href = '/inicio'" th:if="${session.usuariosession == null}">Home</a>
                  </li>
                  <li class="nav-item">
                     <a class="nav-link active" aria-current="page" onclick="window.location.href = '/registro'" th:if="${session.usuarioSession == null}">Registrarse</a>
@@ -54,7 +54,9 @@
             <div class="containerlogin">
                 <h1>Iniciar Sesion</h1>
                 <hr>
-                <form action="/logincheck" method="post">
+                <form action="/logincheck" method="post" enctype="multipart/form-data">
+                <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
+                <p th:if="${logout != null}" th:text="${logout}" style="color:green"></p>
                     <label for="email">Direccion de Correo Electrónico</label>
                     <input type="email" placeholder="Ingrese Mail" class="form-control" name="email">
                     <label for="password">Contraseña</label>
