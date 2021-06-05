@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!--Meta Links requeridos-->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,15 @@
      <link href="img/clapperboard_cinema_icon-32px.png" rel="shortcut icon"/>
 
     <title>Pago</title>
+
+     <!-- Encabezado  -->
+	<div class="container header">
+		<div class="row header">
+			<div class="col-xs-0 col-md-3  left-block "></div>
+			<div class="col-xs-12 col-md-6 body-block">CinemaCinco</div>
+			<div class="col-xs-0 col-md-3 rigth-block"></div>
+		</div>
+	</div>
 </head>
 <body class="pagobody">
       <!--NavBar-->
@@ -47,9 +57,22 @@
          </nav>
        </header>
          <!--NavBar-->
+     
+      
+         <!--Breadcrumb-->
+    <div class="containerpage">
+      <nav class="bread-crumbs">
+        <ul>
+            <li><a href="Seleccionar.html"><img class="img-breadcrumb" src="img/cinema-popcorn-128px.png" width="35" height="40"> Seleccionar Sala</a></li>
+            <li><a href="Butaca.html"><img class="img-breadcrumb" src="img/house-armchair-128px.png" width="40" height="40"> Seleccionar Butaca</a></li>
+            <li><a href="Pago.html"><img class="img-breadcrumb" src="img/credit_card_icon_128px.png" width="40" height="35"> Realizar Pago</a></li>
+        </ul>
+    </nav> 
+      </div>
 
          <div class="row">
              <div class="col-12 col-md-4 col-xl-4">
+               <!--Total-->
                  <div class="containertotal">
                      <h1>Ticket</h1>
                      <form>
@@ -67,7 +90,9 @@
                      </form>
                  </div>
              </div>
+
              <div class="col-12 col-md-8 col-xl-8">
+               <!--Formulario Metodos de pago-->
                  <div class="containerpago">
                      <h1>Metodos de pago</h1>
                      <form>
@@ -106,7 +131,7 @@
                         <div class="row mb-3">
                           <label for="inputcaducidad3" class="col-sm-2 col-form-label">Caducidad</label>
                           <div class="col-sm-10">
-                            <input type="date" class="form-control" id="inputcaducidad3">
+                            <input type="month" class="form-control" id="inputcaducidad3">
                           </div>
                         </div>
                         <div class="row mb-3">
@@ -121,8 +146,35 @@
                               <input type="text" class="form-control" id="inputtitular3">
                             </div>
                           </div>
-                       
-                        <button type="submit" class="btn btn-primary">Ingresa</button>
+                       <!--Boton ingresar Modal-->
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Ingresar Pago
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Su pago se ha realizado correctamente!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Mortal Kombat
+        <br>
+        Sala 2D
+        <br>
+        Horario: 22:00 hs
+        <br>
+        Asientos 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger">Descargar Ticket</button>
+      </div>
+    </div>
+  </div>
+</div>
                       </form>
                  </div>
              </div>
