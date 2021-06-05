@@ -49,7 +49,7 @@ public class MainController {
 	@GetMapping("/registro")
 	public String registro(ModelMap modelo) {
 		modelo.addAttribute("usuario", new UsuarioModel());
-		return "/registro.html";
+		return "registro.html";
 	}
 	
 	@GetMapping("/login")

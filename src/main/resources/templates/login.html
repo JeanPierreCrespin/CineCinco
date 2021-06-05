@@ -12,6 +12,7 @@
         <!--Links estilos y logo pestaña-->
     <link rel="stylesheet" href="css/EstiloLoginBack.css" />
     <link href="img/clapperboard_cinema_icon-32px.png" rel="shortcut icon" />
+    
         <title>CineCinco Iniciar Sesion</title>
 
     </head>
@@ -21,7 +22,7 @@
      <header> 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
            <div class="container-fluid">
-             <a class="navbar-brand" href="#">
+             <a class="navbar-brand" href="/index">
                <img src="img/clapperboard_cinema_icon-96px.png" alt="" width="40" height="35" class="d-inline-block align-text-top">
                  CineCinco
              </a>
@@ -31,10 +32,10 @@
              <div class="collapse navbar-collapse" id="navbarSupportedContent">
                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                  <li class="nav-item">
-                   <a class="nav-link active" aria-current="page" onclick="window.location.href = '/inicio'" th:if="${session.usuariosession == null}">Home</a>
+                   <a class="nav-link active" aria-current="page" href="/index" th:if="${session.usuario == null}">Home</a>
                  </li>
                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" onclick="window.location.href = '/registro'" th:if="${session.usuarioSession == null}">Registrarse</a>
+                    <a class="nav-link active" aria-current="page" href ="/registro" th:if="${session.usuario == null}">Registrarse</a>
                   </li>
        
                </ul>
