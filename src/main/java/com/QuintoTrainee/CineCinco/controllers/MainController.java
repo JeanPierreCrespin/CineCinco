@@ -3,9 +3,11 @@ package com.QuintoTrainee.CineCinco.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.QuintoTrainee.CineCinco.models.UsuarioModel;
 
 import lombok.RequiredArgsConstructor;
 
@@ -42,6 +44,17 @@ public class MainController {
 	@GetMapping("/peliculas")
 	public String peliculas() {
 		return "peliculas.html";
+	}
+	
+	@GetMapping("/registro")
+	public String registro(ModelMap modelo) {
+		modelo.addAttribute("usuario", new UsuarioModel());
+		return "/registro.html";
+	}
+	
+	@GetMapping("/login")
+	public String login() {
+		return "login.html";
 	}
 	
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.joda.time.DateTimeComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -56,6 +57,14 @@ public class UsuarioService implements UserDetailsService {
 		if (usuarioModel.getFechaNacimiento() == null) {
 			throw new WebException("El Usuario tiene que tener una fecha de nacimiento");
 		}
+		
+		DateTimeComparator dateOnlyComparator  = DateTimeComparator.getDateOnlyInstance();
+		int comparacionFecha = dateOnlyComparator.compare(usuarioModel.getFechaNacimiento(), new Date());
+		
+		if (comparacionFecha >= 0) {
+			throw new WebException("El Usuario tiene que tener una fecha de nacimiento anterior a la fecha actual");
+		}
+		
 		if (usuarioModel.getRol() == null) {
 			throw new WebException("El Usuario tiene que tener una Rol");
 		}
