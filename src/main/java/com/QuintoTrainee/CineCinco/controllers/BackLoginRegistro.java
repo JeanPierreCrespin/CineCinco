@@ -41,7 +41,7 @@ public class BackLoginRegistro {
 	@GetMapping("/registro")
 	public String registro(ModelMap modelo) {
 		modelo.addAttribute("usuario", new UsuarioModel());
-		return "/TestBack/registro.html";
+		return "registro.html";
 	}
 
 	@PostMapping("/registrarUsuario")
