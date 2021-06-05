@@ -54,10 +54,10 @@ public class BackLoginRegistro {
 			usuarioModel.setFechaNacimiento(UtilDate.parseFechaGuiones(fecha_nacimiento));
 			usuarioService.guardar(usuarioModel, password, repeated_password);
 		} catch (Exception ex) {
-			return "redirect:/BACK/registro?error=" + ex.getMessage();
+			return "redirect:/registro?error" ;
 		}
 
-		return "redirect:/BACK/registro";
+		return "redirect:/index?cargado";
 	}
 
 	// LOGIN
