@@ -18,8 +18,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.QuintoTrainee.CineCinco.Oauth2.CustomOAuth2User;
 import com.QuintoTrainee.CineCinco.converters.UsuarioConverter;
 import com.QuintoTrainee.CineCinco.entities.Usuario;
+import com.QuintoTrainee.CineCinco.enums.Provider;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
 import com.QuintoTrainee.CineCinco.models.UsuarioModel;
 import com.QuintoTrainee.CineCinco.repositories.UsuarioRepository;
@@ -118,5 +120,19 @@ public class UsuarioService implements UserDetailsService {
 			return null;
 		}
 	}
+	
+	public void processOAuthPostLogin(CustomOAuth2User oAuth2User) {
+        Usuario existUser = usuarioRepository.buscarPorMail(oAuth2User.getEmail());
+         
+        if (existUser == null) {
+            Usuario newUser = new Usuario();
+            newUser.setNombreCompleto(oAuth2User.getName());
+            newUser.setEmail(oAuth2User.getEmail());
+            newUser.setProvider(Provider.GOOGLE);          
+             
+            usuarioRepository.save(newUser);        
+        }
+         
+    }
 
 }

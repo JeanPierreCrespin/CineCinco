@@ -1,5 +1,11 @@
 package com.QuintoTrainee.CineCinco.configuration;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -7,9 +13,16 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import com.QuintoTrainee.CineCinco.Oauth2.CustomOAuth2User;
+import com.QuintoTrainee.CineCinco.Oauth2.CustomOAuth2UserService;
 
 import com.QuintoTrainee.CineCinco.services.UsuarioService;
+
+
 
 @Configuration
 @EnableWebSecurity
@@ -30,23 +43,45 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-
-				.antMatchers("/css/", "/js/", "/img/*").permitAll()
+				.antMatchers("/css/", "/js/","/oauth2/**", "/img/*").permitAll()
 				.and().formLogin()
 					.loginPage("/login")
 						.loginProcessingUrl("/logincheck")
 						.usernameParameter("email")
 						.passwordParameter("password")
-						.defaultSuccessUrl("/inicio")
+						.defaultSuccessUrl("/inicio")			    
 						.failureUrl("/login?error=error")
 						.permitAll()
-				.and().logout()
+                    .and()
+				    .logout()
 					.logoutUrl("/logout")
 					.logoutSuccessUrl("/")
 					.permitAll()
-				.and().csrf()
-					.disable();
+					 .and()
+		                .oauth2Login()
+		                    .loginPage("/login")
+		                    .userInfoEndpoint()
+		                         .userService(oAuthUserService)
+		                    .and()
+		                    .successHandler( new AuthenticationSuccessHandler() {
+		    					
+		    					@Override
+		    					public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+		    							Authentication authentication) throws IOException, ServletException {
+		    						System.out.println("AuthenticationSuccessHandler invoked");
+		    						System.out.println("Authentication name: " + authentication.getName());
+		    						
+		    						CustomOAuth2User oauthUser = (CustomOAuth2User) authentication.getPrincipal();
+		    						usuarioService.processOAuthPostLogin(oauthUser);
+		    						
+		    						response.sendRedirect("/login");
+		    					}
+		    				})
+				.and().csrf()					
+				.disable();
 	}
 	
-
+    @Autowired
+	private CustomOAuth2UserService oAuthUserService;
+    
 }

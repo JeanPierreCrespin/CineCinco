@@ -14,6 +14,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.QuintoTrainee.CineCinco.enums.Provider;
 import com.QuintoTrainee.CineCinco.enums.Rol;
 
 import lombok.Data;
@@ -37,6 +38,9 @@ public class Usuario {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaNacimiento;
+	
+	@Enumerated(EnumType.STRING)
+	private Provider provider;
 
 	private String infoTarjeta;
 

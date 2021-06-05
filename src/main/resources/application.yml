@@ -11,6 +11,12 @@ spring:
                     enable: true
     username: email@gmail.com
     password: claveemail
+    
+  security:    oauth2:      client:
+        registration:          google:
+              client-id: 470956175694-h55poegl4sp65c3nvov1ekkiltnrie0a.apps.googleusercontent.com
+              client-secret: 6VMsmmdGofIBMgTM9DALzw3X
+              scope: profile
   datasource: 
     url: jdbc:mysql://localhost:3306/cine_cinco?allowPublicKeyRetrieval=true&useSSL=false&useTimezone=true&serverTimezone=GMT&characterEncoding=UTF-8
     username: root
