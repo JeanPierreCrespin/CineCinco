@@ -42,7 +42,7 @@
     float: left;
     height: 70px;
     width: 400px;
-    background-color: #CB4335;
+    background-color: #d82a3c;
     text-align: center;
     padding: 15px 20px 0 60px;
     position: relative;
@@ -95,17 +95,6 @@
     background-color: #333;
     color: white;
 } 
-
-/*------Boton Buscador------*/
-.btn-outline-success {
-    background-color: none;
-    color: white;
-    border-color: transparent;
-}
-.btn-outline-success:hover {
-    background-color: #CB4335;
-    border-color: transparent;
-}
 
 /*-----Butaca------*/
 .containerbutaca {

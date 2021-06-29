@@ -17,16 +17,7 @@
 .rigth-block {
     background-color: rgb(0, 0, 0);
 }
-/*-----Boton buscador-----*/
-.btn-outline-success {
-    background-color: none;
-    color: white;
-    border-color: transparent;
-}
-.btn-outline-success:hover {
-    background-color: #CB4335;
-    border-color: transparent;
-}
+
 /*-----Body-------*/
 .peliculabody {
     margin: 0px;
@@ -76,8 +67,8 @@
 }
 /*----Tabs----*/
 #myTab {
-    background-color: #CB4335;
-    border-color: #CB4335;
+    background-color: #d82a3c;
+    border-color: #d82a3c;
     
 }
 .text-sinopsis {
