@@ -68,7 +68,9 @@ public class PeliculaService {
 		if (peliculaM.getGenero() == null) {
 			throw new WebException("La pelicula debe tener un genero");
 		}
-		
+		if (peliculaM.getFoto() == null) {
+	            throw new WebException("La película debe tener una foto");
+	    }
 		Pelicula peliculaE = peliculaRepository.buscarPorTitulo(peliculaM.getTitulo());
 		
 		if (peliculaE != null && !peliculaE.getId().equals(peliculaM.getId())) {
