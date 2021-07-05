@@ -38,6 +38,6 @@ server:
   servlet:
     session:
       cookie:
-        http-only: true
+           http-only: true
       tracking-modes:
       - cookie

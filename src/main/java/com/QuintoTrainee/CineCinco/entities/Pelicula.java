@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -44,5 +45,7 @@ public class Pelicula {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modificacion;
-
+    
+	@OneToOne
+	private Foto foto;
 }

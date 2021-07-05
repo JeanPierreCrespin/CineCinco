@@ -14,27 +14,9 @@
     <link href="img/clapperboard_cinema_icon-32px.png" rel="shortcut icon" />
     
         <title>CineCinco Iniciar Sesion</title>
-
-<<<<<<< HEAD
-<body>
-    <!-- Login form section -->
-    <section id="login-form">
-        <div class="container">
-            <h1>LOGIN</h1>
-            	
-
-            <hr>
-            <form action="/logincheck" method="post">
-                <label for="mail">Mail</label>
-                <input type="mail" placeholder="ingrese el mail" class="form-control" name="email">
-                <label for="password">Contraseña</label>
-                <input type="password" placeholder="ingrese su contraseña" class="form-control" name="password">
-                <button type="submit" class="btn btn-primary">Enviar</button>
-            </form>
-=======
     </head>
-    
-    <body class="loginbody">
+
+ <body class="loginbody">
          <!--NavBar-->
      <header> 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -72,7 +54,7 @@
             <div class="containerlogin">
                 <h1>Iniciar Sesion</h1>
                 <hr>
-                <form action="/logincheck" method="post" enctype="multipart/form-data">
+                <form th:action="@{/logincheck}" method="POST" enctype="multipart/form-data">
                 <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
                 <p th:if="${logout != null}" th:text="${logout}" style="color:green"></p>
                     <label for="email">Direccion de Correo Electrónico</label>
@@ -81,9 +63,12 @@
                     <input type="password" placeholder="Contraseña" class="form-control" name="password">
                     <button type="submit" class="btn btn-danger">Ingresar</button>
                 </form>
+               <form  th:action="@{/login}" method="post" enctype="multipart/form-data">
+                      <button style="background-color: #7fbefa;" onclick="location.href='oauth2/authorization/google'" type="button"><img src="img/Google_icon-32px.png">
+                     Ingresar con Google</button>
+                </form>
             </div>
         </section>
->>>>>>> c3aa5b85fb7c80619a786fcadc7e255199eb9bd9
         </div>
 
         <div class="col"></div>

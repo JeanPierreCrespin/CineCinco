@@ -1,45 +1,4 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
-<html xmlns:th="http:/www.thymeleaf.org" lang="en">
-
-<head >
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cine Cinco BACK</title>
-</head>
-
-<body>
-    <h1>REGISTRO</h1>
-    <hr>
-    <h4>Sign-in to your Google Account:</h4>
-    <form class="form-signin" th:action="@{/login}" method="post">
-    <button style="background-color: #7fbefa;" onclick="location.href='oauth2/authorization/google'" type="button">
-        Login with Google</button>
-    </form>
-    <!-- Register form section -->
-    <section id="register-form">
-        <div class="container">
-            <h1>REGISTRO</h1>
-            <hr>
-            <form action="/registrarUsuarioBACK" method="post" th:object="${usuario}">
-                <label for="username">Nombre y Apellido</label>
-                <input type="text" placeholder="ingrese su nombre y apellido" class="form-control" th:field="*{nombreCompleto}">
-                <label for="username">Nombre de Usuario</label>
-                <input type="text" placeholder="ingrese el nombre de usuario" class="form-control" th:field="*{username}">
-                <label for="mail">Mail</label>
-                <input type="email" placeholder="ingrese el mail" class="form-control" th:field="*{email}">
-                <label for="password">Contraseña</label>
-                <input type="password" placeholder="ingrese su contraseña" class="form-control" name="password">
-                <input type="password" placeholder="repita la contraseña" class="form-control" name="repeated_password">
-                <label for="fecha_nacimiento">Fecha nacimiento</label>
-                <input type="date" class="form-control" name="fecha_nacimiento">
-                <button type="submit" class="btn btn-primary">Enviar</button>
-            </form>
-        </div>
-    </section>
-</body>
-=======
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <!--Meta links Requeridos-->
@@ -93,8 +52,9 @@
         <section id="register-form">
             <div class="containerRegistro">
                 <h1>Ingresa tus datos</h1>
+                 <p class="text-danger"  th:text="${error}"></p>
                 <hr>
-                <form action="/BACK/registrarUsuario" method="post" th:object="${usuario}">
+                <form  method="POST" th:action="@{/registro}" th:object="${usuario}">
                     <label for="username">Nombre y Apellido</label>
                     <input type="text" placeholder="Ingrese su nombre y apellido" class="form-control" th:field="*{nombreCompleto}">
                     <label for="username">Nombre de Usuario</label>
@@ -113,7 +73,6 @@
             </div>
             <div class="col"></div>
          </div>
->>>>>>> c3aa5b85fb7c80619a786fcadc7e255199eb9bd9
 
 
          <script src="js/jquery.js"></script>
