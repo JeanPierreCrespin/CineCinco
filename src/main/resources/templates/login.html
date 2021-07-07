@@ -55,17 +55,15 @@
                 <h1>Iniciar Sesion</h1>
                 <hr>
                 <form th:action="@{/logincheck}" method="POST" enctype="multipart/form-data">
-                <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
-                <p th:if="${logout != null}" th:text="${logout}" style="color:green"></p>
-                    <label for="email">Direccion de Correo Electrónico</label>
-                    <input type="email" placeholder="Ingrese Mail" class="form-control" name="email">
-                    <label for="password">Contraseña</label>
-                    <input type="password" placeholder="Contraseña" class="form-control" name="password">
+                    <label for="validationCustom01" class="form-label">Direccion de Correo Electrónico</label>
+                    <input type="email" id="validationCustom01" placeholder="Ingrese Mail" class="form-control" name="email" required>
+
+                    <label for="validationCustom02" class="form-label">Contraseña</label>
+                    <input type="password" id="validationCustom02" placeholder="Contraseña" class="form-control" name="password" required>
                     <button type="submit" class="btn btn-danger">Ingresar</button>
                 </form>
                <form  th:action="@{/login}" method="post" enctype="multipart/form-data">
-                      <button style="background-color: #7fbefa;" onclick="location.href='oauth2/authorization/google'" type="button"><img src="img/Google_icon-32px.png">
-                     Ingresar con Google</button>
+                      <button class="btn btn-primary" style="background-color: #7fbefa;" onclick="location.href='oauth2/authorization/google'" type="button"><img src="/src/main/resources/static/img/Google_icon-32px.png"> Ingresar con Google</button>
                 </form>
             </div>
         </section>
