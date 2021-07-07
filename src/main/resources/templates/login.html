@@ -14,10 +14,9 @@
     <link href="/src/main/resources/static/img/clapperboard_cinema_icon-32px.png" rel="shortcut icon" />
     
         <title>CineCinco Iniciar Sesion</title>
-
     </head>
-    
-    <body class="loginbody">
+
+ <body class="loginbody">
          <!--NavBar-->
      <header> 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -55,14 +54,16 @@
             <div class="containerlogin">
                 <h1>Iniciar Sesion</h1>
                 <hr>
-                <form action="/logincheck" method="post" enctype="multipart/form-data">
-                <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
-                <p th:if="${logout != null}" th:text="${logout}" style="color:green"></p>
-                    <label for="email">Direccion de Correo Electrónico</label>
-                    <input type="email" placeholder="Ingrese Mail" class="form-control" name="email">
-                    <label for="password">Contraseña</label>
-                    <input type="password" placeholder="Contraseña" class="form-control" name="password">
+                <form th:action="@{/logincheck}" method="POST" enctype="multipart/form-data">
+                    <label for="validationCustom01" class="form-label">Direccion de Correo Electrónico</label>
+                    <input type="email" id="validationCustom01" placeholder="Ingrese Mail" class="form-control" name="email" required>
+
+                    <label for="validationCustom02" class="form-label">Contraseña</label>
+                    <input type="password" id="validationCustom02" placeholder="Contraseña" class="form-control" name="password" required>
                     <button type="submit" class="btn btn-danger">Ingresar</button>
+                </form>
+               <form  th:action="@{/login}" method="post" enctype="multipart/form-data">
+                      <button class="btn btn-primary" style="background-color: #7fbefa;" onclick="location.href='oauth2/authorization/google'" type="button"><img src="/src/main/resources/static/img/Google_icon-32px.png"> Ingresar con Google</button>
                 </form>
             </div>
         </section>
@@ -71,6 +72,25 @@
         <div class="col"></div>
     </div>
 
+    <!--Validacion con JS-->
+    <script>
+      (function () {
+      'use strict'
+var forms = document.querySelectorAll('.needs-validation')
+
+Array.prototype.slice.call(forms)
+  .forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+ </script>
       <script src="js/jquery.js"></script>
       <script src="js/bootstrap.min.js"></script>
     </body>
