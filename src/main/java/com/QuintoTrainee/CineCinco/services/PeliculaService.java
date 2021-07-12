@@ -31,8 +31,8 @@ public class PeliculaService {
 		peliculaRepository.delete(pelicula);
 	}
 
-	public Pelicula softDelete(PeliculaModel model) {
-		Pelicula pelicula = peliculaRepository.getOne(model.getId());
+	public Pelicula softDelete(String idPelicula) {
+		Pelicula pelicula = peliculaRepository.getOne(idPelicula);
 		pelicula.setBaja(new Date());
 		return peliculaRepository.save(pelicula);
 	}
@@ -91,11 +91,6 @@ public class PeliculaService {
 
 	public List<PeliculaModel> listarPeliculasActivasModels() throws WebException {
 		return peliculaConverter.entitiesToModels(peliculaRepository.listarPeliculasActivas());
-	}
-
-	public PeliculaModel GetPeliculaModelById(String peliculaId) throws WebException {
-		PeliculaModel peliculaModel = peliculaConverter.entityToModel(peliculaRepository.getOne(peliculaId));
-		return peliculaModel;
 	}
 
 }
