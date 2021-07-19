@@ -7,9 +7,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.QuintoTrainee.CineCinco.entities.Foto;
 import com.QuintoTrainee.CineCinco.entities.Pelicula;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
+import com.QuintoTrainee.CineCinco.models.FotoModel;
 import com.QuintoTrainee.CineCinco.models.PeliculaModel;
+import com.QuintoTrainee.CineCinco.repositories.FotoRepository;
 import com.QuintoTrainee.CineCinco.repositories.PeliculaRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,6 +22,8 @@ import lombok.RequiredArgsConstructor;
 public class PeliculaConverter extends Converter<PeliculaModel, Pelicula> {
 
 	private final PeliculaRepository peliculaRepository;
+	private final FotoRepository fotoRepository;
+	private final FotoConverter fotoConverter;
 
 	public Pelicula modelToEntity(PeliculaModel model) throws WebException {
 
@@ -31,6 +36,13 @@ public class PeliculaConverter extends Converter<PeliculaModel, Pelicula> {
 		}
 
 		try {
+			
+			Foto fotoEntity = null;
+			if(model.getFoto() != null) {
+				fotoEntity = fotoRepository.getOne(model.getFoto().getId());
+			}
+			entity.setFoto(fotoEntity);
+			
 			BeanUtils.copyProperties(model, entity);
 		} catch (Exception e) {
 			throw new WebException("Error al convertir el modelo " + entity.toString() + " a entidad");
@@ -44,6 +56,13 @@ public class PeliculaConverter extends Converter<PeliculaModel, Pelicula> {
 		PeliculaModel model = new PeliculaModel();
 
 		try {
+			
+			FotoModel fotoModel = null;
+			if(entity.getFoto() != null) {
+				fotoModel = fotoConverter.entityToModel(entity.getFoto());
+			}
+			model.setFoto(fotoModel);
+			
 			BeanUtils.copyProperties(entity, model);
 		} catch (Exception e) {
 			throw new WebException("Error al convertir la entidad " + entity.toString() + " a modelo");

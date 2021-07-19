@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.QuintoTrainee.CineCinco.models.PeliculaModel;
 import com.QuintoTrainee.CineCinco.repositories.PeliculaRepository;
 import com.QuintoTrainee.CineCinco.converters.PeliculaConverter;
+import com.QuintoTrainee.CineCinco.entities.Foto;
 import com.QuintoTrainee.CineCinco.entities.Pelicula;
 import com.QuintoTrainee.CineCinco.enums.Genero;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
@@ -25,24 +27,64 @@ public class PeliculaService {
 
 	@Autowired
 	private PeliculaConverter peliculaConverter;
-
+	
+	@Autowired
+	private FotoService fotoService;
+	
 	public void hardDelete(PeliculaModel model) {
 		Pelicula pelicula = peliculaRepository.getOne(model.getId());
+		String idFoto = pelicula.getFoto().getId();
+		pelicula.setFoto(null);
 		peliculaRepository.delete(pelicula);
+		fotoService.hardDelete(idFoto);
 	}
 
+	public void hardDelete(String idPelicula) {
+		Pelicula pelicula = peliculaRepository.getOne(idPelicula);
+		String idFoto = pelicula.getFoto().getId();
+		pelicula.setFoto(null);
+		peliculaRepository.delete(pelicula);
+		fotoService.hardDelete(idFoto);
+	}
+	
 	public Pelicula softDelete(String idPelicula) {
 		Pelicula pelicula = peliculaRepository.getOne(idPelicula);
-		pelicula.setBaja(new Date());
+		String idFoto = pelicula.getFoto().getId();
+		pelicula.setFoto(null);
+		pelicula.setBaja(new Date());		
+		fotoService.hardDelete(idFoto);
 		return peliculaRepository.save(pelicula);
 	}
 
-	public Pelicula guardar(PeliculaModel model) throws WebException {
+	public Pelicula guardar(PeliculaModel model, MultipartFile fotoPelicula) throws Exception {
 
 		validar(model);
 
 		Pelicula entity = peliculaConverter.modelToEntity(model);
+		if (fotoPelicula == null || fotoPelicula.isEmpty()) {
+			throw new WebException("La película debe tener una foto");
+		}
+		entity.setFoto(fotoService.guardar(fotoPelicula));
+		
+		if (entity.getAlta() != null) {
+			entity.setModificacion(new Date());
+		} else {
+			entity.setAlta(new Date());
+		}
 
+		return peliculaRepository.save(entity);
+	}
+	
+	public Pelicula guardar(PeliculaModel model, Foto fotoPelicula) throws Exception {
+
+		validar(model);
+
+		Pelicula entity = peliculaConverter.modelToEntity(model);
+		if (fotoPelicula == null) {
+			throw new WebException("La película debe tener una foto");
+		}
+		entity.setFoto(fotoPelicula);
+		
 		if (entity.getAlta() != null) {
 			entity.setModificacion(new Date());
 		} else {
@@ -70,9 +112,7 @@ public class PeliculaService {
 		if (peliculaM.getGenero() == null) {
 			throw new WebException("La pelicula debe tener un genero");
 		}
-		if (peliculaM.getFoto() == null) {
-			throw new WebException("La película debe tener una foto");
-		}
+		
 		Pelicula peliculaE = peliculaRepository.buscarPorTitulo(peliculaM.getTitulo());
 
 		if (peliculaE != null && !peliculaE.getId().equals(peliculaM.getId())) {

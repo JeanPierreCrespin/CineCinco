@@ -2,6 +2,7 @@ package com.QuintoTrainee.CineCinco.entities;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -46,6 +47,6 @@ public class Pelicula {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modificacion;
     
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Foto foto;
 }

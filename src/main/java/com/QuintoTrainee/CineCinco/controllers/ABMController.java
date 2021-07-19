@@ -14,13 +14,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.QuintoTrainee.CineCinco.converters.FotoConverter;
+import com.QuintoTrainee.CineCinco.converters.PeliculaConverter;
+import com.QuintoTrainee.CineCinco.entities.Foto;
+import com.QuintoTrainee.CineCinco.entities.Pelicula;
+import com.QuintoTrainee.CineCinco.entities.Sala;
 import com.QuintoTrainee.CineCinco.enums.Genero;
 import com.QuintoTrainee.CineCinco.enums.Idioma;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
 import com.QuintoTrainee.CineCinco.models.FuncionModel;
 import com.QuintoTrainee.CineCinco.models.PeliculaModel;
 import com.QuintoTrainee.CineCinco.models.SalaModel;
+import com.QuintoTrainee.CineCinco.repositories.PeliculaRepository;
+import com.QuintoTrainee.CineCinco.repositories.SalaRepository;
+import com.QuintoTrainee.CineCinco.services.FotoService;
 import com.QuintoTrainee.CineCinco.services.FuncionService;
 import com.QuintoTrainee.CineCinco.services.PeliculaService;
 import com.QuintoTrainee.CineCinco.services.SalaService;
@@ -34,13 +43,22 @@ import lombok.RequiredArgsConstructor;
 public class ABMController {
 
 	@Autowired
-	private PeliculaService peliculaService;
+	private PeliculaService peliculaService;	
+	@Autowired
+	private PeliculaRepository peliculaRepository;
 	
 	@Autowired
 	private SalaService salaService;
+	@Autowired
+	private SalaRepository salaRepository;
 	
 	@Autowired
 	private FuncionService funcionService;
+	
+	@Autowired
+	private FotoService fotoService;
+	@Autowired
+	private FotoConverter fotoConverter;
 
 	// PELICULAS
 
@@ -65,12 +83,15 @@ public class ABMController {
 	}
 
 	@PostMapping("/agregarPelicula")
-	public String agregarPelicula(ModelMap modelo, @Valid @ModelAttribute("pelicula") PeliculaModel peliculaModel) {
+	public String agregarPelicula(ModelMap modelo, @Valid @ModelAttribute("pelicula") PeliculaModel peliculaModel,
+			@RequestParam(required=true) MultipartFile fotoPelicula) {
 
 		try {
-			peliculaService.guardar(peliculaModel);
+			
+			peliculaService.guardar(peliculaModel, fotoPelicula);
 			return "redirect:/ABM/gestor_peliculas?estado=EXITO!";
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			modelo.put("error", ex.getMessage());
 			return this.gestorPeliculas(modelo);
 		}
@@ -80,7 +101,7 @@ public class ABMController {
 	@PostMapping("/eliminarPelicula")
 	public String eliminarPelicula(ModelMap modelo, @RequestParam String idPelicula) {
 		try {
-			peliculaService.softDelete(idPelicula);
+			peliculaService.hardDelete(idPelicula);
 			return "redirect:/ABM/gestor_peliculas?estado=EXITO!";
 		} catch (Exception ex) {
 			modelo.put("error", ex.getMessage());
@@ -89,9 +110,33 @@ public class ABMController {
 	}
 
 	@PostMapping("/modificarPelicula")
-	public String modificarPelicula(ModelMap modelo, @Valid @ModelAttribute("pelicula") PeliculaModel peliculaModel) {
+	public String modificarPelicula(ModelMap modelo,
+			@Valid @ModelAttribute("pelicula") PeliculaModel peliculaModel,
+			@RequestParam(required=false) MultipartFile fotoPelicula) {
+		
 		try {
-			peliculaService.guardar(peliculaModel);
+			Pelicula peliculaEntity = peliculaRepository.getOne(peliculaModel.getId());
+			
+			peliculaModel.setAlta(peliculaEntity.getAlta());
+
+			if(peliculaModel.getTitulo().isEmpty() || peliculaModel.getTitulo() == null) {
+				peliculaModel.setTitulo(peliculaEntity.getTitulo());
+			}
+			
+			if(peliculaModel.getSinopsis().isEmpty() || peliculaModel.getSinopsis() == null) {
+				peliculaModel.setSinopsis(peliculaEntity.getSinopsis());
+			}
+			
+			if(peliculaModel.getGenero() == null) {
+				peliculaModel.setGenero(peliculaEntity.getGenero());
+			}
+			
+			if(fotoPelicula.isEmpty() || fotoPelicula.getSize() == 0 || fotoPelicula == null) {
+				peliculaService.guardar(peliculaModel, peliculaEntity.getFoto());
+				return "redirect:/ABM/gestor_peliculas?estado=EXITO!";
+			}
+			peliculaService.guardar(peliculaModel, fotoPelicula);
+			
 			return "redirect:/ABM/gestor_peliculas?estado=EXITO!";
 		} catch (Exception ex) {
 			modelo.put("error", ex.getMessage());
@@ -115,8 +160,8 @@ public class ABMController {
 			e.printStackTrace();
 		}
 		
-		return "/TestBack/templates_basicas/salasABM.html";
-		//return "/TestBack/GestorSala.html";
+		//return "/TestBack/templates_basicas/salasABM.html";
+		return "/TestBack/GestorSala.html";
 	}
 
 	@PostMapping("/agregarSala")
@@ -147,7 +192,20 @@ public class ABMController {
 	@PostMapping("/modificarSala")
 	public String modificarSala(ModelMap modelo, @Valid @ModelAttribute("sala") SalaModel salaModel) {
 		try {
+			Sala salaEntity = salaRepository.getOne(salaModel.getId());
+			
+			if(salaModel.getNombre().isEmpty() || salaModel.getNombre() == null) {
+				salaModel.setNombre(salaEntity.getNombre());
+			}
+			
+			if(salaModel.getCantidadButacas() <= 0) {
+				salaModel.setCantidadButacas(salaEntity.getCantidadButacas());
+			}
+			
+			salaModel.setAlta(salaEntity.getAlta());
+			
 			salaService.guardar(salaModel);
+			
 			return "redirect:/ABM/gestor_salas?estado=EXITO!";
 		} catch (Exception ex) {
 			modelo.put("error", ex.getMessage());

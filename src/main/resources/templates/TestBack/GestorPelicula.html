@@ -67,7 +67,7 @@
         <div class="col">
           <div class="collapse multi-collapse" id="multiCollapseExample1">
             <div class="card card-body">
-              <form action="/BACK/agregarPelicula" method="POST" th:object="${pelicula}">
+              <form action="/ABM/agregarPelicula" method="POST" th:object="${pelicula}" enctype="multipart/form-data">
                 <br/>
                 <br/>
                 <label>Titulo de la pelicula</label>
@@ -84,6 +84,9 @@
                 </select>
                 <br/>
                 <br/>
+                <label for="imagenPelicula">Imagen de la Pelicula</label>
+                <input type="file" id="imagenPelicula" name="fotoPelicula">
+                <br/>
                 <br/><button type="submit" class="btn btn-danger">Guardar Pelicula</button>
             </form>
             </div>
@@ -93,7 +96,7 @@
         <div class="col">
           <div class="collapse multi-collapse" id="multiCollapseExample2">
             <div class="card card-body">
-              <form action="/BACK/eliminarPelicula" method="POST" enctype="multipart/form-data">
+              <form action="/ABM/eliminarPelicula" method="POST" enctype="multipart/form-data">
                 <label>Titulo de la pelicula</label>
                 <select class="form-control" name="idPelicula"> 
                   <option th:each="peliculaListada : ${peliculas}" th:value="${peliculaListada.id}" th:text="${peliculaListada.titulo}"></option>
@@ -108,7 +111,7 @@
         <div class="col">
             <div class="collapse multi-collapse" id="multiCollapseExample3">
               <div class="card card-body">
-                <form action="/BACK/modificarPelicula" method="POST" th:object="${pelicula}">
+                <form action="/ABM/modificarPelicula" method="POST" th:object="${pelicula}" enctype="multipart/form-data">
                     <br/>
                     <label>Seleccione la pelicula a modificar</label>
                     <select class="form-control" th:field="*{id}">
@@ -129,6 +132,10 @@
                     <select class="form-control" th:field="*{genero}"> 
                       <option th:each="generoP : ${generos}" th:value="${generoP}" th:text="${generoP}"></option>
                     </select>
+                    <br/>
+                    <br/>
+                    <label for="imagenPelicula">Imagen de la Pelicula</label>
+                    <input type="file" id="imagenPelicula" name="fotoPelicula">
                     <br/>
                     <br/>
                     <br/><button type="submit" class="btn btn-danger">Modificar Pelicula</button>

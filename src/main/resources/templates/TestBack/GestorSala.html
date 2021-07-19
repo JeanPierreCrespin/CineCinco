@@ -65,7 +65,7 @@
         <div class="col">
           <div class="collapse multi-collapse" id="multiCollapseExample1">
             <div class="card card-body">
-              <form action="/BACK/agregarSala" method="POST" th:object="${sala}">
+              <form action="/ABM/agregarSala" method="POST" th:object="${sala}">
                 <br/>
                 <br/>
                 <label>Nombre de la sala</label>
@@ -73,7 +73,7 @@
                 <br/>
                 <br/>
                 <label>Cantidad de butacas</label>
-                <input type="text" th:field="*{cantidadButacas}"></input>
+                <input type="number" th:field="*{cantidadButacas}"></input>
                 <br/>
                 <br/>
                 <br/><button type="submit" class="btn btn-danger">Guardar Sala</button>
@@ -85,7 +85,7 @@
         <div class="col">
           <div class="collapse multi-collapse" id="multiCollapseExample2">
             <div class="card card-body">
-              <form action="/BACK/eliminarSala" method="POST" enctype="multipart/form-data">
+              <form action="/ABM/eliminarSala" method="POST" enctype="multipart/form-data">
                 <label>Nombre de la sala</label>
                 <select class="form-control" name="idSala"> 
                   <option th:each="salaListada : ${salas}" th:value="${salaListada.id}" th:text="${salaListada.nombre}"></option>
@@ -100,7 +100,7 @@
         <div class="col">
             <div class="collapse multi-collapse" id="multiCollapseExample3">
               <div class="card card-body">
-                <form action="/BACK/modificarSala" method="POST" th:object="${sala}">
+                <form action="/ABM/modificarSala" method="POST" th:object="${sala}">
                     <br/>
                     <label>Seleccione la sala a modificar</label>
                     <select class="form-control" th:field="*{id}">
@@ -114,7 +114,7 @@
                     <br/>
                     <br/>
                     <label>Cantidad de butacas</label>
-                    <input type="text" th:field="*{cantidadButacas}"></input>
+                    <input type="number" th:field="*{cantidadButacas}"></input>
                     <br/>
                     <br/>
                     <br/><button type="submit" class="btn btn-danger">Modificar Sala</button>
