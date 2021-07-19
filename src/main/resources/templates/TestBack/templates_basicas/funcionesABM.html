@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments :: main_head"></div>
+</head>
+
+<body>
+    <div th:replace="fragments :: nav_bar_usuario_logueado"></div>
+
+    <h1>Funciones ABM</h1>
+    <hr>
+
+    <p th:if="${error != null}" th:text="${error}" style="color:red;"></p>
+
+    <!--
+        CARGA DE SALAS
+    -->
+    <h4>Cargar Nuevas Funciones</h4>
+    <form action="/ABM/agregarFuncion" method="POST" th:object="${funcion}">
+        <label>Fecha de Emision:</label>
+        <input type="date" name="fechaEmision"></input>
+        <br />
+        <br />
+        <label>Horario de Emision:</label>
+        <input type="time" name="horarioEmision"></input>
+        <br />
+        <br />
+        <label>Idioma</label>
+        <select class="form-control" th:field="*{idioma}">
+            <option th:each="idioma : ${idiomas}" th:value="${idioma}"
+                th:text="${idioma}"></option>
+        </select>
+        <br />
+        <br />
+        <label>Subtitulada?: </label><input type="checkbox" th:field="*{idiomaExtranjero}"></input>
+        <br />
+        <br />
+        <label>Pelicula:</label>
+        <select class="form-control" th:field="*{idPelicula}">
+            <option th:each="peliculaListada : ${peliculas}" th:value="${peliculaListada.id}"
+                th:text="${peliculaListada.titulo}"></option>
+        </select>
+        <br />
+        <br />
+        <label>Sala:</label>
+        <select class="form-control" th:field="*{idSala}">
+            <option th:each="salaListada : ${salas}" th:value="${salaListada.id}"
+                th:text="${salaListada.nombre}"></option>
+        </select>
+        <br />
+        <br />
+        <label>Precio de la Entrada: </label>
+        <input type="number" th:field="*{precioEntrada}"></input>
+        <br />
+        <br />
+        <br /><button type="submit" class="btn btn-primary">Guardar Sala</button>
+    </form>
+    <hr>
+
+    <!--
+        LISTADO DE SALAS
+    -->
+    <h3>Listado de Funciones</h3>
+    <table border="1" align="center" bordercolor="black" border-collapse: collapse; border-spacing: 0;>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fecha Emision</th>
+                <th>Sala</th>
+                <th>Pelicula</th>
+                <th>Precio Entrada</th>
+                <th>Estado</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <thead>
+                <tbody>
+                    <tr th:each="funcionListada: ${funciones}">
+                        <td th:text="${funcionListada.id}"></td>
+                        <td th:text="${funcionListada.fecha}"></td>
+                        <td th:text="${funcionListada.sala.nombre}"></td>
+                        <td th:text="${funcionListada.pelicula.nombre}"></td>
+                        <td th:text="${funcionListada.precioEntrada}"></td>
+                        <td th:text="${funcionListada.llena}"></td>
+                        <td>
+                            <form action="/ABM/eliminarFuncion">
+                                <input type="hidden" th:value="${funcionListada.id}" name="idFuncion">
+                                <button type="submit">ELIMINAR</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/ABM/funcionInfo" method="GET">
+                                <button type="submit">MODIFICAR</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+    </table>
+
+
+</body>
+
+</html>

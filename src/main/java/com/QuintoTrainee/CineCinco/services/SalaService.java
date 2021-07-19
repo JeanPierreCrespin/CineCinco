@@ -1,6 +1,7 @@
 package com.QuintoTrainee.CineCinco.services;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,10 +27,6 @@ public class SalaService {
 	private SalaRepository salaRepository;
 	
 	public void validar(SalaModel salaModel) throws WebException {
-	
-	if (salaModel.getId() == null|| salaModel.getId().isEmpty()) {
-	throw new WebException("El Id esta vacio");
-	}
 	
 	if(salaModel.getNombre()==null|| salaModel.getNombre().isEmpty() || salaModel.getNombre().equals("")) {
 		throw new WebException("La Sala tiene que tener un nombre");
@@ -59,9 +56,13 @@ public class SalaService {
 		salaRepository.delete(salaEntity);
 	}
 	
-	public Sala softDelete(SalaModel salaModel) throws WebException {
-		Sala salaEntity = salaConverter.modelToEntity(salaModel);
+	public Sala softDelete(String idSala) throws WebException {
+		Sala salaEntity = salaRepository.getOne(idSala);
 		salaEntity.setBaja(new Date());
 		return salaRepository.save(salaEntity);
+	}
+
+	public List<SalaModel> listarSalasActivasModels() throws WebException {
+		return salaConverter.entitiesToModels(salaRepository.listarSalasActivas());
 	}
 }
