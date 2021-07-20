@@ -1,3 +1,4 @@
+/*----Estilos de Index y Home------*/
 /*-----Encabezado-----*/
 .header {
    height: 70px;
@@ -19,7 +20,10 @@
 .body {
 	background: url(../img/salacine.jpg) no-repeat center top;
 }
-
+/*----NavBar----*/
+.nav-item {
+	margin-left: 30px;
+}
 /*----Card Login----*/
 .bodylogin {
 	padding: 20px;
@@ -43,7 +47,16 @@
 	color: #000;
     text-decoration: none;
 }
-
+/*----Link del top 5----*/
+.card-link {
+	color: #d82a3c;
+	text-decoration: none;
+	font-size: 20px;
+}
+.card-link:hover {
+	color: #000;
+	text-decoration:underline;
+}
 /*----Proximos estrenos-----*/
 .premiere {
 	font-style: oblique;
