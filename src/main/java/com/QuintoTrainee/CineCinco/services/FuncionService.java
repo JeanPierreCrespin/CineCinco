@@ -1,6 +1,7 @@
 package com.QuintoTrainee.CineCinco.services;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,10 +77,14 @@ public class FuncionService {
 		funcionRepository.delete(funcionEntity);
 	}
 	
-	public Funcion softDelete(FuncionModel funcionModel) throws WebException {
-		Funcion funcionEntity = funcionConverter.modelToEntity(funcionModel);
+	public Funcion softDelete(String idFuncion) throws WebException {
+		Funcion funcionEntity = funcionRepository.getOne(idFuncion);
 		funcionEntity.setBaja(new Date());
 		return funcionRepository.save(funcionEntity);
+	}
+
+	public List<FuncionModel> listarFuncionesActivasModels() throws WebException {
+		return funcionConverter.entitiesToModels(funcionRepository.listarFuncionesActivas());
 	}
 	
 }
