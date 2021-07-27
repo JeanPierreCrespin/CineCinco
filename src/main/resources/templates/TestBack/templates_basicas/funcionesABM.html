@@ -70,7 +70,7 @@
                 <th>Sala</th>
                 <th>Pelicula</th>
                 <th>Precio Entrada</th>
-                <th>Estado</th>
+                <th>Llena</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -80,7 +80,7 @@
                         <td th:text="${funcionListada.id}"></td>
                         <td th:text="${funcionListada.fecha}"></td>
                         <td th:text="${funcionListada.sala.nombre}"></td>
-                        <td th:text="${funcionListada.pelicula.nombre}"></td>
+                        <td th:text="${funcionListada.pelicula.titulo}"></td>
                         <td th:text="${funcionListada.precioEntrada}"></td>
                         <td th:text="${funcionListada.llena}"></td>
                         <td>

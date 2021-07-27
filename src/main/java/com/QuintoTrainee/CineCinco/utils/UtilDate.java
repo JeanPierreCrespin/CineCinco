@@ -11,7 +11,7 @@ public class UtilDate {
 
 	public static SimpleDateFormat FECHA = new SimpleDateFormat("dd/MM/yyyy", Locale.forLanguageTag("es"));
 	public static SimpleDateFormat FECHA_HORA = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.forLanguageTag("es"));
-	public static SimpleDateFormat FECHA_HORA_GUIONES = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.forLanguageTag("es"));
+	public static SimpleDateFormat FECHA_HORA_GUIONES = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.forLanguageTag("es"));
 	public static SimpleDateFormat FECHA_CALENDAR = new SimpleDateFormat("yyyy-MM-dd", Locale.forLanguageTag("es"));
 
 	public static SimpleDateFormat FECHA_DIA = new SimpleDateFormat("EEEE dd", Locale.forLanguageTag("es"));

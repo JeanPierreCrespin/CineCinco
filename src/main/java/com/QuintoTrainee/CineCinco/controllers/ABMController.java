@@ -16,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.QuintoTrainee.CineCinco.converters.FotoConverter;
-import com.QuintoTrainee.CineCinco.converters.PeliculaConverter;
-import com.QuintoTrainee.CineCinco.entities.Foto;
 import com.QuintoTrainee.CineCinco.entities.Pelicula;
 import com.QuintoTrainee.CineCinco.entities.Sala;
 import com.QuintoTrainee.CineCinco.enums.Genero;
@@ -29,7 +26,6 @@ import com.QuintoTrainee.CineCinco.models.PeliculaModel;
 import com.QuintoTrainee.CineCinco.models.SalaModel;
 import com.QuintoTrainee.CineCinco.repositories.PeliculaRepository;
 import com.QuintoTrainee.CineCinco.repositories.SalaRepository;
-import com.QuintoTrainee.CineCinco.services.FotoService;
 import com.QuintoTrainee.CineCinco.services.FuncionService;
 import com.QuintoTrainee.CineCinco.services.PeliculaService;
 import com.QuintoTrainee.CineCinco.services.SalaService;
@@ -55,11 +51,6 @@ public class ABMController {
 	@Autowired
 	private FuncionService funcionService;
 	
-	@Autowired
-	private FotoService fotoService;
-	@Autowired
-	private FotoConverter fotoConverter;
-
 	// PELICULAS
 
 	@GetMapping("/gestor_peliculas")
@@ -219,10 +210,8 @@ public class ABMController {
 	public String gestorFunciones(ModelMap modelo) {
 
 		try {
-
 			List<FuncionModel> funciones = funcionService.listarFuncionesActivasModels();
 			modelo.addAttribute("funciones", funciones);
-
 			List<PeliculaModel> peliculas = peliculaService.listarPeliculasActivasModels();
 			modelo.addAttribute("peliculas", peliculas);
 			
@@ -250,28 +239,18 @@ public class ABMController {
 			@RequestParam(required=false) String horarioEmision) {
 
 		try {
+
+			funcionModel.setCantidadVacios(0);
+			funcionModel.setCantidadOcupados(0);
+			funcionModel.setLlena(false);
 			
-			System.out.println("FUNCION");
-			System.out.println(funcionModel.toString());
-			System.out.println("FECHA");
-			System.out.println(fechaEmision);
-			System.out.println("HORARIO");
-			System.out.println(horarioEmision);
-			System.out.println("Fecha Final:");
 			String fechaFinal = fechaEmision +" "+ horarioEmision;
-			System.out.println(fechaFinal);
-			
 			funcionModel.setFecha(UtilDate.parseFechaHoraGuiones(fechaFinal));
 			funcionModel.setHorario(UtilDate.parseFechaHoraGuiones(fechaFinal));
+
+			System.out.println(funcionModel.toString());
 			
-			System.out.println("FUNCION fecha");
-			System.out.println(funcionModel.getFecha());
-			System.out.println("FUNCION horario");
-			System.out.println(funcionModel.getHorario());
-			
-			//FALTA PROBAR SI FUNCIONA MAÑANAAAA
-			
-			//funcionService.guardar(funcionModel);
+			funcionService.guardar(funcionModel);
 			return "redirect:/ABM/gestor_funciones?estado=EXITO!";
 		} catch (Exception ex) {
 			modelo.put("error", ex.getMessage());

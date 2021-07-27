@@ -55,6 +55,12 @@ public class FuncionService {
 			
 			validar(funcionModel);
 			
+			if(funcionModel.getCantidadVacios() <= 0) {
+				funcionModel.setLlena(true);
+			} else {
+				funcionModel.setLlena(false);
+			}
+			
 			Funcion funcionEntity = funcionConverter.modelToEntity(funcionModel);
 			
 			if (funcionEntity.getAlta() != null) {

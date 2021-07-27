@@ -17,6 +17,7 @@ import com.QuintoTrainee.CineCinco.models.FuncionModel;
 import com.QuintoTrainee.CineCinco.repositories.FuncionRepository;
 import com.QuintoTrainee.CineCinco.repositories.PeliculaRepository;
 import com.QuintoTrainee.CineCinco.repositories.SalaRepository;
+import com.QuintoTrainee.CineCinco.services.ButacaService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,42 +31,104 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 	private final ButacaConverter butacaConverter;
 	private final SalaConverter salaConverter;
 	private final PeliculaConverter peliculaConverter;
+	private final ButacaService butacaService;
 
 	public Funcion modelToEntity(FuncionModel model) throws WebException {
 
 		Funcion entity;
 
+		System.out.println("FUNCION CONVERTER");
+		
 		if (model.getId() != null && !model.getId().isEmpty()) {
+			System.out.println("-- obteniendo funcion del repositorio ID: " + model.getId());
 			entity = funcionRepository.getOne(model.getId());
 		} else {
+			System.out.println("-- creando una funcion entidad nueva");
 			entity = new Funcion();
 		}
 
 		try {
 
+			System.out.println("BUTACAS");
 			List<Butaca> entityButacas = new ArrayList<>();
+			List<ButacaModel> modelsButacas = new ArrayList<>();
 
-			if (model.getButacas() != null) {
-				butacaConverter.modelsToEntities(model.getButacas());
+			System.out.println("SALA");
+			Sala entitySala = null;
+			
+			if (model.getIdSala() != null) {
+				
+				entitySala = salaRepository.getOne(model.getIdSala());
+				System.out.println("-- convirtiendo la sala del model a entidad");
+
+				//Como la funcion tiene asignada una sala se busca la cantidad de butacas de esa sala para crear la matriz de butacas de la funcion
+				if (model.getButacas() != null) {
+					System.out.println("-- convirtiendo las butacas del model a entidades butacas");
+					entityButacas = butacaConverter.modelsToEntities(model.getButacas());
+				} else {
+					
+					int cantButacas = entitySala.getCantidadButacas();
+					System.out.println("-- cantButacas = " + cantButacas);
+					int butacasPorFila = 10;
+					System.out.println("-- butacasPorFila = " + butacasPorFila);
+					int cantidadFilas = (int) Math.floor(cantButacas / (double) butacasPorFila);
+					System.out.println("-- cantidadFilas = " + cantidadFilas);
+					int cantButacasUltimaFila = (butacasPorFila * cantidadFilas) - cantButacas;
+					System.out.println("-- cantButacasUltimaFila = " + cantButacasUltimaFila);
+					
+					char[] letras = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+					String nombreButaca;
+					
+					for(int i = 0; i < (cantidadFilas - 1); i++) {
+						for(int j = 0; j < butacasPorFila; j++) {
+							nombreButaca = "" + letras[i] + "-" + j;
+							ButacaModel butaca = new ButacaModel();
+							butaca.setNombre(nombreButaca);
+							butaca.setOcupado(false);
+							modelsButacas.add(butaca);
+							butacaService.guardar(butaca);
+						}
+					}
+					System.out.println("-- Cargadas butacas hasta penultima fila");
+					
+					for(int i = 0; i < cantButacasUltimaFila; i++) {
+						nombreButaca = "" + letras[(cantidadFilas-1)] + "-" + i;
+						ButacaModel butaca = new ButacaModel();
+						butaca.setNombre(nombreButaca);
+						butaca.setOcupado(false);
+						modelsButacas.add(butaca);
+						butacaService.guardar(butaca);
+					}
+					System.out.println("-- Cargadas butacas ultima fila");
+					
+					entityButacas = butacaConverter.modelsToEntities(modelsButacas);
+					System.out.println("-- Convertidos los modelos butacas a entidades");
+					
+				}
+				
 			}
+			System.out.println("-- seteando la sala");
+			entity.setSala(entitySala);
+			
+			System.out.println("-- seteando butacas");
 			entity.setButacas(entityButacas);
 
-			Sala entitySala = null;
-			if (model.getIdSala() != null) {
-				entitySala = salaRepository.getOne(model.getId());
-
-			}
-			entity.setSala(entitySala);
-
+			System.out.println("PELICULA");
 			Pelicula entityPelicula = null;
 			if (model.getIdPelicula() != null) {
+				System.out.println("-- convirtiendo la pelicula del model a entidad");
 				entityPelicula = peliculaRepository.getOne(model.getIdPelicula());
 			}
+			System.out.println("-- seteando pelicula");
 			entity.setPelicula(entityPelicula);
 
+			System.out.println("COPY PROPERTIES");
 			BeanUtils.copyProperties(model, entity);
+			entity.setFecha(model.getFecha());
+			System.out.println("FECHA ENTITY: " + entity.getFecha());
 		} catch (Exception e) {
-			throw new WebException("Error al convertir el modelo " + entity.toString() + " a entidad");
+			System.err.print(e.getMessage());
+			throw new WebException("Error al convertir el modelo " + model.toString() + " a entidad");
 		}
 
 		return entity;
@@ -76,7 +139,6 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 		FuncionModel model = new FuncionModel();
 
 		try {
-
 			List<ButacaModel> modelButacas = new ArrayList<>();
 			List<String> idsButacas = new ArrayList<>();
 
