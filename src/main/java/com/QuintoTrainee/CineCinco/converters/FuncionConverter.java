@@ -1,6 +1,7 @@
 package com.QuintoTrainee.CineCinco.converters;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -73,31 +74,34 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 					System.out.println("-- butacasPorFila = " + butacasPorFila);
 					int cantidadFilas = (int) Math.floor(cantButacas / (double) butacasPorFila);
 					System.out.println("-- cantidadFilas = " + cantidadFilas);
-					int cantButacasUltimaFila = (butacasPorFila * cantidadFilas) - cantButacas;
+					int cantButacasUltimaFila =  cantButacas - (butacasPorFila * cantidadFilas);
 					System.out.println("-- cantButacasUltimaFila = " + cantButacasUltimaFila);
 					
 					char[] letras = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 					String nombreButaca;
 					
-					for(int i = 0; i < (cantidadFilas - 1); i++) {
+
+					for(int i = 0; i < (cantidadFilas); i++) {
 						for(int j = 0; j < butacasPorFila; j++) {
-							nombreButaca = "" + letras[i] + "-" + j;
 							ButacaModel butaca = new ButacaModel();
+							nombreButaca = "" + letras[i] + "-" + j;
 							butaca.setNombre(nombreButaca);
 							butaca.setOcupado(false);
+							butaca.setAlta(new Date());
 							modelsButacas.add(butaca);
-							butacaService.guardar(butaca);
+							butaca = null;
 						}
 					}
 					System.out.println("-- Cargadas butacas hasta penultima fila");
 					
 					for(int i = 0; i < cantButacasUltimaFila; i++) {
-						nombreButaca = "" + letras[(cantidadFilas-1)] + "-" + i;
 						ButacaModel butaca = new ButacaModel();
+						nombreButaca = "" + letras[(cantidadFilas-1)] + "-" + i;
 						butaca.setNombre(nombreButaca);
 						butaca.setOcupado(false);
+						butaca.setAlta(new Date());
 						modelsButacas.add(butaca);
-						butacaService.guardar(butaca);
+						butaca = null;
 					}
 					System.out.println("-- Cargadas butacas ultima fila");
 					
@@ -107,6 +111,8 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 				}
 				
 			}
+			modelsButacas.clear();
+			
 			System.out.println("-- seteando la sala");
 			entity.setSala(entitySala);
 			
@@ -124,8 +130,6 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 
 			System.out.println("COPY PROPERTIES");
 			BeanUtils.copyProperties(model, entity);
-			entity.setFecha(model.getFecha());
-			System.out.println("FECHA ENTITY: " + entity.getFecha());
 		} catch (Exception e) {
 			System.err.print(e.getMessage());
 			throw new WebException("Error al convertir el modelo " + model.toString() + " a entidad");
