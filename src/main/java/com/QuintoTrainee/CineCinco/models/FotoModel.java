@@ -1,6 +1,7 @@
 package com.QuintoTrainee.CineCinco.models;
 
 import java.io.Serializable;
+import java.util.Base64;
 
 import javax.persistence.Basic;
 import javax.persistence.FetchType;
@@ -17,4 +18,8 @@ public class FotoModel implements Serializable {
 	   @Lob
 	   @Basic(fetch = FetchType.LAZY)
 	   private byte[] contenido;
+	   
+	    public String getImgData() {
+	        return Base64.getMimeEncoder().encodeToString(contenido);
+	    }
 }

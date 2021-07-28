@@ -132,5 +132,9 @@ public class PeliculaService {
 	public List<PeliculaModel> listarPeliculasActivasModels() throws WebException {
 		return peliculaConverter.entitiesToModels(peliculaRepository.listarPeliculasActivas());
 	}
+	
+	public List<PeliculaModel> listarEstrenos() throws WebException{
+		return peliculaConverter.entitiesToModels(peliculaRepository.listarEstrenos());
+	}
 
 }

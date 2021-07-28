@@ -1,12 +1,15 @@
 package com.QuintoTrainee.CineCinco.controllers;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,11 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.QuintoTrainee.CineCinco.converters.UsuarioConverter;
+import com.QuintoTrainee.CineCinco.entities.Pelicula;
 import com.QuintoTrainee.CineCinco.entities.Usuario;
 import com.QuintoTrainee.CineCinco.enums.Rol;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
+import com.QuintoTrainee.CineCinco.models.PeliculaModel;
 import com.QuintoTrainee.CineCinco.models.UsuarioModel;
 import com.QuintoTrainee.CineCinco.repositories.UsuarioRepository;
+import com.QuintoTrainee.CineCinco.services.PeliculaService;
 import com.QuintoTrainee.CineCinco.services.UsuarioService;
 import com.QuintoTrainee.CineCinco.utils.UtilDate;
 
@@ -38,10 +44,25 @@ public class MainController {
 	private HttpSession session;
 	@Autowired
 	private UsuarioConverter usuarioConverter;
+	@Autowired
+	private PeliculaService peliculaService;
 	
 	@GetMapping("/")
-	public String index() {
-		return "index.html";
+	public String index(ModelMap model) {
+		
+		try {
+			List<PeliculaModel> peliculas = peliculaService.listarPeliculasActivasModels();
+			model.put("peliculas", peliculas);
+			
+			List<PeliculaModel> estrenos = peliculaService.listarEstrenos();
+			model.put("estrenos", estrenos);
+		} catch (WebException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return "index";
 	}
 	
 	@GetMapping("/butaca")

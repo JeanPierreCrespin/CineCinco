@@ -55,10 +55,10 @@
 </nav>
 
 <body class="body">
-	<div class="container carousel">
+	<div  class="container carousel">
 		<div class="row carousel-login">
 			<!-- Carrusel -->
-			<div class="col-xs-12 col-md-8 mt-4">
+			<div  class="col-xs-12 col-md-8 mt-4">
 				<div class="carousel slide" id="principal-carousel" data-ride="carousel">
 					<ol class="carousel-indicators">
 						<li data-target="#principal-carousel" data-slid-to="0" class="active"></li>
@@ -67,15 +67,15 @@
 					</ol>
 
 					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<img src="img/wonderwoman.jpg" alt="">
+						<div  class="carousel-item active">
+							<!-- <img src="img/" alt=""> -->
+							<img th:src="@{${'img/wonderwoman.jpg'}}" alt="">
 						</div>
-						<div class="carousel-item">
-							<img src="img/kingkongvsgodzilla.jpg" alt="">
+					    <div th:each="pelicula : ${peliculas}" class="carousel-item">
+							<!-- <img src="img/wonderwoman.jpg" alt=""> -->
+							<img th:src="@{'data:/'+${pelicula.foto.mime}+';base64,'+${pelicula.foto.getImgData()}}" alt="">
 						</div>
-						<div class="carousel-item">
-							<img src="img/zeta.jpg" alt="">
-						</div>
+
 					</div>
 
 					<a href="#principal-carousel" class="carousel-control-prev" data-slide="prev">
@@ -115,56 +115,21 @@
 
 		<div class="row premiere-card mt-3">
 			<!-- Estrenos -->
-			<div class="col-xs-6 col-md-3">
+			<div th:each="pelicula : ${estrenos}" class="col-xs-6 col-md-3">
 				<div class="card">
 					<div class="card-img">
-						<img src="img/enguerra.jpg" class="card-img-top img-fluid" alt="">
+						<img th:src="@{'data:/'+${pelicula.foto.mime}+';base64,'+${pelicula.foto.getImgData()}}" class="card-img-top img-fluid" alt="">
 					</div>
 					<div class="card-block-premiere">
-						<h3 class="card-title">En guerra con mi abuelo</h3>
-						<p class="card-text">Insertar descripcion</p>
-						<a href="#" class="btn btn-premiere">Comprar reserva</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-6 col-md-3">
-				<div class="card">
-					<div class="card-img">
-						<img src="img/mortalkombat.jpg" class="card-img-top img-fluid" alt="">
-					</div>
-					<div class="card-block-premiere">
-						<h3 class="card-title">Mortal Kombat</h3>
-						<p class="card-text">Insertar descripcion</p>
-						<a href="#" class="btn btn-premiere">Comprar reserva</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-6 col-md-3">
-				<div class="card">
-					<div class="card-img">
-						<img src="img/zeta.jpg" class="card-img-top img-fluid" alt="">
-					</div>
-					<div class="card-block-premiere">
-						<h3 class="card-title">Zeta</h3>
-						<p class="card-text">Insertar descripcion</p>
-						<a href="#" class="btn btn-premiere">Comprar reserva</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-6 col-md-3">
-				<div class="card">
-					<div class="card-img">
-						<img src="img/venganzaimplacable.webp" class="card-img-top img-fluid" alt="">
-					</div>
-					<div class="card-block-premiere">
-						<h3 class="card-title">Venganza implacable</h3>
-						<p class="card-text">Insertar descripcion</p>
+						<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
+						<p th:text="${pelicula.sinopsis}" class="card-text"></p>
 						<a href="#" class="btn btn-premiere">Comprar reserva</a>
 					</div>
 				</div>
 			</div>
 			<div class="col-12 mt-5"></div>
 		</div>
+		
 		<div class="quienessomos" id="quienessomos">
 			<div class="row quienessomos  mt-3">
 				<!-- Quienes somos -->
