@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.QuintoTrainee.CineCinco.entities.Foto;
 import com.QuintoTrainee.CineCinco.enums.Genero;
 
 import lombok.Data;
@@ -30,5 +31,7 @@ public class PeliculaModel implements Serializable {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date modificacion;
-
+	
+	private FotoModel foto;
+	private String idFoto;
 }

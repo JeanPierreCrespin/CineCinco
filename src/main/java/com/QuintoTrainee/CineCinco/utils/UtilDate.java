@@ -11,6 +11,7 @@ public class UtilDate {
 
 	public static SimpleDateFormat FECHA = new SimpleDateFormat("dd/MM/yyyy", Locale.forLanguageTag("es"));
 	public static SimpleDateFormat FECHA_HORA = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.forLanguageTag("es"));
+	public static SimpleDateFormat FECHA_HORA_GUIONES = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.forLanguageTag("es"));
 	public static SimpleDateFormat FECHA_CALENDAR = new SimpleDateFormat("yyyy-MM-dd", Locale.forLanguageTag("es"));
 
 	public static SimpleDateFormat FECHA_DIA = new SimpleDateFormat("EEEE dd", Locale.forLanguageTag("es"));
@@ -80,6 +81,14 @@ public class UtilDate {
 		try {
 			return FECHA_HORA.format(f);
 		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public static Date parseFechaHoraGuiones(String f) {
+		try {
+			return FECHA_HORA_GUIONES.parse(f);
+		} catch (ParseException e) {
 			return null;
 		}
 	}

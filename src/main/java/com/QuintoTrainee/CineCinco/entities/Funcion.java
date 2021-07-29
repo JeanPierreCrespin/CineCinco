@@ -3,6 +3,7 @@ package com.QuintoTrainee.CineCinco.entities;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,6 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.QuintoTrainee.CineCinco.enums.Idioma;
 
@@ -29,6 +31,7 @@ public class Funcion {
 	private String id;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date fecha;
 
 	@Temporal(TemporalType.TIME)
@@ -45,7 +48,7 @@ public class Funcion {
 	@ManyToOne
 	private Sala sala;
 
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval = true)
 	private List<Butaca> butacas;
 
 	private double precioEntrada;

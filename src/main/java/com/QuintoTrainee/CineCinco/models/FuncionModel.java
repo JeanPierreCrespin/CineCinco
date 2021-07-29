@@ -35,6 +35,7 @@ public class FuncionModel implements Serializable {
 
 	private List<ButacaModel> butacas;
 	private List<String> idsButacas;
+	
 	private String butacasSeleccionadas;
 	
 	private double precioEntrada;
