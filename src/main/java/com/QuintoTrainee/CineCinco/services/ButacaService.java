@@ -55,10 +55,6 @@ private ButacaConverter butacaConverter;
 			throw new WebException("La butaca debe tener un nombre");
 		}
 		
-		if (butacaC.equals(butacaC) == true) {
-			throw new WebException("La butaca esta ocupada");
-		}
-		
 		Butaca butacaA = butacaRepository.buscarButacaPorId(butacaC.getId());
 		
 		if (butacaA != null && !(butacaA).getId().equals(butacaC.getId())) {
