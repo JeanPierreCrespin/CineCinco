@@ -54,14 +54,9 @@ public class FuncionService {
 		try {
 			
 			validar(funcionModel);
-			
-			if(funcionModel.getCantidadVacios() <= 0) {
-				funcionModel.setLlena(true);
-			} else {
-				funcionModel.setLlena(false);
-			}
-			
+			System.out.println("antes de convertir la funcion");		
 			Funcion funcionEntity = funcionConverter.modelToEntity(funcionModel);
+			System.out.println("despues de convertir la funcion");
 			
 			if (funcionEntity.getAlta() != null) {
 				funcionEntity.setModificacion(new Date());

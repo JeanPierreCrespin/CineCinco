@@ -3,6 +3,7 @@ package com.QuintoTrainee.CineCinco.entities;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -47,7 +48,7 @@ public class Funcion {
 	@ManyToOne
 	private Sala sala;
 
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval = true)
 	private List<Butaca> butacas;
 
 	private double precioEntrada;

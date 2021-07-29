@@ -84,7 +84,7 @@
                         <td th:text="${funcionListada.precioEntrada}"></td>
                         <td th:text="${funcionListada.llena}"></td>
                         <td>
-                            <form action="/ABM/eliminarFuncion">
+                            <form action="/ABM/eliminarFuncion" method="POST">
                                 <input type="hidden" th:value="${funcionListada.id}" name="idFuncion">
                                 <button type="submit">ELIMINAR</button>
                             </form>
