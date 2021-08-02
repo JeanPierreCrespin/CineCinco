@@ -32,10 +32,42 @@
 </head>
 
 <body class="body">
+	<!--NavBar-->
+	<header> 
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+           <div class="container-fluid">
+             <a class="navbar-brand" href="/">
+               <img src="/src/main/resources/static/img/clapperboard_cinema_icon-64px.png" alt="" width="40" height="35" class="d-inline-block align-text-top">
+                 Bienvenido a CineCinco!
+             </a>
+             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+             </button>
+             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="">Categorias</a>
+                  </li>
+				  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#premiere">Proximos Estrenos</a>
+                  </li>
+				  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#cartelera">Cartelera</a>
+                  </li>
+               </ul>
+			   <form class="d-flex">
+				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-danger" type="submit">Search</button>
+			  </form>
+             </div>
+           </div>
+         </nav>
+       </header>
+         <!--NavBar-->
 	<div  class="container carousel">
 		<div class="row carousel-login">
 			<!-- Carrusel -->
-			<div  class="col-xs-12 col-md-8 mt-4">
+			<div  class="col-xs-12 col-md-8 mt-8">
 				<div class="carousel slide" id="principal-carousel" data-ride="carousel">
 					<ol class="carousel-indicators">
 						<li data-target="#principal-carousel" data-slid-to="0" class="active"></li>
@@ -46,10 +78,10 @@
 					<div class="carousel-inner">
 						<div  class="carousel-item active">
 							<!-- <img src="img/" alt=""> -->
-							<img th:src="@{${'img/wonderwoman.jpg'}}" alt="">
+							<img th:src="@{${'img/black-widow.jpg'}}" alt="">
 						</div>
 					    <div th:each="pelicula : ${peliculas}" class="carousel-item">
-							<!-- <img src="img/wonderwoman.jpg" alt=""> -->
+							<!-- <img src="img/black-widow.jpg" alt=""> -->
 							<img th:src="@{'data:/'+${pelicula.foto.mime}+';base64,'+${pelicula.foto.getImgData()}}" alt="">
 						</div>
 
@@ -65,18 +97,9 @@
 						<span class="sr-only">Siguiente</span>
 					</a>
 				</div>
-				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-				  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				  <span class="visually-hidden">Previous</span>
-				</button>
-				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-				  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-				  <span class="visually-hidden">Next</span>
-				</button>
 			  </div>
 			</div>
 			<!-- Login -->
-
 			<div class="col-xs-12 col-md-4 mt-4">
 				<div class="bodylogin">
 					<div class="card-block">
