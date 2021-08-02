@@ -69,6 +69,10 @@ private ButacaConverter butacaConverter;
 			throw new WebException("La butaca debe tener un número");
 		}
 		
+	}
+
+	public ButacaModel getButacaModelById(String idButaca) throws WebException {
+		return butacaConverter.entityToModel(butacaRepository.getOne(idButaca));
 	}     
 	
 }
