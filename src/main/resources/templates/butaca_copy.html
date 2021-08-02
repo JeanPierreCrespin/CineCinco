@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--Link Bootstrap-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/css/ButacaStyle.css">
+  <link href="/img/clapperboard_cinema_icon-32px.png" rel="shortcut icon" />
+
+  <!-- Links para los del back -->
+  <link rel="stylesheet" href="/css/ButacaStyle.css">
+  <link href="/img/clapperboard_cinema_icon-32px.png" rel="shortcut icon" />
+
+  <title>Seleccionar Butaca</title>
+
+  <!-- Encabezado  -->
+  <div class="container header">
+    <div class="row header">
+      <div class="col-xs-0 col-md-3  left-block "></div>
+      <div class="col-xs-12 col-md-6 body-block">CinemaCinco</div>
+      <div class="col-xs-0 col-md-3 rigth-block"></div>
+    </div>
+  </div>
+</head>
+
+<body class="butacabody">
+
+  <!--NavBar-->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/home}">
+          <img src="/img/clapperboard_cinema_icon-64px.png" alt="" width="40" height="35"
+            class="d-inline-block align-text-top">
+          CineCinco
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Contacto</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Quienes somos</a>
+            </li>
+
+          </ul>
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-danger" type="submit">Buscar</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!--NavBar-->
+
+  <!--Breadcrumb-->
+  <!--<div class="containerpage">
+          <nav class="bread-crumbs">
+            <ul>
+                <li><a href="Seleccionar.html"><img class="img-breadcrumb" src="/img/cinema-popcorn-128px.png" width="35" height="40"> Seleccionar Sala</a></li>
+                <li><a href="Butaca.html"><img class="img-breadcrumb" src="/img/house-armchair-128px.png" width="40" height="40"> Seleccionar Butaca</a></li>
+                <li><a href="Pago.html"><img class="img-breadcrumb" src="/img/credit_card_icon_128px.png" width="40" height="35"> Realizar Pago</a></li>
+            </ul>
+        </nav> 
+          </div>-->
+
+  <div class="row">
+
+    <!--Ticket-->
+    <div class="col">
+      <div class="containerEntradas">
+        <h1 th:text="${funcion.pelicula.titulo}"></h1>
+        <form>
+          <div class="row mb-3">
+            <label for="inputsala3" class="col-sm-2 col-form-label">Sala</label>
+            <div class="col-sm-10">
+              <p th:text="${funcion.sala.nombre}"></p>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputcantidad3" class="col-sm-2 col-form-label">N° de asientos</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="inputcantidad3">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!--Butacas-->
+    <div class="col-12 col-md-6 col-xl-6">
+      <div class="containerbutaca">
+        <h1>Seleccione su ubicacion</h1>
+        <div id="divDisponibilidad">
+
+          <span class="Disponibilidadcontainer">
+            <img src="/img/iconsquarered-96px.png" width="40" height="40" alt="Su ubicación">
+            <span class="Legend">Su ubicación</span>
+          </span>
+
+          <span class="Disponibilidadcontainer">
+            <img src="/img/iconsquare-96px.png" width="40" height="40" alt="Disponible">
+            <span class="Legend">Disponible</span>
+          </span>
+
+          <span class="Disponibilidadcontainer">
+            <img src="/img/iconsquareblack-96px.png" width="40" height="40" alt="Ocupado">
+            <span class="Legend">Ocupado</span>
+          </span>
+
+        </div>
+
+        <div id="divSeatMap" class="Screen-AllAreas">
+          <div>
+            <div id="objSeatPlan" class="Seating-Control">
+              <div style="height: 378px;">
+                <div class="Seating-Screen" style="width: 625px;">
+                  <h1 class="pantalla" style="letter-spacing:0.7em;position: absolute;left:34%;">PANTALLA</h1>
+                </div>
+                <div class="Seating-Container" style="width: 625px; height: 350px; visibility: visible;">
+                  <div class="Seating-Theatre" style="width:625px;height:350px;" data-originalsize="350">
+                    <table id="1" class="Seating-Area" data-area-number="1" cellspacing="0" cellpadding="0"
+                      style="left:0%;top:0%;width:100%;height:100%;table-layout:fixed;">
+                      <tbody>
+                        <tr th:each="arrayButacas : ${filasMap}" style="line-height: 25px; height: 25px;">
+                          <td th:each="butaca : ${arrayButacas.value}">
+                            <a href="#" unselectable="on" class="unselectable" style="line-height: 25px; width: 25px;">
+                              <img src="/img/iconsquare-96px.png" class="unselectable" th:data-row="${cantFilas}"
+                                data-col="10" style="width: 25px; height: 25px;">
+                            </a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Boton continuar-->
+      <!-- <button onclick="location.href='Pago.html'" type="button" class="btn btn-danger" id="botoncontinuar2">Continuar</button> -->
+      <button type=“button”><a href=“#”>Continuar</a></button>
+    </div>
+
+    <div class="col"></div>
+  </div>
+
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</body>
+
+</html>

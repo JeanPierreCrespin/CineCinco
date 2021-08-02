@@ -19,6 +19,7 @@ import com.QuintoTrainee.CineCinco.repositories.FuncionRepository;
 import com.QuintoTrainee.CineCinco.repositories.PeliculaRepository;
 import com.QuintoTrainee.CineCinco.repositories.SalaRepository;
 import com.QuintoTrainee.CineCinco.services.ButacaService;
+import static com.QuintoTrainee.CineCinco.utils.Texts.*;
 
 import lombok.RequiredArgsConstructor;
 
@@ -70,11 +71,10 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 					
 					int cantButacas = entitySala.getCantidadButacas();
 					System.out.println("-- cantButacas = " + cantButacas);
-					int butacasPorFila = 10;
-					System.out.println("-- butacasPorFila = " + butacasPorFila);
-					int cantidadFilas = (int) Math.floor(cantButacas / (double) butacasPorFila);
+					System.out.println("-- butacasPorFila = " + BUTACAS_POR_FILA);
+					int cantidadFilas = (int) Math.floor(cantButacas / (double) BUTACAS_POR_FILA);
 					System.out.println("-- cantidadFilas = " + cantidadFilas);
-					int cantButacasUltimaFila =  cantButacas - (butacasPorFila * cantidadFilas);
+					int cantButacasUltimaFila =  cantButacas - (BUTACAS_POR_FILA * cantidadFilas);
 					System.out.println("-- cantButacasUltimaFila = " + cantButacasUltimaFila);
 					
 					char[] letras = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
@@ -82,7 +82,7 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 					
 
 					for(int i = 0; i < (cantidadFilas); i++) {
-						for(int j = 0; j < butacasPorFila; j++) {
+						for(int j = 0; j < BUTACAS_POR_FILA; j++) {
 							ButacaModel butaca = new ButacaModel();
 							nombreButaca = "" + letras[i] + "-" + j;
 							butaca.setNombre(nombreButaca);
@@ -96,7 +96,7 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 					
 					for(int i = 0; i < cantButacasUltimaFila; i++) {
 						ButacaModel butaca = new ButacaModel();
-						nombreButaca = "" + letras[(cantidadFilas-1)] + "-" + i;
+						nombreButaca = "" + letras[(cantidadFilas)] + "-" + i;
 						butaca.setNombre(nombreButaca);
 						butaca.setOcupado(false);
 						butaca.setAlta(new Date());
