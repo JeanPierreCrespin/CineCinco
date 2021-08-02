@@ -75,10 +75,8 @@ public class ButacasController {
 				boletos.add(boleto);
 			}
 			
-			for (BoletoModel boletoModel : boletos) {
-				System.out.println(boletoModel.getButaca().getNombre());
-			}
 			
+			return this.pagoPrueba(model, boletos, idFuncion);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -87,4 +85,21 @@ public class ButacasController {
 		return "redirect:/seleccionar/"+idFuncion;
 	}
 	
+	@GetMapping("/pagoPrueba")
+	public String pagoPrueba(ModelMap model, ArrayList<BoletoModel> boletos, String idFuncion){
+		
+		try {
+			
+			System.out.println("ID Funcion: " + idFuncion);
+			System.out.println("Boletos:");
+			for (BoletoModel boletoModel : boletos) {
+				System.out.println(boletoModel.getButaca().getNombre());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/seleccionar/"+idFuncion;
+	}
 }
