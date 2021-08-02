@@ -130,10 +130,21 @@
             <div id="objSeatPlan" class="Seating-Control">
               <div style="height: 378px;">
                 <div class="Seating-Screen" style="width: 625px;">
-                  <h1 class="pantalla" style="letter-spacing:0.7em;position: absolute;left:34%;">PANTALLA</h1>
+                  <h1 class="pantalla mb-5" style="letter-spacing:0.7em;position: absolute;left:34%;">PANTALLA</h1>
+                  <br>
                 </div>
                 <div class="Seating-Container" style="width: 625px; height: 350px; visibility: visible;">
                   <div class="Seating-Theatre" style="width:625px;height:350px;" data-originalsize="350">
+                    <div class="container my-5">
+                      <form action="/test" method="post" th:object="${funcionSeleccionButacas}">
+                        <input type="hidden" name="idFuncion" th:value="${funcion.id}">
+                        <div th:each="arrayButacas : ${filasMap}" class="row row-cols-10 my-3">
+                          <input th:each="butaca : ${arrayButacas.value}" type="checkbox" th:field="*{idsButacas}" id="" class="col" th:value="${butaca.id}">
+                        </div>
+                        <button type=“button”>Continuar</button>
+                      </form>
+                    </div>
+                    <!--
                     <table id="1" class="Seating-Area" data-area-number="1" cellspacing="0" cellpadding="0"
                       style="left:0%;top:0%;width:100%;height:100%;table-layout:fixed;">
                       <tbody>
@@ -147,6 +158,7 @@
                         </tr>
                       </tbody>
                     </table>
+                    -->
                   </div>
                 </div>
               </div>
@@ -156,7 +168,7 @@
       </div>
       <!--Boton continuar-->
       <!-- <button onclick="location.href='Pago.html'" type="button" class="btn btn-danger" id="botoncontinuar2">Continuar</button> -->
-      <button type=“button”><a href=“#”>Continuar</a></button>
+
     </div>
 
     <div class="col"></div>

@@ -96,7 +96,7 @@ public class FuncionService {
 		return funcionConverter.entitiesToModels(funcionRepository.listarFuncionesActivas());
 	}
 
-	public FuncionModel GetOneById(String idFuncion) throws WebException {
+	public FuncionModel getFuncionModelById(String idFuncion) throws WebException {
 		return funcionConverter.entityToModel(funcionRepository.getOne(idFuncion));
 	}
 
