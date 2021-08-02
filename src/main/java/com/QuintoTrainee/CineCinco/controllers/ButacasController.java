@@ -96,6 +96,17 @@ public class ButacasController {
 				System.out.println(boletoModel.getButaca().getNombre());
 			}
 
+			FuncionModel funcion = funcionService.getFuncionModelById(idFuncion);
+			int cantEntradas = boletos.size();
+			double totalPagar = cantEntradas * funcion.getPrecioEntrada();
+					
+			model.addAttribute("boletos", boletos);
+			model.addAttribute("funcion", funcion);
+			model.addAttribute("totalPagar", totalPagar);
+			model.addAttribute("cantEntradas", cantEntradas);
+			
+			return "pago_copy.html";
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
