@@ -1,5 +1,9 @@
 package com.QuintoTrainee.CineCinco.controllers;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,7 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.QuintoTrainee.CineCinco.entities.Usuario;
+import com.QuintoTrainee.CineCinco.models.BoletoModel;
+import com.QuintoTrainee.CineCinco.models.ButacaModel;
+import com.QuintoTrainee.CineCinco.models.CompraModel;
+import com.QuintoTrainee.CineCinco.models.FuncionModel;
+import com.QuintoTrainee.CineCinco.services.ButacaService;
 import com.QuintoTrainee.CineCinco.services.CompraService;
+import com.QuintoTrainee.CineCinco.services.FuncionService;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.Preference;
 import com.mercadopago.resources.datastructures.preference.BackUrls;
@@ -26,42 +36,70 @@ import lombok.var;
 public class CompraController {
 	@Autowired
 	private CompraService compraService;
+	@Autowired
+	private FuncionService funcionService;
+	@Autowired
+	private ButacaService butacaService;
 
 	@PostMapping("/realizar_pago")
-	public String crearPago(@RequestParam(required = false) String title,
-			@RequestParam(required = false) double price, 
-			@RequestParam(required = false) double total)
+	public String crearPago(@RequestParam(required = true) String idFuncion,
+			@RequestParam(required = true) String totalPagar, @RequestParam(required = true) List<String> idsButacas)
 			throws MPException {
 
-		Preference preference = new Preference();
+		System.out.println(idsButacas);
+		System.out.println(totalPagar);
+		System.out.println(idFuncion);
 
-		// Crea un ítem en la preferencia
-		Item item = new Item();
-		item.setTitle(title)
-		.setQuantity(1)
-		.setUnitPrice((float) price);
+		CompraModel compraModel = new CompraModel();
+		ArrayList<BoletoModel> boletos = new ArrayList<BoletoModel>();
 
-		preference.appendItem(item);
-		BackUrls backUrls = new BackUrls(
-				"http://localhost:8080/pago/save", 
-				"http://localhost:8080/pago/realizar_pago",
-				"http://localhost:8080/pago/realizar_pago");
-		preference.setBackUrls(backUrls);
-		var resulset = preference.save();
+		try {
+			FuncionModel funcion = funcionService.getFuncionModelById(idFuncion);
 
-		return "redirect:" + resulset.getSandboxInitPoint();
+			for (String idButaca : idsButacas) {
+				ButacaModel butaca = butacaService.getButacaModelById(idButaca);
+				BoletoModel boleto = new BoletoModel();
 
+				boleto.setAlta(new Date());
+				boleto.setFuncion(funcion);
+				boleto.setButaca(butaca);
+
+				boletos.add(boleto);
+			}
+
+			float precioTotal = (float) (boletos.size() * funcion.getPrecioEntrada());
+			// SECCION MP
+
+			Preference preference = new Preference();
+			// Crea un ítem en la preferencia
+			Item item = new Item();
+			item.setTitle("Entradas para: " + funcion.getPelicula().getTitulo()).setQuantity(boletos.size())
+					.setUnitPrice((float) funcion.getPrecioEntrada());
+
+			preference.appendItem(item);
+			BackUrls backUrls = new BackUrls("http://localhost:8080/compra/save",
+					"http://localhost:8080/compra/realizar_pago", "http://localhost:8080/compra/realizar_pago");
+			preference.setBackUrls(backUrls);
+			var resulset = preference.save();
+			return "redirect:" + resulset.getSandboxInitPoint();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "redirect:/";
 	}
 
 	@GetMapping("/save")
 	public String save(@RequestParam String status, @RequestParam String payment_type) throws Exception {
 
 		Usuario usuario = new Usuario();
-		;// = Controllers.getFromSession(session);
+		// = Controllers.getFromSession(session);
+		System.out.println(status);
 
 		if (status.equals("approved")) {
-			compraService.save(status, payment_type, usuario);
-
+			// compraService.save(status, payment_type, usuario);
+			System.out.println("APROBADO");
 		}
 		return "redirect:/?status=" + status;
 
