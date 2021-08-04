@@ -3,6 +3,7 @@ package com.QuintoTrainee.CineCinco.controllers;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
 import com.QuintoTrainee.CineCinco.models.BoletoModel;
 import com.QuintoTrainee.CineCinco.models.ButacaModel;
+import com.QuintoTrainee.CineCinco.models.CompraModel;
 import com.QuintoTrainee.CineCinco.models.FuncionModel;
 import com.QuintoTrainee.CineCinco.services.ButacaService;
 import com.QuintoTrainee.CineCinco.services.FuncionService;
@@ -30,87 +32,120 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class ButacasController {
 
-	@Autowired FuncionService funcionService;
-	@Autowired ButacaService butacaService;
-	
+	@Autowired
+	FuncionService funcionService;
+	@Autowired
+	ButacaService butacaService;
+
 	@GetMapping("/seleccionar/{idFuncion}")
 	public String seleccionar(ModelMap model, @PathVariable String idFuncion) {
-		
+
 		try {
 			FuncionModel funcion = funcionService.getFuncionModelById(idFuncion);
 			model.addAttribute("funcion", funcion);
-			
+
 			Map<Integer, ArrayList<ButacaModel>> filasMap = funcionService.obtenerMapButacasOrdenado(funcion);
-			
+
 			model.addAttribute("filasMap", filasMap);
-			
+
 			int cantFilas = funcionService.obtenerCantidadDeFilas(funcion) + 1;
-			
+
 			model.addAttribute("cantFilas", cantFilas);
-			
+
 			FuncionModel funcionSeleccionButacas = new FuncionModel();
 			model.addAttribute("funcionSeleccionButacas", funcionSeleccionButacas);
+
+		} catch (WebException e) {
+			e.printStackTrace();
+		}
+
+		return "butaca_copy.html";
+	}
+
+	@PostMapping("/test")
+	public String test(ModelMap model,
+			@Valid @ModelAttribute("funcionSeleccionButacas") FuncionModel funcionSeleccionButacas,
+			@RequestParam(required = true) String idFuncion) {
+
+		try {
+			ArrayList<ButacaModel> butacas = new ArrayList<ButacaModel>();
+
+			for (String idButaca : funcionSeleccionButacas.getIdsButacas()) {
+				ButacaModel butaca = new ButacaModel();
+
+				butaca = butacaService.getButacaModelById(idButaca);
+
+				butacas.add(butaca);
+			}
+
+			return this.pagoPrueba(model, butacas, idFuncion);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "redirect:/seleccionar/" + idFuncion;
+	}
+
+	@GetMapping("/pagoPrueba")
+	public String pagoPrueba(ModelMap model, ArrayList<ButacaModel> butacas, String idFuncion) {
+
+		try {
+
+			for (ButacaModel butacaModel : butacas) {
+				System.out.println(butacaModel.getNombre());
+				System.out.println(butacaModel.getId());
+			}
+
+			FuncionModel funcion = funcionService.getFuncionModelById(idFuncion);
+			int cantEntradas = butacas.size();
+			double totalPagar = cantEntradas * funcion.getPrecioEntrada();
+
+			model.addAttribute("butacas", butacas);
+			model.addAttribute("funcion", funcion);
+			model.addAttribute("totalPagar", totalPagar);
+			model.addAttribute("cantEntradas", cantEntradas);
+
+			return "pago_copy.html";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "redirect:/seleccionar/" + idFuncion;
+	}
+
+	@PostMapping("/test2")
+	public String test2(ModelMap model, @RequestParam(required = true) String idFuncion,
+			@RequestParam(required = true) String totalPagar, @RequestParam(required = true) List<String> idsButacas) {
+
+		System.out.println(idsButacas);
+		System.out.println(totalPagar);
+		System.out.println(idFuncion);
+
+		CompraModel compraModel = new CompraModel();
+		ArrayList<BoletoModel> boletos = new ArrayList<BoletoModel>();
+			
+		try {
+			FuncionModel funcion = funcionService.getFuncionModelById(idFuncion);
+			
+			for (String idButaca : idsButacas) {
+				ButacaModel butaca = butacaService.getButacaModelById(idButaca);
+				BoletoModel boleto = new BoletoModel();
+				
+				boleto.setAlta(new Date());
+				boleto.setFuncion(funcion);
+				boleto.setButaca(butaca);
+				
+				boletos.add(boleto);
+			}
+			
+			compraModel.setBoletos(boletos);
 			
 		} catch (WebException e) {
 			e.printStackTrace();
 		}
 		
-		return "butaca_copy.html";
-	}
-	
-	@PostMapping("/test")
-	public String test(ModelMap model, @Valid @ModelAttribute("funcionSeleccionButacas") FuncionModel funcionSeleccionButacas,
-			@RequestParam(required = true) String idFuncion) {
-		
-		try {			
-			ArrayList<BoletoModel> boletos = new ArrayList<BoletoModel>();
-			
-			for (String idButaca : funcionSeleccionButacas.getIdsButacas()) {
-				BoletoModel boleto = new BoletoModel();
-				
-				boleto.setButaca(butacaService.getButacaModelById(idButaca));
-				boleto.setFuncion(funcionService.getFuncionModelById(idFuncion));
-				boleto.setAlta(new Date());
-				
-				boletos.add(boleto);
-			}
-			
-			
-			return this.pagoPrueba(model, boletos, idFuncion);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return "redirect:/seleccionar/"+idFuncion;
-	}
-	
-	@GetMapping("/pagoPrueba")
-	public String pagoPrueba(ModelMap model, ArrayList<BoletoModel> boletos, String idFuncion){
-		
-		try {
-			
-			System.out.println("ID Funcion: " + idFuncion);
-			System.out.println("Boletos:");
-			for (BoletoModel boletoModel : boletos) {
-				System.out.println(boletoModel.getButaca().getNombre());
-			}
-
-			FuncionModel funcion = funcionService.getFuncionModelById(idFuncion);
-			int cantEntradas = boletos.size();
-			double totalPagar = cantEntradas * funcion.getPrecioEntrada();
-					
-			model.addAttribute("boletos", boletos);
-			model.addAttribute("funcion", funcion);
-			model.addAttribute("totalPagar", totalPagar);
-			model.addAttribute("cantEntradas", cantEntradas);
-			
-			return "pago_copy.html";
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return "redirect:/seleccionar/"+idFuncion;
+		return "redirect:/";
 	}
 }
