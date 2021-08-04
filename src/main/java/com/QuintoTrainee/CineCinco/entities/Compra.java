@@ -27,8 +27,8 @@ public class Compra {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date fechaCompra;
+	/*@Temporal(TemporalType.TIMESTAMP)
+	private Date fechaCompra;*/
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaAprobacionPago;
@@ -37,9 +37,8 @@ public class Compra {
 	private List<Boleto> boletos;
 
 	private double precioTotal;
-
-	@Enumerated(EnumType.STRING)
-	private Estado estado;
+	private String status;
+	private String tipoPago;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date alta;

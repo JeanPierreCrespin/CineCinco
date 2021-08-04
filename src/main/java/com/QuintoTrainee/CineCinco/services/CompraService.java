@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.QuintoTrainee.CineCinco.converters.CompraConverter;
 import com.QuintoTrainee.CineCinco.entities.Compra;
+import com.QuintoTrainee.CineCinco.entities.Usuario;
 import com.QuintoTrainee.CineCinco.enums.Estado;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
 import com.QuintoTrainee.CineCinco.models.CompraModel;
@@ -59,6 +60,12 @@ public class CompraService {
 		Compra compraEntity = compraConverter.modelToEntity(compraModel);
 		compraEntity.setBaja(new Date());
 		return compraRepository.save(compraEntity);
+	}
+
+	public void save(String status, String payment_type, Usuario usuario) {
+		 Compra compra = new Compra();
+		 
+		
 	}
 	
 }
