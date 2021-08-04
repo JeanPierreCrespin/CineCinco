@@ -85,10 +85,7 @@ public class MainController {
 		return "pago.html";
 	}
 	
-	@GetMapping("/peliculas")
-	public String peliculas() {
-		return "peliculas.html";
-	}
+	
 	
 
 	// REGISTRO

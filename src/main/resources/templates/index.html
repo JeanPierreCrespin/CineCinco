@@ -13,11 +13,11 @@
 
 	<!--Link de estilos para visualizarlo en Spring o Netbeans-->
 	<link rel="stylesheet" href="css/indexstyle.css">
-	<link href="img/clapperboard_cinema_icon-32px.png" rel="shortcut icon"/> -->
+	<link href="img/clapperboard_cinema_icon-32px.png" rel="shortcut icon"/>
  
-    <!--Link estilos y logo pestaña-->
+	<!--Link estilos y logo pestaña
 	<link rel="stylesheet" href="/src/main/resources/static/css/indexstyle.css">
-	<link href="/src/main/resources/static/img/clapperboard_cinema_icon-32px.png" rel="shortcut icon"/>
+	<link href="/src/main/resources/static/img/clapperboard_cinema_icon-32px.png" rel="shortcut icon"/>-->
     <title>CineCinco</title>
 	
 	
@@ -111,14 +111,52 @@
 						    <a class="btn-rojo" href="/login">Iniciar Sesion</a>
 					</div>
 				</div>
+				</div>
+				<!-- Link para peliculas -->
+				<div class="col-xs-12 col-md-4 mt-4">
+				<div class="bodylogin">
+					<div class="card-block">
+				<h3 class="card-title">Querés ver nuestras películas?</h3>
+						<br>
+						<br>
+						<br>
+						<p class="card-text">Accedé a tu cuenta para comprar tus entradas, recibir primicias y
+							beneficios</p>
+							<a class="btn-rojo" href="/peliculas">Peliculas</a>
+					</div>
+					</div>	    
 			</div>
 
 		</div>
-		
+
+		<div class="row premiere-card-title mt-3">
+			<!-- Titulos Estrenos -->
+			<div class="premiere col-xs-12 col-md-12" id="cartelera">
+				<h1 class="title-premiere">Cartelera</h1>
+				<h5 class="body-premiere">Consulta por promos con tarjetas seleccionadas</h1>
+			</div>
+		</div>
+
+		<div class="row premiere-card mt-3">
+			<!-- Estrenos -->
+			<div th:each="pelicula : ${estrenos}" class="col-xs-6 col-md-3">
+				<div class="card">
+					<div class="card-img">
+						<img th:src="@{'data:/'+${pelicula.foto.mime}+';base64,'+${pelicula.foto.getImgData()}}" class="card-img-top img-fluid" alt="">
+					</div>
+					<div class="card-block-premiere">
+						<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
+						<a href="#" class="btn btn-premiere">Comprar reserva</a>
+					</div>
+				</div>
+			</div>
+			
+
+
 		<div class="row premiere-card-title mt-3">
 			<!-- Titulos Estrenos -->
 			<div class="premiere col-xs-12 col-md-12" id="premiere">
-				<h1 class="title-premiere">Cartelera</h1>
+				<h1 class="title-premiere">Estrenos</h1>
 				<h5 class="body-premiere">Consulta por promos con tarjetas seleccionadas</h5>
 			</div>
 		</div>
@@ -132,7 +170,6 @@
 					</div>
 					<div class="card-block-premiere">
 						<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
-						<p th:text="${pelicula.sinopsis}" class="card-text"></p>
 						<a href="#" class="btn btn-premiere">Comprar reserva</a>
 					</div>
 				</div>
