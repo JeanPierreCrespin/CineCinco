@@ -21,4 +21,7 @@ public interface PeliculaRepository extends JpaRepository<Pelicula, String>{
 	@Query( value="SELECT * FROM Pelicula  WHERE baja IS NULL ORDER BY alta DESC LIMIT 4" , nativeQuery=true)
 	public List<Pelicula> listarEstrenos ();
 	
+	@Query( value="SELECT * FROM Pelicula  WHERE baja IS NULL ORDER BY alta ASC LIMIT 4" , nativeQuery=true)
+	public List<Pelicula> listarEnCartel();
+	
 }
