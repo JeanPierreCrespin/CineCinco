@@ -96,6 +96,17 @@
     color: white;
 } 
 
+/*-------Ticket------*/
+.containerEntradas {
+    background: #1C2833;
+    color: white;
+    padding: 2%;
+    border-radius: 5px;
+}
+.pantalla {
+    margin-top: -35px;
+}
+
 /*-----Butaca------*/
 .containerbutaca {
     background: white;
@@ -106,6 +117,32 @@
     width: auto;
     position: center;
 }
+
+/*-----Checkbox-----*/
+input[type=checkbox] {
+   appearance: none;
+   -webkit-appearance: none;
+   height: 30px;
+   width: 30px;
+   background-color: #fff;
+   border-radius: 5px;
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border: 3px solid;
+}
+input[type=checkbox]::after {
+     background-color: red;
+}
+input[type=checkbox]:hover {
+    background-color: #a5a5a5;
+}
+input[type=checkbox]:checked {
+    background-color: red;
+    border: none;
+}
+
 
 /*------Boton continuar-----*/
 #botoncontinuar2 {
@@ -119,16 +156,4 @@
 
 .Screen-AllAreas {
     margin-top: 80px;
-}
-
-
-/*-------Ticket------*/
-.containerEntradas {
-    background: #1C2833;
-    color: white;
-    padding: 2%;
-    border-radius: 5px;
-}
-.pantalla {
-    margin-top: -35px;
 }
