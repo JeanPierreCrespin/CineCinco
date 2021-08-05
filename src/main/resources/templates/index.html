@@ -32,7 +32,39 @@
 </head>
 
 <body class="body">
-	<div  class="container carousel">
+	<!--NavBar-->
+	<header> 
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+           <div class="container-fluid">
+             <a class="navbar-brand" href="/">
+               <img src="/src/main/resources/static/img/clapperboard_cinema_icon-64px.png" alt="" width="40" height="35" class="d-inline-block align-text-top">
+                 CineCinco!
+             </a>
+             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+             </button>
+             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="">Categorias</a>
+                  </li>
+				  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#premiere">Proximos Estrenos</a>
+                  </li>
+				  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#cartelera">Cartelera</a>
+                  </li>
+               </ul>
+			   <form class="d-flex">
+				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-danger" type="submit">Search</button>
+			  </form>
+             </div>
+           </div>
+         </nav>
+       </header>
+         <!--NavBar-->
+	<div  class="container carousel mt-3">
 		<div class="row carousel-login">
 			<!-- Carrusel -->
 			<div  class="col-xs-12 col-md-8 mt-8">
@@ -96,6 +128,7 @@
 			</div>
 
 		</div>
+
 		<div class="row premiere-card-title mt-3">
 			<!-- Titulos Estrenos -->
 			<div class="premiere col-xs-12 col-md-12" id="cartelera">
@@ -119,11 +152,12 @@
 			</div>
 			
 
+
 		<div class="row premiere-card-title mt-3">
 			<!-- Titulos Estrenos -->
 			<div class="premiere col-xs-12 col-md-12" id="premiere">
-				<h1 class="title-premiere">Proximos estrenos</h1>
-				<h5 class="body-premiere">Mirá lo que se viene y reserva tu lugar para la avant premiere</h5>
+				<h1 class="title-premiere">Estrenos</h1>
+				<h5 class="body-premiere">Consulta por promos con tarjetas seleccionadas</h5>
 			</div>
 		</div>
 

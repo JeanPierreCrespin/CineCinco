@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.QuintoTrainee.CineCinco.converters.CompraConverter;
 import com.QuintoTrainee.CineCinco.entities.Compra;
-import com.QuintoTrainee.CineCinco.enums.Estado;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
 import com.QuintoTrainee.CineCinco.models.CompraModel;
 import com.QuintoTrainee.CineCinco.repositories.CompraRepository;
@@ -26,7 +25,7 @@ public class CompraService {
 	public void validar(CompraModel compraModel) throws WebException {
 		
 		try {
-			Enum.valueOf(Estado.class, compraModel.getEstado().toString());
+			//Enum.valueOf(Estado.class, compraModel.getEstado().toString());
 		} catch (IllegalArgumentException e) {
 			throw new WebException("El estado indicado no es un estado valido");
 		} catch (NullPointerException e) {
@@ -55,10 +54,14 @@ public class CompraService {
 		compraRepository.delete(compraEntity);
 	}
 	
+	public void hardDelete(Compra compra) throws WebException {
+		compraRepository.delete(compra);
+	}
+	
 	public Compra softDelete(CompraModel compraModel) throws WebException {
 		Compra compraEntity = compraConverter.modelToEntity(compraModel);
 		compraEntity.setBaja(new Date());
 		return compraRepository.save(compraEntity);
 	}
-	
+
 }
