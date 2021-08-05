@@ -124,11 +124,14 @@
                 </div>
                 <div class="Seating-Container" style="width: 625px; height: 350px; visibility: visible;">
                   <div class="Seating-Theatre" style="width:625px;height:350px;" data-originalsize="350">
-                    <div class="container my-5">
+                    <div class="container row my-5">
                       <form action="/test" method="post" th:object="${funcionSeleccionButacas}">
                         <input type="hidden" name="idFuncion" th:value="${funcion.id}">
-                        <div th:each="arrayButacas : ${filasMap}" class="row row-cols-10 my-3">
-                          <label id="labelcheck"><input th:each="butaca : ${arrayButacas.value}" type="checkbox" th:field="*{idsButacas}" id="" class="col" th:value="${butaca.id}"></label>
+                        <div th:each="arrayButacas : ${filasMap}" class="flex-container col-2">
+                          <label id="labelcheck"><div th:each="butaca : ${arrayButacas.value}">
+                          <input th:if="${butaca.ocupado}" type="checkbox" th:field="*{idsButacas}" id="ocupado" class="col" th:value="${butaca.id}">
+                          <input th:unless="${butaca.ocupado}" type="checkbox" th:field="*{idsButacas}" id="" class="col" th:value="${butaca.id}"></div>
+                          </label>
                         </div>
                         <button class="btn btn-danger" type=“button”>Continuar</button>
                       </form>

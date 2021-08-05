@@ -22,7 +22,7 @@
 }
 
 /*----Formulario gestor----*/
-.bodygestores label {
+#form-funciones label {
 	color: #fff;
 }
 .bodygestores input {
@@ -31,7 +31,7 @@
 .bodygestores select {
 	width: 400px;
 }
-.bodygestores form {
+#form-funciones {
 	margin-left: 450px;
 }
 /*------Estilos tabla------*/

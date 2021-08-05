@@ -65,7 +65,7 @@
 
     <!-- CARGA DE SALAS -->
     <h4>Cargar Nuevas Funciones</h4>
-    <form action="/ABM/agregarFuncion" method="POST" th:object="${funcion}">
+    <form action="/ABM/agregarFuncion" id="form-funciones" method="POST" th:object="${funcion}">
         <label>Fecha de Emision:</label>
         <input type="date" name="fechaEmision"></input>
         <br />

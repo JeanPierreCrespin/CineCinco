@@ -117,6 +117,14 @@
     width: auto;
     position: center;
 }
+.flex-container{
+	display: inline-grid;
+	background-color: red;
+}
+.flex-container > label {
+	margin-left: 5px;
+	
+}
 
 /*-----Checkbox-----*/
 input[type=checkbox] {
@@ -142,7 +150,6 @@ input[type=checkbox]:checked {
     background-color: red;
     border: none;
 }
-
 
 /*------Boton continuar-----*/
 #botoncontinuar2 {

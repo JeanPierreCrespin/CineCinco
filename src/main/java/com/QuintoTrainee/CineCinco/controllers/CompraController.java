@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.QuintoTrainee.CineCinco.entities.Usuario;
 import com.QuintoTrainee.CineCinco.services.CompraService;
-import com.QuintoTrainee.CineCinco.services.PagoService;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.Preference;
 import com.mercadopago.resources.datastructures.preference.BackUrls;
