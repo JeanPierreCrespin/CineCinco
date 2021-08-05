@@ -137,4 +137,8 @@ public class PeliculaService {
 		return peliculaConverter.entitiesToModels(peliculaRepository.listarEstrenos());
 	}
 
+	public List<PeliculaModel> listarPeliculasPorGenero(Genero genero) throws WebException{
+		return peliculaConverter.entitiesToModels(peliculaRepository.buscarPorGenero(genero));
+	}
+
 }
