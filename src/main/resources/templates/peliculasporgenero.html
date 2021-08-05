@@ -41,6 +41,9 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/login">Iniciar Sesion</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/peliculas">Peliculas</a>
+          </li>
 
         </ul>
         <form class="d-flex">
@@ -54,42 +57,7 @@
 
 <body>
 
-		<!-- Categorías -->
-  <div class="container">
-    <div class="row pelicula mt-3">
-
-      <div class="col-sm-2 col-lg-2">
-        <div class="sidebar-nav">
-          <div class="nav-canvas">
-
-            <ul class="nav nav-pills nav-stacked main-menu">
-              <h3 class="nav-header">Categorias</h3>
- 				<ul>
-  					<li><a class="ajax-link" href="/peliculasporgenero?genero=TERROR"><i class="glyphicon glyphicon-home"></i><span>
-                    Terror</span></a></li>
-					<li><a class="ajax-link" href="/peliculasporgenero?genero=COMEDIA"><i class="glyphicon glyphicon-home"></i><span>
-                    Comedia</span></a></li>
- 					<li><a class="ajax-link" href="/peliculasporgenero?genero=ROMANTICA"><i class="glyphicon glyphicon-home"></i><span>
-                    Romantica</span></a></li>
- 					<li><a class="ajax-link" href="/peliculasporgenero?genero=CIENCIAFICCION"><i class="glyphicon glyphicon-home"></i><span>
-                    Ciencia Ficcion</span></a></li>
- 					<li><a class="ajax-link" href="/peliculasporgenero?genero=DRAMA"><i class="glyphicon glyphicon-home"></i><span>
-                    Drama</span></a></li>
- 					<li><a class="ajax-link" href="/peliculasporgenero?genero=INFANTIL"><i class="glyphicon glyphicon-home"></i><span>
-                    Infantil</span></a></li>
- 					<li><a class="ajax-link" href="/peliculasporgenero?genero=ACCION"><i class="glyphicon glyphicon-home"></i><span>
-                    Acción</span></a></li>
- 					<li><a class="ajax-link" href="/peliculasporgenero?genero=SUSPENSO"><i class="glyphicon glyphicon-home"></i><span>
-                    Suspenso</span></a></li>
- 				</ul>
-     
-              </ul>
-              
-          </div>
-        </div>
-      </div>
- 		<div class="row premiere-card-title mt-3">
-			<!-- Titulos en cartel -->
+			<!-- Pelicula por género -->
 			<div class="premiere col-xs-12 col-md-12" id="cartelera">
 				<h1 class="title-premiere">Cartelera</h1>
 				<h5 class="body-premiere">Consulta por promos con tarjetas seleccionadas</h1>
@@ -97,8 +65,8 @@
 		</div>
 
 		<div class="row premiere-card mt-3">
-			<!-- En cartel -->
-			<div th:each="pelicula : ${estrenos}" class="col-xs-6 col-md-3">
+			<!-- Estrenos -->
+			<div th:each="pelicula : ${peliculas}" class="col-xs-6 col-md-3">
 				<div class="card">
 					<div class="card-img">
 						<img th:src="@{'data:/'+${pelicula.foto.mime}+';base64,'+${pelicula.foto.getImgData()}}" class="card-img-top img-fluid" alt="">
@@ -106,7 +74,6 @@
 					<div class="card-block-premiere">
 						<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
 						<p th:text="${pelicula.sinopsis}" class="card-text"></p>
-						<p th:text="${pelicula.genero}" class="card-text"></p>
 						<a href="#" class="btn btn-premiere">Comprar reserva</a>
 					</div>
 				</div>
@@ -122,7 +89,7 @@
 
 		<div class="row premiere-card mt-3">
 			<!-- Estrenos -->
-			<div th:each="pelicula : ${estrenos}" class="col-xs-6 col-md-3">
+			<div th:each="pelicula : ${peliculas}" class="col-xs-6 col-md-3">
 				<div class="card">
 					<div class="card-img">
 						<img th:src="@{'data:/'+${pelicula.foto.mime}+';base64,'+${pelicula.foto.getImgData()}}" class="card-img-top img-fluid" alt="">
