@@ -82,11 +82,9 @@ public class MainController {
 	public String pago() {
 		return "pago.html";
 	}
-
-	@GetMapping("/peliculas")
-	public String peliculas() {
-		return "peliculas.html";
-	}
+	
+	
+	
 
 	// REGISTRO
 	@GetMapping("/registro")
