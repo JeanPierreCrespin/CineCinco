@@ -21,11 +21,14 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.QuintoTrainee.CineCinco.Oauth2.CustomOAuth2User;
 import com.QuintoTrainee.CineCinco.converters.UsuarioConverter;
+import com.QuintoTrainee.CineCinco.entities.Boleto;
+import com.QuintoTrainee.CineCinco.entities.Butaca;
 import com.QuintoTrainee.CineCinco.entities.Compra;
 import com.QuintoTrainee.CineCinco.entities.Usuario;
 import com.QuintoTrainee.CineCinco.enums.Provider;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
 import com.QuintoTrainee.CineCinco.models.UsuarioModel;
+import com.QuintoTrainee.CineCinco.repositories.ButacaRepository;
 import com.QuintoTrainee.CineCinco.repositories.UsuarioRepository;
 
 @Service
@@ -37,6 +40,8 @@ public class UsuarioService implements UserDetailsService {
 	private UsuarioConverter usuarioConverter;
 	@Autowired
 	private CompraService compraService;
+	@Autowired
+	private ButacaRepository butacaRepository;
 	
 	public void validar(UsuarioModel usuarioModel, String password, String repeatedPass) throws WebException {
 
@@ -162,6 +167,13 @@ public class UsuarioService implements UserDetailsService {
 	public void eliminarCompra(Usuario usuario, Compra compra) throws WebException {
 		
 		usuario.getCompras().remove(compra);
+		
+		for (Boleto boleto : compra.getBoletos()) {
+			Butaca butaca = boleto.getButaca();
+			butaca.setOcupado(false);
+			butacaRepository.save(butaca);
+			butaca = null;
+		}
 		
 		usuarioRepository.save(usuario);
 		compraService.hardDelete(compra);
