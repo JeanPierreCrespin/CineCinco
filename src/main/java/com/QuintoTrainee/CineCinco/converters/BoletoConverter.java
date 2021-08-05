@@ -41,14 +41,14 @@ public class BoletoConverter extends Converter<BoletoModel, Boleto> {
 		try {
 
 			Butaca entityButaca = null;
-			if (model.getIdButaca() != null) {
-				entityButaca = butacaRepository.getOne(model.getId());
+			if (model.getButaca().getId() != null) {
+				entityButaca = butacaRepository.getOne(model.getButaca().getId());
 			}
 			entity.setButaca(entityButaca);
 
 			Funcion entityFuncion = null;
-			if (model.getIdFuncion() != null) {
-				entityFuncion = funcionRepository.getOne(model.getId());
+			if (model.getFuncion().getId() != null) {
+				entityFuncion = funcionRepository.getOne(model.getFuncion().getId());
 			}
 			entity.setFuncion(entityFuncion);
 

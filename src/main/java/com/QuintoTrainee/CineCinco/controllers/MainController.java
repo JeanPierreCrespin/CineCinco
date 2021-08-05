@@ -1,6 +1,5 @@
 package com.QuintoTrainee.CineCinco.controllers;
 
-
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -46,40 +45,39 @@ public class MainController {
 	private UsuarioConverter usuarioConverter;
 	@Autowired
 	private PeliculaService peliculaService;
-	
+
 	@GetMapping("/")
 	public String index(ModelMap model) {
-		
+
 		try {
 			List<PeliculaModel> peliculas = peliculaService.listarPeliculasActivasModels();
 			model.put("peliculas", peliculas);
-			
+
 			List<PeliculaModel> estrenos = peliculaService.listarEstrenos();
 			model.put("estrenos", estrenos);
 		} catch (WebException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 		return "index";
 	}
-	
+
 	@GetMapping("/butaca")
 	public String butaca() {
 		return "butaca.html";
 	}
-	
+
 	@GetMapping("/home")
 	public String home() {
 		return "home.html";
 	}
-	
+
 	@GetMapping("/inicio")
 	public String inicio() {
-		return "inicio.html";
+		return "index.html";
 	}
-	
+
 	@GetMapping("/pago")
 	public String pago() {
 		return "pago.html";
@@ -105,44 +103,23 @@ public class MainController {
 			usuarioModel.setFechaNacimiento(UtilDate.parseFechaGuiones(fecha_nacimiento));
 			usuarioService.guardar(usuarioModel, password, repeated_password);
 		} catch (Exception ex) {
-			modelo.addAttribute("usuario",usuarioModel);
+			modelo.addAttribute("usuario", usuarioModel);
 			modelo.addAttribute("error", ex.getMessage());
-			return "registro" ;
+			return "registro";
 		}
 
 		return "index";
 	}
-	
-
-
 
 	// LOGIN
 	@GetMapping("/login")
-	public String login(HttpSession session, Authentication usuario, ModelMap modelo,
-			@RequestParam(required = false) String error) throws WebException {
-		try {
-			if (usuario.getName() != null) {
-				return "/inicio";
-			} else {
+	public String login(ModelMap modelo, @RequestParam(required = false) String error) throws WebException {
 
-				if (error != null && !error.isEmpty()) {
-					modelo.addAttribute("error", "La dirección de mail o la contraseña que ingresó son incorrectas.");
-				}
-				return "login";
-			}
-		} catch (Exception e) {
-			if (error != null && !error.isEmpty()) {
-				modelo.addAttribute("error", "La dirección de mail o la contraseña que ingresó son incorrectas.");
-			}
-			return "login";
+		if (error != null && !error.isEmpty()) {
+			modelo.addAttribute("error", "La dirección de mail o la contraseña que ingresó son incorrectas.");
 		}
-		//UsuarioModel usuario = usuarioConverter.entityToModel(usuarioRepository.getOne(((Usuario) session.getAttribute("usuarioSession")).getId()));
-		//modelo.addAttribute("usuario", usuario);
+		return "login";
 
 	}
-	
-	@GetMapping("/loginsuccess")
-	public String loginresolver() {
-		return "/inicio.html";
-	}
+
 }

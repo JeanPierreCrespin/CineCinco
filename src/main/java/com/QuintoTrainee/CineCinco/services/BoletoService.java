@@ -55,14 +55,8 @@ private BoletoConverter boletoConverter;
 			throw new WebException("El boleto debe tener una función");
 		}
 		
-		if (boletoB.getButaca() == null || boletoB.getButaca().isOcupado() || boletoB.getButaca().equals("")) {
+		if (boletoB.getButaca() == null || boletoB.getButaca().equals("")) {
 			throw new WebException("El boleto debe tener una butaca");
-		}
-		
-		Boleto boletoT = boletoRepository.getOne(boletoB.getId());
-		
-		if (boletoT != null && !(boletoT).getId().equals(boletoB.getId())) {
-			throw new WebException("Ya existe un boleto con ese número");
 		}
 		
 		try {
