@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +14,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.QuintoTrainee.CineCinco.converters.BoletoConverter;
-import com.QuintoTrainee.CineCinco.converters.CompraConverter;
+import com.QuintoTrainee.CineCinco.entities.Compra;
 import com.QuintoTrainee.CineCinco.entities.Usuario;
 import com.QuintoTrainee.CineCinco.models.BoletoModel;
 import com.QuintoTrainee.CineCinco.models.ButacaModel;
 import com.QuintoTrainee.CineCinco.models.CompraModel;
 import com.QuintoTrainee.CineCinco.models.FuncionModel;
+import com.QuintoTrainee.CineCinco.repositories.CompraRepository;
+import com.QuintoTrainee.CineCinco.repositories.UsuarioRepository;
 import com.QuintoTrainee.CineCinco.services.BoletoService;
 import com.QuintoTrainee.CineCinco.services.ButacaService;
 import com.QuintoTrainee.CineCinco.services.CompraService;
 import com.QuintoTrainee.CineCinco.services.FuncionService;
+import com.QuintoTrainee.CineCinco.services.UsuarioService;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.Preference;
 import com.mercadopago.resources.datastructures.preference.BackUrls;
@@ -40,7 +42,7 @@ public class CompraController {
 	@Autowired
 	private CompraService compraService;
 	@Autowired
-	private CompraConverter compraConverter;
+	private CompraRepository compraRepository;
 	@Autowired
 	private FuncionService funcionService;
 	@Autowired
@@ -51,7 +53,11 @@ public class CompraController {
 	private BoletoConverter boletoConverter;
 	@Autowired
     private HttpSession session;
-
+	@Autowired
+	private UsuarioService usuarioService;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
 	@PostMapping("/realizar_pago")
 	public String crearPago(@RequestParam(required = true) String idFuncion,
 			@RequestParam(required = true) String totalPagar, @RequestParam(required = true) List<String> idsButacas)
@@ -60,16 +66,21 @@ public class CompraController {
 		CompraModel compraModel = new CompraModel();
 		ArrayList<BoletoModel> boletos = new ArrayList<BoletoModel>();
 
+		Usuario usuario = usuarioRepository.getOne(((Usuario) session.getAttribute("usuarioSession")).getId());
+		
+		
 		try {
 			FuncionModel funcion = funcionService.getFuncionModelById(idFuncion);
 
 			for (String idButaca : idsButacas) {
 				ButacaModel butaca = butacaService.getButacaModelById(idButaca);
+				
+				butaca = butacaService.ocuparButaca(butaca);
+				
 				BoletoModel boleto = new BoletoModel();
 
 				boleto.setFuncion(funcion);
 				boleto.setButaca(butaca);
-				System.out.println("Guardando boleto");
 				boleto = boletoConverter.entityToModel(boletoService.guardar(boleto));
 				
 				boletos.add(boleto);
@@ -80,9 +91,10 @@ public class CompraController {
 			compraModel.setBoletos(boletos);
 			compraModel.setPrecioTotal(precioTotal);
 			
-			System.out.println("Antes de guardar compra");
-			compraService.guardar(compraModel);
-			System.out.println("DESPUES de cargar compra");
+			Compra compraEntity = compraService.guardar(compraModel);
+			
+			usuarioService.agregarCompra(usuario, compraEntity);
+			
 			// SECCION MP
 			Preference preference = new Preference();
 			// Crea un ítem en la preferencia
@@ -92,7 +104,7 @@ public class CompraController {
 
 			preference.appendItem(item);
 			BackUrls backUrls = new BackUrls("http://localhost:8080/compra/save",
-					"http://localhost:8080/compra/realizar_pago", "http://localhost:8080/compra/realizar_pago");
+					"http://localhost:8080/compra/realizar_pago", "http://localhost:8080/compra/save");
 			preference.setBackUrls(backUrls);
 			var resulset = preference.save();
 			return "redirect:" + resulset.getSandboxInitPoint();
@@ -107,14 +119,20 @@ public class CompraController {
 	@GetMapping("/save")
 	public String save(@RequestParam String status, @RequestParam String payment_type) throws Exception {
 
-		Usuario usuario = (Usuario) session.getAttribute("usuarioSession");
+		Usuario usuario = usuarioRepository.getOne(((Usuario) session.getAttribute("usuarioSession")).getId());
+		Compra compra = usuarioService.getCompraPendiente(usuario);
 
-		System.out.println(status);
 		System.out.println(usuario.getId());
 		
 		if (status.equals("approved")) {
+			System.out.println(status);
 			
-			System.out.println("APROBADO");
+			compra.setFechaAprobacionPago(new Date());
+			compraRepository.save(compra);
+			
+		} else {
+			System.out.println(status);
+			usuarioService.eliminarCompra(usuario, compra);
 		}
 		
 		

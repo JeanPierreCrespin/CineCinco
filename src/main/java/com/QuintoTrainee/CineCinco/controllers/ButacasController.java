@@ -78,20 +78,6 @@ public class ButacasController {
 				butacas.add(butaca);
 			}
 
-			return this.pagoPrueba(model, butacas, idFuncion);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return "redirect:/seleccionar/" + idFuncion;
-	}
-
-	@GetMapping("/pagoPrueba")
-	public String pagoPrueba(ModelMap model, ArrayList<ButacaModel> butacas, String idFuncion) {
-
-		try {
-
 			for (ButacaModel butacaModel : butacas) {
 				System.out.println(butacaModel.getNombre());
 				System.out.println(butacaModel.getId());
@@ -115,37 +101,4 @@ public class ButacasController {
 		return "redirect:/seleccionar/" + idFuncion;
 	}
 
-	@PostMapping("/test2")
-	public String test2(ModelMap model, @RequestParam(required = true) String idFuncion,
-			@RequestParam(required = true) String totalPagar, @RequestParam(required = true) List<String> idsButacas) {
-
-		System.out.println(idsButacas);
-		System.out.println(totalPagar);
-		System.out.println(idFuncion);
-
-		CompraModel compraModel = new CompraModel();
-		ArrayList<BoletoModel> boletos = new ArrayList<BoletoModel>();
-			
-		try {
-			FuncionModel funcion = funcionService.getFuncionModelById(idFuncion);
-			
-			for (String idButaca : idsButacas) {
-				ButacaModel butaca = butacaService.getButacaModelById(idButaca);
-				BoletoModel boleto = new BoletoModel();
-				
-				boleto.setAlta(new Date());
-				boleto.setFuncion(funcion);
-				boleto.setButaca(butaca);
-				
-				boletos.add(boleto);
-			}
-			
-			compraModel.setBoletos(boletos);
-			
-		} catch (WebException e) {
-			e.printStackTrace();
-		}
-		
-		return "redirect:/";
-	}
 }

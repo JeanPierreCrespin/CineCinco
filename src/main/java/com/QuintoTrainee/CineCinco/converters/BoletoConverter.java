@@ -42,14 +42,12 @@ public class BoletoConverter extends Converter<BoletoModel, Boleto> {
 
 			Butaca entityButaca = null;
 			if (model.getButaca().getId() != null) {
-				System.out.println("traigo butaca del repo");
 				entityButaca = butacaRepository.getOne(model.getButaca().getId());
 			}
 			entity.setButaca(entityButaca);
 
 			Funcion entityFuncion = null;
 			if (model.getFuncion().getId() != null) {
-				System.out.println("traigo funcion del repo");
 				entityFuncion = funcionRepository.getOne(model.getFuncion().getId());
 			}
 			entity.setFuncion(entityFuncion);
