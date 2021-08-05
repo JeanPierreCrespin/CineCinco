@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.QuintoTrainee.CineCinco.converters.BoletoConverter;
+import com.QuintoTrainee.CineCinco.converters.CompraConverter;
 import com.QuintoTrainee.CineCinco.entities.Usuario;
 import com.QuintoTrainee.CineCinco.models.BoletoModel;
 import com.QuintoTrainee.CineCinco.models.ButacaModel;
 import com.QuintoTrainee.CineCinco.models.CompraModel;
 import com.QuintoTrainee.CineCinco.models.FuncionModel;
+import com.QuintoTrainee.CineCinco.services.BoletoService;
 import com.QuintoTrainee.CineCinco.services.ButacaService;
 import com.QuintoTrainee.CineCinco.services.CompraService;
 import com.QuintoTrainee.CineCinco.services.FuncionService;
@@ -37,18 +40,22 @@ public class CompraController {
 	@Autowired
 	private CompraService compraService;
 	@Autowired
+	private CompraConverter compraConverter;
+	@Autowired
 	private FuncionService funcionService;
 	@Autowired
 	private ButacaService butacaService;
+	@Autowired
+	private BoletoService boletoService;
+	@Autowired
+	private BoletoConverter boletoConverter;
+	@Autowired
+    private HttpSession session;
 
 	@PostMapping("/realizar_pago")
 	public String crearPago(@RequestParam(required = true) String idFuncion,
 			@RequestParam(required = true) String totalPagar, @RequestParam(required = true) List<String> idsButacas)
 			throws MPException {
-
-		System.out.println(idsButacas);
-		System.out.println(totalPagar);
-		System.out.println(idFuncion);
 
 		CompraModel compraModel = new CompraModel();
 		ArrayList<BoletoModel> boletos = new ArrayList<BoletoModel>();
@@ -60,16 +67,23 @@ public class CompraController {
 				ButacaModel butaca = butacaService.getButacaModelById(idButaca);
 				BoletoModel boleto = new BoletoModel();
 
-				boleto.setAlta(new Date());
 				boleto.setFuncion(funcion);
 				boleto.setButaca(butaca);
-
+				System.out.println("Guardando boleto");
+				boleto = boletoConverter.entityToModel(boletoService.guardar(boleto));
+				
 				boletos.add(boleto);
 			}
 
 			float precioTotal = (float) (boletos.size() * funcion.getPrecioEntrada());
+			
+			compraModel.setBoletos(boletos);
+			compraModel.setPrecioTotal(precioTotal);
+			
+			System.out.println("Antes de guardar compra");
+			compraService.guardar(compraModel);
+			System.out.println("DESPUES de cargar compra");
 			// SECCION MP
-
 			Preference preference = new Preference();
 			// Crea un ítem en la preferencia
 			Item item = new Item();
@@ -93,14 +107,17 @@ public class CompraController {
 	@GetMapping("/save")
 	public String save(@RequestParam String status, @RequestParam String payment_type) throws Exception {
 
-		Usuario usuario = new Usuario();
-		// = Controllers.getFromSession(session);
-		System.out.println(status);
+		Usuario usuario = (Usuario) session.getAttribute("usuarioSession");
 
+		System.out.println(status);
+		System.out.println(usuario.getId());
+		
 		if (status.equals("approved")) {
-			// compraService.save(status, payment_type, usuario);
+			
 			System.out.println("APROBADO");
 		}
+		
+		
 		return "redirect:/?status=" + status;
 
 	}

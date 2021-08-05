@@ -39,7 +39,7 @@ public class Compra {
 	private double precioTotal;
 	private String status;
 	private String tipoPago;
-
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date alta;
 

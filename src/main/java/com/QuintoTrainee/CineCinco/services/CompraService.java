@@ -27,7 +27,7 @@ public class CompraService {
 	public void validar(CompraModel compraModel) throws WebException {
 		
 		try {
-			Enum.valueOf(Estado.class, compraModel.getEstado().toString());
+			//Enum.valueOf(Estado.class, compraModel.getEstado().toString());
 		} catch (IllegalArgumentException e) {
 			throw new WebException("El estado indicado no es un estado valido");
 		} catch (NullPointerException e) {

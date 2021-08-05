@@ -110,6 +110,7 @@ public class UsuarioService implements UserDetailsService {
 
 		Usuario usuario = usuarioRepository.buscarPorMail(mail);
 
+		System.out.println("LLEGO ACA");
 		if (usuario != null) {
 
 			List<GrantedAuthority> permisos = new ArrayList<>();
