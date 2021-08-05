@@ -21,6 +21,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.QuintoTrainee.CineCinco.Oauth2.CustomOAuth2User;
 import com.QuintoTrainee.CineCinco.converters.UsuarioConverter;
+import com.QuintoTrainee.CineCinco.entities.Compra;
 import com.QuintoTrainee.CineCinco.entities.Usuario;
 import com.QuintoTrainee.CineCinco.enums.Provider;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
@@ -34,7 +35,9 @@ public class UsuarioService implements UserDetailsService {
 	private UsuarioRepository usuarioRepository;
 	@Autowired
 	private UsuarioConverter usuarioConverter;
-
+	@Autowired
+	private CompraService compraService;
+	
 	public void validar(UsuarioModel usuarioModel, String password, String repeatedPass) throws WebException {
 
 		if (usuarioModel.getAlta() != null) {
@@ -143,5 +146,25 @@ public class UsuarioService implements UserDetailsService {
         }
          
     }
+
+	public void agregarCompra(Usuario usuario, Compra compraEntity) {
+		
+		usuario.getCompras().add(compraEntity);
+		
+		usuarioRepository.save(usuario);
+		
+	}
+
+	public Compra getCompraPendiente(Usuario usuario) {
+		return usuarioRepository.getCompraPendiente(usuario.getId());
+	}
+
+	public void eliminarCompra(Usuario usuario, Compra compra) throws WebException {
+		
+		usuario.getCompras().remove(compra);
+		
+		usuarioRepository.save(usuario);
+		compraService.hardDelete(compra);
+	}
 
 }

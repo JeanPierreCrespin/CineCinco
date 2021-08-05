@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.QuintoTrainee.CineCinco.entities.Compra;
 import com.QuintoTrainee.CineCinco.entities.Usuario;
 
 @Repository
@@ -13,4 +14,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, String>{
 	@Query("SELECT c FROM Usuario c WHERE c.email =:mail")
     public Usuario buscarPorMail(@Param("mail") String mail);
 
+	@Query("SELECT c FROM Usuario u, IN(u.compras) c WHERE c.fechaAprobacionPago IS NULL AND u.id LIKE :idUser")
+    public Compra getCompraPendiente(@Param("idUser") String idUser);
+	
 }

@@ -73,6 +73,14 @@ private ButacaConverter butacaConverter;
 
 	public ButacaModel getButacaModelById(String idButaca) throws WebException {
 		return butacaConverter.entityToModel(butacaRepository.getOne(idButaca));
+	}
+
+	public ButacaModel ocuparButaca(ButacaModel butaca) throws WebException {
+		Butaca butacaEntity = butacaConverter.modelToEntity(butaca);
+		
+		butacaEntity.setOcupado(true);
+		butacaEntity = butacaRepository.save(butacaEntity);
+		return butacaConverter.entityToModel(butacaEntity);
 	}     
 	
 }

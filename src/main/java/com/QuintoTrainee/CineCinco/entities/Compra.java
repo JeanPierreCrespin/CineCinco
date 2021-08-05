@@ -3,9 +3,8 @@ package com.QuintoTrainee.CineCinco.entities;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -13,8 +12,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
-
-import com.QuintoTrainee.CineCinco.enums.Estado;
 
 import lombok.Data;
 
@@ -33,13 +30,13 @@ public class Compra {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaAprobacionPago;
 
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval = true)
 	private List<Boleto> boletos;
 
 	private double precioTotal;
 	private String status;
 	private String tipoPago;
-
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date alta;
 
