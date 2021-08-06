@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.QuintoTrainee.CineCinco.converters.BoletoConverter;
+import com.QuintoTrainee.CineCinco.entities.Boleto;
 import com.QuintoTrainee.CineCinco.entities.Compra;
 import com.QuintoTrainee.CineCinco.entities.Usuario;
 import com.QuintoTrainee.CineCinco.models.BoletoModel;
@@ -75,8 +76,6 @@ public class CompraController {
 			for (String idButaca : idsButacas) {
 				ButacaModel butaca = butacaService.getButacaModelById(idButaca);
 				
-				butaca = butacaService.ocuparButaca(butaca);
-				
 				BoletoModel boleto = new BoletoModel();
 
 				boleto.setFuncion(funcion);
@@ -99,7 +98,7 @@ public class CompraController {
 			Preference preference = new Preference();
 			// Crea un ítem en la preferencia
 			Item item = new Item();
-			item.setTitle("Entradas para: " + funcion.getPelicula().getTitulo()).setQuantity(boletos.size())
+			item.setTitle("Entradas para: "+funcion.getPelicula().getTitulo()).setQuantity(boletos.size())
 					.setUnitPrice((float) funcion.getPrecioEntrada());
 
 			preference.appendItem(item);
@@ -126,6 +125,10 @@ public class CompraController {
 		
 		if (status.equals("approved")) {
 			System.out.println(status);
+			
+			for(Boleto boleto : compra.getBoletos()) {
+				butacaService.ocuparButaca(boleto.getButaca());
+			}
 			
 			compra.setFechaAprobacionPago(new Date());
 			compraRepository.save(compra);
