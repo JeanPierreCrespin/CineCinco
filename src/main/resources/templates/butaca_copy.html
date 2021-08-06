@@ -125,7 +125,7 @@
                 <div class="Seating-Container" style="width: 625px; height: 350px; visibility: visible;">
                   <div class="Seating-Theatre" style="width:625px;height:350px;" data-originalsize="350">
                     <div class="container my-5">
-                      <form action="/test" method="post" th:object="${funcionSeleccionButacas}">
+                      <form action="/compra_entradas" method="post" th:object="${funcionSeleccionButacas}">
                         <input type="hidden" name="idFuncion" th:value="${funcion.id}">
                         <div th:each="arrayButacas : ${filasMap}" class="row row-cols-10 my-3">
                           <label id="labelcheck" class="col"><input th:each="butaca : ${arrayButacas.value}" type="checkbox" th:field="*{idsButacas}" id="" th:value="${butaca.id}"></label>

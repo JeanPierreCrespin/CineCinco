@@ -21,11 +21,14 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.QuintoTrainee.CineCinco.Oauth2.CustomOAuth2User;
 import com.QuintoTrainee.CineCinco.converters.UsuarioConverter;
+import com.QuintoTrainee.CineCinco.entities.Boleto;
+import com.QuintoTrainee.CineCinco.entities.Butaca;
 import com.QuintoTrainee.CineCinco.entities.Compra;
 import com.QuintoTrainee.CineCinco.entities.Usuario;
 import com.QuintoTrainee.CineCinco.enums.Provider;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
 import com.QuintoTrainee.CineCinco.models.UsuarioModel;
+import com.QuintoTrainee.CineCinco.repositories.ButacaRepository;
 import com.QuintoTrainee.CineCinco.repositories.UsuarioRepository;
 
 @Service
@@ -37,7 +40,9 @@ public class UsuarioService implements UserDetailsService {
 	private UsuarioConverter usuarioConverter;
 	@Autowired
 	private CompraService compraService;
-	
+	@Autowired
+	private ButacaRepository butacaRepository;
+
 	public void validar(UsuarioModel usuarioModel, String password, String repeatedPass) throws WebException {
 
 		if (usuarioModel.getAlta() != null) {
@@ -60,14 +65,14 @@ public class UsuarioService implements UserDetailsService {
 		if (usuarioModel.getFechaNacimiento() == null) {
 			throw new WebException("El Usuario tiene que tener una fecha de nacimiento");
 		}
-		
-		DateTimeComparator dateOnlyComparator  = DateTimeComparator.getDateOnlyInstance();
+
+		DateTimeComparator dateOnlyComparator = DateTimeComparator.getDateOnlyInstance();
 		int comparacionFecha = dateOnlyComparator.compare(usuarioModel.getFechaNacimiento(), new Date());
-		
+
 		if (comparacionFecha >= 0) {
 			throw new WebException("El Usuario tiene que tener una fecha de nacimiento anterior a la fecha actual");
 		}
-		
+
 		if (usuarioModel.getRol() == null) {
 			throw new WebException("El Usuario tiene que tener una Rol");
 		}
@@ -132,37 +137,52 @@ public class UsuarioService implements UserDetailsService {
 			return null;
 		}
 	}
-	
-	public void processOAuthPostLogin(CustomOAuth2User oAuth2User) {
-        Usuario existUser = usuarioRepository.buscarPorMail(oAuth2User.getEmail());
-         
-        if (existUser == null) {
-            Usuario newUser = new Usuario();
-            newUser.setNombreCompleto(oAuth2User.getName());
-            newUser.setEmail(oAuth2User.getEmail());
-            newUser.setProvider(Provider.GOOGLE);          
-             
-            usuarioRepository.save(newUser);        
-        }
-         
-    }
 
-	public void agregarCompra(Usuario usuario, Compra compraEntity) {
-		
-		usuario.getCompras().add(compraEntity);
-		
-		usuarioRepository.save(usuario);
-		
+	public void processOAuthPostLogin(CustomOAuth2User oAuth2User) {
+		Usuario existUser = usuarioRepository.buscarPorMail(oAuth2User.getEmail());
+
+		if (existUser == null) {
+			Usuario newUser = new Usuario();
+			newUser.setNombreCompleto(oAuth2User.getName());
+			newUser.setEmail(oAuth2User.getEmail());
+			newUser.setProvider(Provider.GOOGLE);
+
+			usuarioRepository.save(newUser);
+		}
+
 	}
 
-	public Compra getCompraPendiente(Usuario usuario) {
-		return usuarioRepository.getCompraPendiente(usuario.getId());
+	public void agregarCompra(Usuario usuario, Compra compraEntity) {
+
+		usuario.getCompras().add(compraEntity);
+
+		usuarioRepository.save(usuario);
+
+	}
+
+	public Compra getCompraPendiente(Usuario usuario) throws WebException {
+		List<Compra> compraPendiente = usuarioRepository.getCompraPendiente(usuario.getId());
+		Compra compra;
+		if (compraPendiente.size() > 1) {
+			for(int i = 1; i < compraPendiente.size(); i++) {
+				this.eliminarCompra(usuario, compraPendiente.get(i));
+			}
+		}
+		compra = compraPendiente.get(0);
+		return compra;
 	}
 
 	public void eliminarCompra(Usuario usuario, Compra compra) throws WebException {
-		
+
 		usuario.getCompras().remove(compra);
-		
+
+		for (Boleto boleto : compra.getBoletos()) {
+			Butaca butaca = boleto.getButaca();
+			butaca.setOcupado(false);
+			butacaRepository.save(butaca);
+			butaca = null;
+		}
+
 		usuarioRepository.save(usuario);
 		compraService.hardDelete(compra);
 	}
