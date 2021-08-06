@@ -26,8 +26,11 @@ import com.QuintoTrainee.CineCinco.repositories.UsuarioRepository;
 import com.QuintoTrainee.CineCinco.services.BoletoService;
 import com.QuintoTrainee.CineCinco.services.ButacaService;
 import com.QuintoTrainee.CineCinco.services.CompraService;
+<<<<<<< HEAD
 import com.QuintoTrainee.CineCinco.services.FuncionService;
 import com.QuintoTrainee.CineCinco.services.UsuarioService;
+=======
+>>>>>>> tareas/Marina
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.Preference;
 import com.mercadopago.resources.datastructures.preference.BackUrls;
