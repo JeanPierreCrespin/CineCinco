@@ -111,7 +111,10 @@
             <img src="/img/iconsquare-96px.png" width="30" height="30" alt="Disponible">
             <span class="Legend">Disponible</span>
           </span>
-
+          <span class="Disponibilidadcontainer">
+            <img src="/img/iconsquareblack-96px.png" width="30" height="30" alt="Ocupado">
+            <span class="Legend">Ocupado</span>
+          </span>
         </div>
 
         <div id="divSeatMap" class="Screen-AllAreas">
@@ -122,12 +125,12 @@
                   <h1 class="pantalla mb-5" style="letter-spacing:0.7em;position: absolute;left:34%;">PANTALLA</h1>
                   <br>
                 </div>
-                <div class="Seating-Container" style="width: 625px; height: 350px; visibility: visible;">
-                  <div class="Seating-Theatre" style="width:625px;height:350px;" data-originalsize="350">
+                <div class="Seating-Container" style="width: 625px; height: 250px; visibility: visible;">
+                  <div class="Seating-Theatre" style="width:625px;height:310px;" data-originalsize="350">
                     <div class="container row my-5">
                       <form action="/test" method="post" th:object="${funcionSeleccionButacas}">
                         <input type="hidden" name="idFuncion" th:value="${funcion.id}">
-                        <div th:each="arrayButacas : ${filasMap}" class="flex-container col-2">
+                        <div th:each="arrayButacas : ${filasMap}" class="flex-container">
                           <label id="labelcheck"><div th:each="butaca : ${arrayButacas.value}">
                           <input th:if="${butaca.ocupado}" type="checkbox" th:field="*{idsButacas}" id="ocupado" class="col" th:value="${butaca.id}">
                           <input th:unless="${butaca.ocupado}" type="checkbox" th:field="*{idsButacas}" id="" class="col" th:value="${butaca.id}"></div>
