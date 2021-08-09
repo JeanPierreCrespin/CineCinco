@@ -9,8 +9,8 @@ spring:
                 starttls:
                     required: true
                     enable: true
-    username: email@gmail.com
-    password: claveemail
+    username: CineCincoSemillero@gmail.com
+    password: oiuiMT39lb&85p#f^5tS&
     
   security:    oauth2:      client:
         registration:          google:

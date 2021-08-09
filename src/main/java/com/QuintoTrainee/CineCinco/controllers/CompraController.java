@@ -27,6 +27,7 @@ import com.QuintoTrainee.CineCinco.services.BoletoService;
 import com.QuintoTrainee.CineCinco.services.ButacaService;
 import com.QuintoTrainee.CineCinco.services.CompraService;
 import com.QuintoTrainee.CineCinco.services.FuncionService;
+import com.QuintoTrainee.CineCinco.services.NotificacionMail;
 import com.QuintoTrainee.CineCinco.services.UsuarioService;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.Preference;
@@ -58,6 +59,8 @@ public class CompraController {
 	private UsuarioService usuarioService;
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	@Autowired
+    private NotificacionMail notificacionMail;
 	
 	@PostMapping("/realizar_pago")
 	public String crearPago(@RequestParam(required = true) String idFuncion,
@@ -131,7 +134,10 @@ public class CompraController {
 			}
 			
 			compra.setFechaAprobacionPago(new Date());
+			
 			compraRepository.save(compra);
+			
+			notificacionMail.enviar("Se ha confirmado su pago.", "CineCino pago confirmado", usuario.getEmail());
 			
 		} else {
 			System.out.println(status);

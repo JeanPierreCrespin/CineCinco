@@ -2,11 +2,13 @@ package com.QuintoTrainee.CineCinco;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import com.mercadopago.MercadoPago;
 import com.mercadopago.exceptions.MPConfException;
 
 @SpringBootApplication
+@EnableAsync
 public class CineCincoApplication  {
 
 	public static void main(String[] args) throws MPConfException {
