@@ -10,15 +10,19 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" 
   integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 <!-- The styles -->
-<link id="bs-css" href="/src/main/resources/static/css/bootstrap-cyborg.min.css" rel="stylesheet">
-<!--Link de estilos para visualizarlo en Spring o Netbeans
-	<link rel="stylesheet" href="css/peliculastyle.css">
-	<link href="img/clapperboard_cinema_icon-32px.png" rel="shortcut icon"/> -->
-<!--Link estilos y logo pestaña-->
-<link rel="stylesheet" href="/src/main/resources/static/css/peliculastyle.css">
-<link href="/src/main/resources/static/img/clapperboard_cinema_icon-32px.png" rel="shortcut icon"/>
+<link href="/css/charisma-app.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/peliculastyle.css">
+<link href="/img/clapperboard_cinema_icon-32px.png" rel="shortcut icon"/>
   <title>CineCinco</title>
-<link href="/src/main/resources/static/css/charisma-app.css" rel="stylesheet">
+
+  <!-- Encabezado  -->
+	<div class="container header">
+		<div class="row header">
+			<div class="col-xs-0 col-md-3  left-block "></div>
+			<div class="col-xs-12 col-md-6 body-block">CinemaCinco</div>
+			<div class="col-xs-0 col-md-3 rigth-block"></div>
+		</div>
+	</div>
 </head>
 
 <header>
@@ -65,22 +69,14 @@
             <ul class="nav nav-pills nav-stacked main-menu">
               <h3 class="nav-header">Categorias</h3>
  				<ul>
-  					<li><a class="ajax-link" href="/peliculasporgenero?genero=TERROR"><i class="glyphicon glyphicon-home"></i><span>
-                    Terror</span></a></li>
-					<li><a class="ajax-link" href="/peliculasporgenero?genero=COMEDIA"><i class="glyphicon glyphicon-home"></i><span>
-                    Comedia</span></a></li>
- 					<li><a class="ajax-link" href="/peliculasporgenero?genero=ROMANTICA"><i class="glyphicon glyphicon-home"></i><span>
-                    Romantica</span></a></li>
- 					<li><a class="ajax-link" href="/peliculasporgenero?genero=CIENCIAFICCION"><i class="glyphicon glyphicon-home"></i><span>
-                    Ciencia Ficcion</span></a></li>
- 					<li><a class="ajax-link" href="/peliculasporgenero?genero=DRAMA"><i class="glyphicon glyphicon-home"></i><span>
-                    Drama</span></a></li>
- 					<li><a class="ajax-link" href="/peliculasporgenero?genero=INFANTIL"><i class="glyphicon glyphicon-home"></i><span>
-                    Infantil</span></a></li>
- 					<li><a class="ajax-link" href="/peliculasporgenero?genero=ACCION"><i class="glyphicon glyphicon-home"></i><span>
-                    Acción</span></a></li>
- 					<li><a class="ajax-link" href="/peliculasporgenero?genero=SUSPENSO"><i class="glyphicon glyphicon-home"></i><span>
-                    Suspenso</span></a></li>
+  					<li><a class="ajax-link" href="/peliculasporgenero?genero=TERROR"><span>Terror</span></a></li>
+					<li><a class="ajax-link" href="/peliculasporgenero?genero=COMEDIA"><span>Comedia</span></a></li>
+ 					<li><a class="ajax-link" href="/peliculasporgenero?genero=ROMANTICA"><span>Romantica</span></a></li>
+ 					<li><a class="ajax-link" href="/peliculasporgenero?genero=CIENCIAFICCION"><span>Ciencia Ficcion</span></a></li>
+ 					<li><a class="ajax-link" href="/peliculasporgenero?genero=DRAMA"><span>Drama</span></a></li>
+ 					<li><a class="ajax-link" href="/peliculasporgenero?genero=INFANTIL"><span>Infantil</span></a></li>
+ 					<li><a class="ajax-link" href="/peliculasporgenero?genero=ACCION"><span>Acción</span></a></li>
+ 					<li><a class="ajax-link" href="/peliculasporgenero?genero=SUSPENSO"><span>Suspenso</span></a></li>
  				</ul>
      
               </ul>
@@ -88,6 +84,8 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
  		<div class="row premiere-card-title mt-3">
 			<!-- Titulos en cartel -->
 			<div class="premiere col-xs-12 col-md-12" id="cartelera">
@@ -107,7 +105,7 @@
 						<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
 						<p th:text="${pelicula.sinopsis}" class="card-text"></p>
 						<p th:text="${pelicula.genero}" class="card-text"></p>
-						<a href="#" class="btn btn-premiere">Comprar reserva</a>
+						<a href="#" class="btn-rojo">Comprar reserva</a>
 					</div>
 				</div>
 			</div>
@@ -131,7 +129,7 @@
 						<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
 						<p th:text="${pelicula.sinopsis}" class="card-text"></p>
 						<p th:text="${pelicula.genero}" class="card-text"></p>
-						<a href="#" class="btn btn-premiere">Comprar reserva</a>
+						<a href="#" class="btn-rojo">Comprar reserva</a>
 					</div>
 				</div>
 			</div>
