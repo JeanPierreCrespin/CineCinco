@@ -59,7 +59,7 @@
                 <h1>Ingresa tus datos</h1>
                  <p class="text-danger"  th:text="${error}"></p>
                 <hr>
-                <form  method="POST" th:action="@{/registro}" th:object="${usuario}">
+                <form  method="POST" th:action="@{/registrar_usuario}" th:object="${usuario}">
                     <label for="validationCustom01" class="form-label">Nombre y Apellido</label>
                     <input type="text" id="validationCustom01" placeholder="Ingrese su nombre y apellido" class="form-control" th:field="*{nombreCompleto}" required>
                     <div class="invalid-feedback">
