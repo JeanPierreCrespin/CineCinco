@@ -23,7 +23,7 @@
     padding: 0;
     background: url(../img/salacine.jpg) no-repeat center top;
     background-size: cover;
-    height: 100vh;
+    height: 175vh;
     width: auto;
 }
 /*--------Breadcrumb---------*/
@@ -113,9 +113,20 @@
     color: black;
     padding: 70px 30px;
     padding: 3%;
-    height: 90vh;
+    height: 130vh;
     width: auto;
     position: center;
+}
+.flex-container{
+	display: grid;
+	justify-content: center;
+	grid-auto-rows: 40px;
+	transform: rotate(90deg);
+	margin-left: 217px;
+	padding: 2px;
+}
+.flex-container > label {
+	margin-left: 5px;
 }
 
 /*-----Checkbox-----*/
@@ -142,7 +153,9 @@ input[type=checkbox]:checked {
     background-color: red;
     border: none;
 }
-
+input[type=checkbox]:checked > #ocupado {
+	background-color: #000;
+}
 
 /*------Boton continuar-----*/
 #botoncontinuar2 {
