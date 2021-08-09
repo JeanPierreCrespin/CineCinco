@@ -147,7 +147,8 @@
 					</div>
 					<div class="card-block-premiere">
 						<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
-						<a href="#" class="btn btn-premiere">Comprar reserva</a>
+						<!-- Cambio en enlace de portada -->
+						<a th:href="@{/portada/} +${pelicula.id}" class="btn btn-premiere">Comprar reserva</a>
 					</div>
 				</div>
 			</div>

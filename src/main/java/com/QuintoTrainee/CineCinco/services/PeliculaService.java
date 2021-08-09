@@ -99,6 +99,11 @@ public class PeliculaService {
 		if (peliculaM.getTitulo() == null || peliculaM.getTitulo().isEmpty() || peliculaM.getTitulo().equals("")) {
 			throw new WebException("La pelicula debe tener un titulo");
 		}
+		
+		//Añadí el trailer para poder llamarlo en la portada//
+		if (peliculaM.getTrailer() == null || peliculaM.getTrailer().isEmpty() || peliculaM.getTrailer().equals("")) {
+			throw new WebException("La pelicula debe tener un trailer");
+		}
 
 		if (peliculaM.getSinopsis() == null || peliculaM.getSinopsis().isEmpty()
 				|| peliculaM.getSinopsis().equals("")) {
@@ -139,6 +144,13 @@ public class PeliculaService {
 
 	public List<PeliculaModel> listarPeliculasPorGenero(Genero genero) throws WebException{
 		return peliculaConverter.entitiesToModels(peliculaRepository.buscarPorGenero(genero));
+	}
+
+	public PeliculaModel getPeliculaModelById(String idPelicula) throws WebException {
+		 
+		
+		
+		return peliculaConverter.entityToModel(peliculaRepository.getOne(idPelicula));
 	}
 
 }
