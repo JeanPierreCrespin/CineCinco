@@ -24,6 +24,7 @@ import com.QuintoTrainee.CineCinco.exceptions.WebException;
 import com.QuintoTrainee.CineCinco.models.PeliculaModel;
 import com.QuintoTrainee.CineCinco.models.UsuarioModel;
 import com.QuintoTrainee.CineCinco.repositories.UsuarioRepository;
+import com.QuintoTrainee.CineCinco.services.NotificacionMail;
 import com.QuintoTrainee.CineCinco.services.PeliculaService;
 import com.QuintoTrainee.CineCinco.services.UsuarioService;
 import com.QuintoTrainee.CineCinco.utils.UtilDate;
@@ -45,6 +46,8 @@ public class MainController {
 	private UsuarioConverter usuarioConverter;
 	@Autowired
 	private PeliculaService peliculaService;
+	@Autowired
+    private NotificacionMail notificacionMail;
 
 	@GetMapping("/")
 	public String index(ModelMap model) {
@@ -97,7 +100,7 @@ public class MainController {
 		return "registro.html";
 	}
 
-	@PostMapping("/registro")
+	@PostMapping("/registrar_usuario")
 	public String registrarUsuario(ModelMap modelo, @Valid @ModelAttribute("usuario") UsuarioModel usuarioModel,
 			@RequestParam(required = true) String password, @RequestParam(required = true) String repeated_password,
 			@RequestParam(required = true) String fecha_nacimiento) throws Exception {
@@ -106,13 +109,15 @@ public class MainController {
 			usuarioModel.setRol(Rol.CLIENTE);
 			usuarioModel.setFechaNacimiento(UtilDate.parseFechaGuiones(fecha_nacimiento));
 			usuarioService.guardar(usuarioModel, password, repeated_password);
+			
 		} catch (Exception ex) {
 			modelo.addAttribute("usuario", usuarioModel);
 			modelo.addAttribute("error", ex.getMessage());
-			return "registro";
+			return "redirect:/";
 		}
 
-		return "index";
+		notificacionMail.enviar("Se ha registrado correctamente.", "CineCinco registro correcto", usuarioModel.getEmail());
+		return "redirect:/login";
 	}
 
 	// LOGIN

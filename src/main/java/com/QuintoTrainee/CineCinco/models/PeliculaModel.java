@@ -20,6 +20,9 @@ public class PeliculaModel implements Serializable {
 	private String titulo;
 
 	private String sinopsis;
+	
+	//trailer//
+	private String trailer;
 
 	private Genero genero;
 

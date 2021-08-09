@@ -1,9 +1,6 @@
 package com.QuintoTrainee.CineCinco.controllers;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -18,13 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
-import com.QuintoTrainee.CineCinco.models.BoletoModel;
 import com.QuintoTrainee.CineCinco.models.ButacaModel;
-import com.QuintoTrainee.CineCinco.models.CompraModel;
 import com.QuintoTrainee.CineCinco.models.FuncionModel;
 import com.QuintoTrainee.CineCinco.services.ButacaService;
 import com.QuintoTrainee.CineCinco.services.FuncionService;
-import static com.QuintoTrainee.CineCinco.utils.Texts.*;
 
 import lombok.RequiredArgsConstructor;
 
@@ -62,7 +56,7 @@ public class ButacasController {
 		return "butaca_copy.html";
 	}
 
-	@PostMapping("/test")
+	@PostMapping("/compra_entradas")
 	public String test(ModelMap model,
 			@Valid @ModelAttribute("funcionSeleccionButacas") FuncionModel funcionSeleccionButacas,
 			@RequestParam(required = true) String idFuncion) {

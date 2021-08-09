@@ -103,6 +103,11 @@ public class PeliculaService {
 		if (peliculaM.getTitulo() == null || peliculaM.getTitulo().isEmpty() || peliculaM.getTitulo().equals("")) {
 			throw new WebException("La pelicula debe tener un titulo");
 		}
+		
+		//Añadí el trailer para poder llamarlo en la portada//
+		if (peliculaM.getTrailer() == null || peliculaM.getTrailer().isEmpty() || peliculaM.getTrailer().equals("")) {
+			throw new WebException("La pelicula debe tener un trailer");
+		}
 
 		if (peliculaM.getSinopsis() == null || peliculaM.getSinopsis().isEmpty()
 				|| peliculaM.getSinopsis().equals("")) {
@@ -149,7 +154,17 @@ public class PeliculaService {
 		return peliculaConverter.entitiesToModels(peliculaOrdenadaPorGenero.buscarPorGenero(4, genero));
 	}
 
+<<<<<<< HEAD
 	public List<PeliculaModel> listarPeliculasPorGeneroEnCartel(Genero genero) throws WebException{
 		return peliculaConverter.entitiesToModels(peliculaOrdenadaPorGenero.buscarPorGeneroEnCartel(4, genero));
 	}
+=======
+	public PeliculaModel getPeliculaModelById(String idPelicula) throws WebException {
+		 
+		
+		
+		return peliculaConverter.entityToModel(peliculaRepository.getOne(idPelicula));
+	}
+
+>>>>>>> c8b7d52316ec8d5df36606f753c6ff36687f9569
 }
