@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.QuintoTrainee.CineCinco.models.PeliculaModel;
+import com.QuintoTrainee.CineCinco.repositories.PeliculaOrdenadaPorGenero;
 import com.QuintoTrainee.CineCinco.repositories.PeliculaRepository;
 import com.QuintoTrainee.CineCinco.converters.PeliculaConverter;
 import com.QuintoTrainee.CineCinco.entities.Foto;
@@ -136,9 +137,16 @@ public class PeliculaService {
 	public List<PeliculaModel> listarEstrenos() throws WebException{
 		return peliculaConverter.entitiesToModels(peliculaRepository.listarEstrenos());
 	}
-
-	public List<PeliculaModel> listarPeliculasPorGenero(Genero genero) throws WebException{
-		return peliculaConverter.entitiesToModels(peliculaRepository.buscarPorGenero(genero));
+	
+	public List<PeliculaModel> listarEnCartel() throws WebException{
+		return peliculaConverter.entitiesToModels(peliculaRepository.listarEnCartel());
 	}
 
+	public List<PeliculaModel> listarPeliculasPorGenero(Genero genero) throws WebException{
+		return peliculaConverter.entitiesToModels(PeliculaOrdenadaPorGenero.buscarPorGenero(int limit, Genero genero));
+	}
+
+	public List<PeliculaModel> listarPeliculasPorGeneroEnCartel(Genero genero) throws WebException{
+		return peliculaConverter.entitiesToModels(peliculaRepository.buscarPorGeneroEnCartel(genero));
+	}
 }

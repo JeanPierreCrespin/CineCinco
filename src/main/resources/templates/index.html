@@ -130,7 +130,7 @@
 		</div>
 
 		<div class="row premiere-card-title mt-3">
-			<!-- Titulos Estrenos -->
+			<!-- Titulos en cartel -->
 			<div class="premiere col-xs-12 col-md-12" id="cartelera">
 				<h1 class="title-premiere">Cartelera</h1>
 				<h5 class="body-premiere">Consulta por promos con tarjetas seleccionadas</h1>
@@ -138,8 +138,8 @@
 		</div>
 
 		<div class="row premiere-card mt-3">
-			<!-- Estrenos -->
-			<div th:each="pelicula : ${estrenos}" class="col-xs-6 col-md-3">
+			<!-- En cartel -->
+			<div th:each="pelicula : ${enCartel}" class="col-xs-6 col-md-3">
 				<div class="card">
 					<div class="card-img">
 						<img th:src="@{'data:/'+${pelicula.foto.mime}+';base64,'+${pelicula.foto.getImgData()}}" class="card-img-top img-fluid" alt="">

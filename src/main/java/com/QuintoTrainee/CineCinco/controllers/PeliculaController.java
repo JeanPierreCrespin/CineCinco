@@ -27,6 +27,10 @@ public class PeliculaController {
 		try {
 			estrenos = peliculaService.listarEstrenos();
 			model.put("estrenos", estrenos);
+			
+			List<PeliculaModel> enCartel = peliculaService.listarEnCartel();
+			model.put("enCartel", enCartel);
+			
 		} catch (WebException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
