@@ -154,17 +154,11 @@ public class PeliculaService {
 		return peliculaConverter.entitiesToModels(peliculaOrdenadaPorGenero.buscarPorGenero(4, genero));
 	}
 
-<<<<<<< HEAD
 	public List<PeliculaModel> listarPeliculasPorGeneroEnCartel(Genero genero) throws WebException{
 		return peliculaConverter.entitiesToModels(peliculaOrdenadaPorGenero.buscarPorGeneroEnCartel(4, genero));
 	}
-=======
+
 	public PeliculaModel getPeliculaModelById(String idPelicula) throws WebException {
-		 
-		
-		
 		return peliculaConverter.entityToModel(peliculaRepository.getOne(idPelicula));
 	}
-
->>>>>>> c8b7d52316ec8d5df36606f753c6ff36687f9569
 }
