@@ -13,11 +13,9 @@
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
 	crossorigin="anonymous">
 
-<link rel="stylesheet"
-	href="/src/main/resources/static/css/PortadaStyle.css">
-<link
-	href="/src/main/resources/static/img/clapperboard_cinema_icon-32px.png"
-	rel="shortcut icon" />
+<!--Link de estilos para visualizarlo en Spring o Netbeans -->
+<link rel="stylesheet" href="/css/PortadaStyle.css">
+<link href="/img/clapperboard_cinema_icon-32px.png" rel="shortcut icon" />
 
 <title>Pelicula</title>
 
@@ -36,7 +34,7 @@
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#"> <img
-				src="/src/main/resources/static/img/clapperboard_cinema_icon-64px.png"
+				src="/img/clapperboard_cinema_icon-64px.png"
 				alt="" width="40" height="35" class="d-inline-block align-text-top">
 				CineCinco
 			</a>
@@ -50,11 +48,6 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="#">Home</a></li>
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Contacto</a></li>
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Quienes somos</a></li>
-
 				</ul>
 				<form class="d-flex">
 					<input class="form-control me-2" type="search" placeholder="Search"
@@ -86,11 +79,11 @@
 
 
 					<p th:text="${pelicula.genero}" class="card-text"></p>
-					<img src="/src/main/resources/static/img/group-red.png" width="45"
-						height="40" class="imgicon"> Para todo publico </br> <img
-						src="/src/main/resources/static/img/iconmonstr-time.png"
-						width="40" height="40" class="imgicon"> 98 min </br> <a
-						href="Seleccionar.html" class="btn btn-danger">Comprar reserva</a>
+				  
+				    <img src="/img/iconmonstr-time.png"
+						width="40" height="40" class="imgicon"> 98 min 
+						</br> </br>
+						<p th:text="${pelicula.sinopsis}"></p>
 				</div>
 			</div>
 		</div>
@@ -99,64 +92,10 @@
 			<div class="containertrailer">
 				<!--Link Trailer Youtube-->
 				<iframe width="560" height="315" th:src="${pelicula.trailer}"> </iframe>
-				
-				<!--Nav Tabs-->
-				<ul class="nav nav-tabs" id="myTab" role="tablist">
-					<li class="nav-item" role="presentation">
-						<button class="nav-link active" id="sinopsis-tab"
-							data-bs-toggle="tab" data-bs-target="#sinopsis" type="button"
-							role="tab" aria-controls="sinopsis" aria-selected="true">Sinopsis</button>
-					</li>
-					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="salas-tab" data-bs-toggle="tab"
-							data-bs-target="#salas" type="button" role="tab"
-							aria-controls="salas" aria-selected="false">Formato</button>
-					</li>
-				</ul>
-				<div class="tab-content" id="myTabContent">
-
-					<!--Tab Sinopsis-->
-
-					<div class="tab-pane fade show active" id="sinopsis"
-						role="tabpanel" aria-labelledby="sinopsis-tab">
-						<p th:text="${pelicula.sinopsis}">class="card-text"</p>
-
-						<!--Tab Salas-->
-						<div class="tab-pane fade" id="salas" role="tabpanel"
-							aria-labelledby="salas-tab">
-							<div class="accordion accordion-flush" id="accordionFlushExample">
-								<div class="accordion-item">
-									<h2 class="accordion-header" id="flush-headingOne">
-										<button class="accordion-button collapsed" type="button"
-											data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
-											aria-expanded="false" aria-controls="flush-collapseOne">
-											2D Subtitulado</button>
-									</h2>
-									<div id="flush-collapseOne" class="accordion-collapse collapse"
-										aria-labelledby="flush-headingOne"
-										data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body">Horarios: 13:30 16:00 18:40
-											21:20</div>
-									</div>
-								</div>
-								<div class="accordion-item">
-									<h2 class="accordion-header" id="flush-headingTwo">
-										<button class="accordion-button collapsed" type="button"
-											data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
-											aria-expanded="false" aria-controls="flush-collapseTwo">
-											2D Español</button>
-									</h2>
-									<div id="flush-collapseTwo" class="accordion-collapse collapse"
-										aria-labelledby="flush-headingTwo"
-										data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body">Horarios 14:00 16:30 19:20
-											22:00</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+						
+						<!--Formato-->
+						<h3 class="titulo-formato">Formato</h3>
+			   </div>
 			</div>
 		</div>
 
