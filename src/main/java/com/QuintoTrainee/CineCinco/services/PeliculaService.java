@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.QuintoTrainee.CineCinco.models.PeliculaModel;
+import com.QuintoTrainee.CineCinco.repositories.PeliculaOrdenadaPorGenero;
 import com.QuintoTrainee.CineCinco.repositories.PeliculaRepository;
 import com.QuintoTrainee.CineCinco.converters.PeliculaConverter;
 import com.QuintoTrainee.CineCinco.entities.Foto;
@@ -25,6 +26,9 @@ public class PeliculaService {
 	@Autowired
 	private PeliculaRepository peliculaRepository;
 
+	@Autowired
+	private PeliculaOrdenadaPorGenero peliculaOrdenadaPorGenero;
+	
 	@Autowired
 	private PeliculaConverter peliculaConverter;
 	
@@ -99,6 +103,11 @@ public class PeliculaService {
 		if (peliculaM.getTitulo() == null || peliculaM.getTitulo().isEmpty() || peliculaM.getTitulo().equals("")) {
 			throw new WebException("La pelicula debe tener un titulo");
 		}
+		
+		//Añadí el trailer para poder llamarlo en la portada//
+		if (peliculaM.getTrailer() == null || peliculaM.getTrailer().isEmpty() || peliculaM.getTrailer().equals("")) {
+			throw new WebException("La pelicula debe tener un trailer");
+		}
 
 		if (peliculaM.getSinopsis() == null || peliculaM.getSinopsis().isEmpty()
 				|| peliculaM.getSinopsis().equals("")) {
@@ -136,9 +145,20 @@ public class PeliculaService {
 	public List<PeliculaModel> listarEstrenos() throws WebException{
 		return peliculaConverter.entitiesToModels(peliculaRepository.listarEstrenos());
 	}
-
-	public List<PeliculaModel> listarPeliculasPorGenero(Genero genero) throws WebException{
-		return peliculaConverter.entitiesToModels(peliculaRepository.buscarPorGenero(genero));
+	
+	public List<PeliculaModel> listarEnCartel() throws WebException{
+		return peliculaConverter.entitiesToModels(peliculaRepository.listarEnCartel());
 	}
 
+	public List<PeliculaModel> listarPeliculasPorGenero(Genero genero) throws WebException{
+		return peliculaConverter.entitiesToModels(peliculaOrdenadaPorGenero.buscarPorGenero(4, genero));
+	}
+
+	public List<PeliculaModel> listarPeliculasPorGeneroEnCartel(Genero genero) throws WebException{
+		return peliculaConverter.entitiesToModels(peliculaOrdenadaPorGenero.buscarPorGeneroEnCartel(4, genero));
+	}
+
+	public PeliculaModel getPeliculaModelById(String idPelicula) throws WebException {
+		return peliculaConverter.entityToModel(peliculaRepository.getOne(idPelicula));
+	}
 }

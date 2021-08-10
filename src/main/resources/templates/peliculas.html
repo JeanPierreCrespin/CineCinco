@@ -96,7 +96,7 @@
 
 		<div class="row premiere-card mt-3">
 			<!-- En cartel -->
-			<div th:each="pelicula : ${estrenos}" class="col-xs-6 col-md-3">
+			<div th:each="pelicula : ${enCartel}" class="col-xs-6 col-md-3">
 				<div class="card">
 					<div class="card-img">
 						<img th:src="@{'data:/'+${pelicula.foto.mime}+';base64,'+${pelicula.foto.getImgData()}}" class="card-img-top img-fluid" alt="">

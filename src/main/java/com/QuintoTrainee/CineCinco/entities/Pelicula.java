@@ -30,6 +30,8 @@ public class Pelicula {
 	private String id;
 
 	private String titulo;
+	
+	private String trailer;
 
 	@Lob
 	@Column(name = "sinopsis", length = 4000)

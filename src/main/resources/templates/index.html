@@ -43,7 +43,7 @@
              <div class="collapse navbar-collapse" id="navbarSupportedContent">
                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="">Categorias</a>
+                    <a class="nav-link active" aria-current="page" href="/peliculas">Categorias</a>
                   </li>
 				  <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#premiere">Proximos Estrenos</a>
@@ -128,7 +128,7 @@
 	     </div>
 		
 		<div class="row premiere-card-title mt-3">
-			<!-- Titulos Estrenos -->
+			<!-- Titulos en cartel -->
 			<div class="premiere col-xs-12 col-md-12" id="cartelera">
 				<h1 class="title-premiere">Cartelera</h1>
 				<h5 class="body-premiere">Consulta por promos con tarjetas seleccionadas</h1>
@@ -136,15 +136,16 @@
 		</div>
 
 		<div class="row premiere-card mt-3">
-			<!-- Estrenos -->
-			<div th:each="pelicula : ${estrenos}" class="col-xs-6 col-md-3">
+			<!-- En cartel -->
+			<div th:each="pelicula : ${enCartel}" class="col-xs-6 col-md-3">
 				<div class="card">
 					<div class="card-img">
 						<img th:src="@{'data:/'+${pelicula.foto.mime}+';base64,'+${pelicula.foto.getImgData()}}" class="card-img-top img-fluid" alt="">
 					</div>
 					<div class="card-block-premiere">
 						<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
-						<a href="#" class="btn-rojo">Comprar reserva</a>
+						<!-- Cambio en enlace de portada -->
+						<a th:href="@{/portada/} +${pelicula.id}" class="btn btn-premiere">Comprar reserva</a>
 					</div>
 				</div>
 			</div>
