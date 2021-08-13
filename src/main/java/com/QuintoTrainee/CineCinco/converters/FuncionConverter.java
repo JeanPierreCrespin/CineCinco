@@ -10,11 +10,13 @@ import org.springframework.stereotype.Component;
 
 import com.QuintoTrainee.CineCinco.entities.Butaca;
 import com.QuintoTrainee.CineCinco.entities.Funcion;
+import com.QuintoTrainee.CineCinco.entities.Horario;
 import com.QuintoTrainee.CineCinco.entities.Pelicula;
 import com.QuintoTrainee.CineCinco.entities.Sala;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
 import com.QuintoTrainee.CineCinco.models.ButacaModel;
 import com.QuintoTrainee.CineCinco.models.FuncionModel;
+import com.QuintoTrainee.CineCinco.models.HorarioModel;
 import com.QuintoTrainee.CineCinco.repositories.FuncionRepository;
 import com.QuintoTrainee.CineCinco.repositories.PeliculaRepository;
 import com.QuintoTrainee.CineCinco.repositories.SalaRepository;
@@ -34,13 +36,14 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 	private final SalaConverter salaConverter;
 	private final PeliculaConverter peliculaConverter;
 	private final ButacaService butacaService;
+	private final HorarioConverter horarioConverter;
 
 	public Funcion modelToEntity(FuncionModel model) throws WebException {
 
 		Funcion entity;
 
 		System.out.println("FUNCION CONVERTER");
-		
+
 		if (model.getId() != null && !model.getId().isEmpty()) {
 			System.out.println("-- obteniendo funcion del repositorio ID: " + model.getId());
 			entity = funcionRepository.getOne(model.getId());
@@ -54,35 +57,40 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 			System.out.println("BUTACAS");
 			List<Butaca> entityButacas = new ArrayList<>();
 			List<ButacaModel> modelsButacas = new ArrayList<>();
-
+			List<Horario> entityHorarios = new ArrayList<>();
+			if (model.getHorarios() != null) {
+				entityHorarios = horarioConverter.modelsToEntities(model.getHorarios());
+			}
+			entity.setHorarios(entityHorarios);
 			System.out.println("SALA");
 			Sala entitySala = null;
-			
+
 			if (model.getIdSala() != null) {
-				
+
 				entitySala = salaRepository.getOne(model.getIdSala());
 				System.out.println("-- convirtiendo la sala del model a entidad");
 
-				//Como la funcion tiene asignada una sala se busca la cantidad de butacas de esa sala para crear la matriz de butacas de la funcion
+				// Como la funcion tiene asignada una sala se busca la cantidad de butacas de
+				// esa sala para crear la matriz de butacas de la funcion
 				if (model.getButacas() != null) {
 					System.out.println("-- convirtiendo las butacas del model a entidades butacas");
 					entityButacas = butacaConverter.modelsToEntities(model.getButacas());
 				} else {
-					
+
 					int cantButacas = entitySala.getCantidadButacas();
 					System.out.println("-- cantButacas = " + cantButacas);
 					System.out.println("-- butacasPorFila = " + BUTACAS_POR_FILA);
 					int cantidadFilas = (int) Math.floor(cantButacas / (double) BUTACAS_POR_FILA);
 					System.out.println("-- cantidadFilas = " + cantidadFilas);
-					int cantButacasUltimaFila =  cantButacas - (BUTACAS_POR_FILA * cantidadFilas);
+					int cantButacasUltimaFila = cantButacas - (BUTACAS_POR_FILA * cantidadFilas);
 					System.out.println("-- cantButacasUltimaFila = " + cantButacasUltimaFila);
-					
-					char[] letras = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-					String nombreButaca;
-					
 
-					for(int i = 0; i < (cantidadFilas); i++) {
-						for(int j = 0; j < BUTACAS_POR_FILA; j++) {
+					char[] letras = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+							'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+					String nombreButaca;
+
+					for (int i = 0; i < (cantidadFilas); i++) {
+						for (int j = 0; j < BUTACAS_POR_FILA; j++) {
 							ButacaModel butaca = new ButacaModel();
 							nombreButaca = "" + letras[i] + "-" + j;
 							butaca.setNombre(nombreButaca);
@@ -93,8 +101,8 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 						}
 					}
 					System.out.println("-- Cargadas butacas hasta penultima fila");
-					
-					for(int i = 0; i < cantButacasUltimaFila; i++) {
+
+					for (int i = 0; i < cantButacasUltimaFila; i++) {
 						ButacaModel butaca = new ButacaModel();
 						nombreButaca = "" + letras[(cantidadFilas)] + "-" + i;
 						butaca.setNombre(nombreButaca);
@@ -104,18 +112,18 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 						butaca = null;
 					}
 					System.out.println("-- Cargadas butacas ultima fila");
-					
+
 					entityButacas = butacaConverter.modelsToEntities(modelsButacas);
 					System.out.println("-- Convertidos los modelos butacas a entidades");
-					
+
 				}
-				
+
 			}
 			modelsButacas.clear();
-			
+
 			System.out.println("-- seteando la sala");
 			entity.setSala(entitySala);
-			
+
 			System.out.println("-- seteando butacas");
 			entity.setButacas(entityButacas);
 
@@ -145,7 +153,21 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 		try {
 			List<ButacaModel> modelButacas = new ArrayList<>();
 			List<String> idsButacas = new ArrayList<>();
+			List<HorarioModel> modelHorario = new ArrayList<>();
+			List<String> idsHorario = new ArrayList<>();
 
+			if (entity.getHorarios() != null) {
+				modelHorario = horarioConverter.entitiesToModels(entity.getHorarios());
+			}
+
+			for (HorarioModel horarioModel : modelHorario) {
+				idsHorario.add(horarioModel.getId());
+
+			}
+			
+			model.setHorarios(modelHorario);
+			model.setIdsHorarios(idsHorario);
+			
 			if (entity.getButacas() != null) {
 				modelButacas = butacaConverter.entitiesToModels(entity.getButacas());
 			}

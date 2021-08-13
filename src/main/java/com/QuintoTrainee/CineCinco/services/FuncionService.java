@@ -37,7 +37,7 @@ public class FuncionService {
 			throw new WebException("La funcion debe contar con una fecha");
 		}
 
-		if (funcionModel.getHorario() == null) {
+		if (funcionModel.getHorarios() == null) {
 			throw new WebException("La funcion debe contar con un horario");
 		}
 

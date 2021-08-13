@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.OneToMany;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.QuintoTrainee.CineCinco.entities.Horario;
 import com.QuintoTrainee.CineCinco.enums.Idioma;
 
 import lombok.Data;
@@ -20,8 +23,9 @@ public class FuncionModel implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date fecha;
 
-	@DateTimeFormat(pattern = "HH:mm:ss")
-	private Date horario;
+	private List<HorarioModel> horarios;
+	
+	private List<String> idsHorarios;
 
 	private Idioma idioma;
 
@@ -35,9 +39,9 @@ public class FuncionModel implements Serializable {
 
 	private List<ButacaModel> butacas;
 	private List<String> idsButacas;
-	
+
 	private String butacasSeleccionadas;
-	
+
 	private double precioEntrada;
 
 	private int cantidadVacios;
