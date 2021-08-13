@@ -162,4 +162,5 @@ public class PeliculaService {
 		return peliculaConverter.entityToModel(peliculaRepository.getOne(idPelicula));
 	}
 
+
 }

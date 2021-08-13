@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
+
 import com.QuintoTrainee.CineCinco.models.PeliculaModel;
+
 import com.QuintoTrainee.CineCinco.services.PeliculaService;
 
 import lombok.RequiredArgsConstructor;
@@ -37,5 +39,3 @@ public class PortadaController {
 	}
 
 }
-
-//https://www.youtube.com/watch?v=HlB_8y3cmUg//
