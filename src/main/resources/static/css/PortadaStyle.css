@@ -26,6 +26,12 @@
     height: 100vh;
     width: auto;
 }
+
+/*----NavBar----*/
+.nav-item {
+	margin-left: 30px;
+}
+
 /*-----Imagen tarjeta pelicula------*/
 .card-img {
     width: 100%;

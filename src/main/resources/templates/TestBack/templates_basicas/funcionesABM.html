@@ -22,7 +22,7 @@
      <header> 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
            <div class="container-fluid">
-             <a class="navbar-brand" href="#">
+             <a class="navbar-brand" href="/">
                <!-- <img src="/src/main/resources/static/img/clapperboard_cinema_icon-96px.png" alt="" width="40" height="35" class="d-inline-block align-text-top"> -->
                <img src="/img/clapperboard_cinema_icon-96px.png" alt="" width="40" height="35" class="d-inline-block align-text-top">
                  CineCinco
@@ -33,16 +33,17 @@
              <div class="collapse navbar-collapse" id="navbarSupportedContent">
                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                  <li class="nav-item">
-                   <a class="nav-link active" aria-current="page" th:href="@{/inicio}">Home</a>
+                   <a class="nav-link active" aria-current="page" href="/">Home</a>
                  </li>
-                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/GestorSala}">Cargar Salas</a>
-                    <!-- <a class="nav-link active" aria-current="page" th:href="@{/GestorSala}" th:unless="${session.user != }">Cargar Salas</a> -->
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/GestorPelicula}">Cargar Peliculas</a>
-                    <!-- <a class="nav-link active" aria-current="page" th:href="@{/GestorPelicula}" th:unless="${session.user != }">Cargar Peliculas</a> -->
-                  </li>
+                       <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Administrar
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="ABM/gestor_salas">Gestor Sala</a></li>
+            <li><a class="dropdown-item" href="ABM/gestor_peliculas">Gestor Pelicula</a></li>
+          </ul>
+        </li>
                </ul>
                <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -141,7 +142,10 @@
                 </tbody>
     </table>
 
-
+   <script src="js/jquery.js"></script>
+      <!--Link Bootstrap JS-->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" 
+   integrity="undefined" crossorigin="anonymous"></script>
 </body>
 
 </html>
