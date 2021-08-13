@@ -27,7 +27,7 @@ public class FuncionController {
 			e.printStackTrace();
 		}
 
-		return "seleccionar.html";
+		return "butaca_copy.html";
 	}
 
 
