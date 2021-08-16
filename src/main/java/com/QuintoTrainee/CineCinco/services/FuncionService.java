@@ -13,11 +13,14 @@ import org.springframework.stereotype.Service;
 
 import com.QuintoTrainee.CineCinco.converters.FuncionConverter;
 import com.QuintoTrainee.CineCinco.entities.Funcion;
+import com.QuintoTrainee.CineCinco.entities.Pelicula;
 import com.QuintoTrainee.CineCinco.enums.Idioma;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
 import com.QuintoTrainee.CineCinco.models.ButacaModel;
 import com.QuintoTrainee.CineCinco.models.FuncionModel;
 import com.QuintoTrainee.CineCinco.repositories.FuncionRepository;
+import com.QuintoTrainee.CineCinco.repositories.PeliculaRepository;
+
 import static com.QuintoTrainee.CineCinco.utils.Texts.*;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +34,9 @@ public class FuncionService {
 	@Autowired
 	private FuncionConverter funcionConverter;
 
+	@Autowired
+	private PeliculaRepository peliculaRepository;
+	
 	public void validar(FuncionModel funcionModel) throws WebException {
 
 		if (funcionModel.getFecha() == null) {
@@ -155,5 +161,11 @@ public class FuncionService {
 			return b1.getNombre().compareTo(b2.getNombre());
 		}
 	};
+
+	public List<FuncionModel> listarFuncionesActivasPorPelicula(String idPelicula) throws WebException {
+		Pelicula pelicula = peliculaRepository.getOne(idPelicula);
+		return funcionConverter.entitiesToModels(funcionRepository.listarFuncionesActivasPorPelicula(pelicula));
+	}
+	
 
 }
