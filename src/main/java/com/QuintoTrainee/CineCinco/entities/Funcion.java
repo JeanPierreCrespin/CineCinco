@@ -41,7 +41,7 @@ public class Funcion {
 	@Enumerated(EnumType.STRING)
 	private Idioma idioma;
 
-	private boolean idiomaExtranjero;
+	private boolean subtitulada;
 
 	@ManyToOne
 	private Pelicula pelicula;
