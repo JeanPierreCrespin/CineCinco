@@ -70,28 +70,14 @@ public class MainController {
 		return "index";
 	}
 
-	@GetMapping("/butaca")
-	public String butaca() {
-		return "butaca.html";
-	}
 
-	@GetMapping("/home")
-	public String home() {
-		return "home.html";
-	}
 
 	@GetMapping("/inicio")
 	public String inicio() {
 		return "index.html";
 	}
 
-	@GetMapping("/pago")
-	public String pago() {
-		return "pago.html";
-	}
-	
-	
-	
+
 
 	// REGISTRO
 	@GetMapping("/registro")
