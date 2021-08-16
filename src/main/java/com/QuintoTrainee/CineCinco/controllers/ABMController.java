@@ -78,7 +78,6 @@ public class ABMController {
 			e.printStackTrace();
 		}
 
-		//return "/TestBack/templates_basicas/peliculasABM.html";
 		return "/TestBack/GestorPelicula.html";
 	}
 

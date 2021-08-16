@@ -16,13 +16,13 @@ import com.QuintoTrainee.CineCinco.services.PeliculaService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/portada")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class PortadaController {
 	@Autowired
 	private PeliculaService peliculaService;
 
-	@GetMapping("/portada/{idPelicula}")
+	@GetMapping("/{idPelicula}")
 	public String portada(ModelMap modelo, @PathVariable String idPelicula) {
 
 		try {
