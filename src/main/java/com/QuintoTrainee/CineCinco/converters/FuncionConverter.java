@@ -57,11 +57,11 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 			System.out.println("BUTACAS");
 			List<Butaca> entityButacas = new ArrayList<>();
 			List<ButacaModel> modelsButacas = new ArrayList<>();
-			List<Horario> entityHorarios = new ArrayList<>();
-			if (model.getHorarios() != null) {
-				entityHorarios = horarioConverter.modelsToEntities(model.getHorarios());
+			Horario entityHorario = new Horario();
+			if (model.getHorario() != null) {
+				entityHorario = horarioConverter.modelToEntity(model.getHorario());
 			}
-			entity.setHorarios(entityHorarios);
+			entity.setHorario(entityHorario);
 			System.out.println("SALA");
 			Sala entitySala = null;
 
@@ -153,20 +153,15 @@ public class FuncionConverter extends Converter<FuncionModel, Funcion> {
 		try {
 			List<ButacaModel> modelButacas = new ArrayList<>();
 			List<String> idsButacas = new ArrayList<>();
-			List<HorarioModel> modelHorario = new ArrayList<>();
-			List<String> idsHorario = new ArrayList<>();
+			HorarioModel modelHorario = new HorarioModel();
+			String idHorario = "";
 
-			if (entity.getHorarios() != null) {
-				modelHorario = horarioConverter.entitiesToModels(entity.getHorarios());
-			}
-
-			for (HorarioModel horarioModel : modelHorario) {
-				idsHorario.add(horarioModel.getId());
-
+			if (entity.getHorario() != null) {
+				modelHorario = horarioConverter.entityToModel(entity.getHorario());
 			}
 			
-			model.setHorarios(modelHorario);
-			model.setIdsHorarios(idsHorario);
+			model.setHorario(modelHorario);
+			model.setIdHorario(idHorario);
 			
 			if (entity.getButacas() != null) {
 				modelButacas = butacaConverter.entitiesToModels(entity.getButacas());

@@ -16,17 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.QuintoTrainee.CineCinco.converters.HorarioConverter;
 import com.QuintoTrainee.CineCinco.entities.Pelicula;
 import com.QuintoTrainee.CineCinco.entities.Sala;
 import com.QuintoTrainee.CineCinco.enums.Genero;
 import com.QuintoTrainee.CineCinco.enums.Idioma;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
 import com.QuintoTrainee.CineCinco.models.FuncionModel;
+import com.QuintoTrainee.CineCinco.models.HorarioModel;
 import com.QuintoTrainee.CineCinco.models.PeliculaModel;
 import com.QuintoTrainee.CineCinco.models.SalaModel;
 import com.QuintoTrainee.CineCinco.repositories.PeliculaRepository;
 import com.QuintoTrainee.CineCinco.repositories.SalaRepository;
 import com.QuintoTrainee.CineCinco.services.FuncionService;
+import com.QuintoTrainee.CineCinco.services.HorarioService;
 import com.QuintoTrainee.CineCinco.services.PeliculaService;
 import com.QuintoTrainee.CineCinco.services.SalaService;
 import com.QuintoTrainee.CineCinco.utils.UtilDate;
@@ -50,6 +53,12 @@ public class ABMController {
 	
 	@Autowired
 	private FuncionService funcionService;
+	
+	@Autowired
+	private HorarioService horarioService;
+	@Autowired
+	private HorarioConverter horarioConverter;
+	
 	
 	// PELICULAS
 
@@ -246,7 +255,12 @@ public class ABMController {
 			
 			String fechaFinal = fechaEmision +" "+ horarioEmision;
 			funcionModel.setFecha(UtilDate.parseFechaHoraGuiones(fechaFinal));
-			funcionModel.setHorario(UtilDate.parseFechaHoraGuiones(fechaFinal));
+			
+			HorarioModel horarioModel = new HorarioModel();
+			System.out.println("HORARIO EMISION --> " + horarioEmision);
+			horarioModel.setHora(horarioEmision);
+			
+			funcionModel.setHorario(horarioConverter.entityToModel(horarioService.guardar(horarioModel)));
 
 			System.out.println(funcionModel.toString());
 			

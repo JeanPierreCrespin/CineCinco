@@ -109,7 +109,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Fecha Emision</th>
+                <th>Horario Emision</th>
                 <th>Sala</th>
                 <th>Pelicula</th>
                 <th>Precio Entrada</th>
@@ -121,7 +121,7 @@
                 <tbody>
                     <tr th:each="funcionListada: ${funciones}">
                         <td th:text="${funcionListada.id}"></td>
-                        <td th:text="${funcionListada.fecha}"></td>
+                        <td th:text="${funcionListada.horario.hora}"></td>
                         <td th:text="${funcionListada.sala.nombre}"></td>
                         <td th:text="${funcionListada.pelicula.titulo}"></td>
                         <td th:text="${funcionListada.precioEntrada}"></td>
