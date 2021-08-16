@@ -123,7 +123,7 @@
                 <div class="Seating-Container" style="width: 625px; height: 250px; visibility: visible;">
                   <div class="Seating-Theatre" style="width:625px;height:310px;" data-originalsize="350">
                     <div class="container row my-5">
-                      <form action="/compra_entradas" method="post" th:object="${funcionSeleccionButacas}">
+                      <form action="butaca/compra_entradas" method="post" th:object="${funcionSeleccionButacas}">
                         <input type="hidden" name="idFuncion" th:value="${funcion.id}">
                         <div th:each="arrayButacas : ${filasMap}" class="flex-container">
                           <label id="labelcheck"><div th:each="butaca : ${arrayButacas.value}">

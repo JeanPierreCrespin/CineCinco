@@ -28,7 +28,7 @@ public class FuncionModel implements Serializable {
 
 	private Idioma idioma;
 
-	private boolean idiomaExtranjero;
+	private boolean subtitulada;
 
 	private PeliculaModel pelicula;
 	private String idPelicula;

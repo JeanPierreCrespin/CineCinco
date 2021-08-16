@@ -19,7 +19,7 @@ import com.QuintoTrainee.CineCinco.services.PeliculaService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/peliculas")
+@RequestMapping("/pelicula")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class PeliculaController {
 	
