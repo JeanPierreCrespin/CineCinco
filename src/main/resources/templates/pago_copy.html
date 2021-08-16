@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="/css/PagoStyle.css">
 	<link href="/img/clapperboard_cinema_icon-32px.png" rel="shortcut icon" />
 
-	<title>Pago</title>
+	<title>Realizar Pago</title>
 
 	<!-- Encabezado  -->
 	<div class="container header">
@@ -89,12 +89,10 @@
 									th:value="${butaca.id}" name="idsButacas">
 								<input type="hidden" th:value="${totalPagar}" name="totalPagar">
 								<input type="hidden" th:value="${funcion.id}" name="idFuncion">
-								<button type="submit">
-										Mercado Pago
+								<button class="btn btn-primary" style="background-color: rgb(128, 191, 255); color: black" type="submit"><img src="/img/credit_card_icon_128px.png" width="50px" height="40px"> Mercado Pago
 								</button>
 							</div>
 						</div>
-					
 				</form>
 			</div>
 		</div>

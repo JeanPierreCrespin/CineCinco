@@ -33,9 +33,8 @@ public class Funcion {
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date fecha;
-
-	@Temporal(TemporalType.TIME)
-	private Date horario;
+	@OneToMany
+	private List<Horario> horarios;
 
 	@Enumerated(EnumType.STRING)
 	private Idioma idioma;
@@ -48,7 +47,7 @@ public class Funcion {
 	@ManyToOne
 	private Sala sala;
 
-	@OneToMany(cascade=CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Butaca> butacas;
 
 	private double precioEntrada;

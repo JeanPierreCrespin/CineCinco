@@ -35,7 +35,7 @@
 <header>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#"> <img
+			<a class="navbar-brand" th:href="@{//}"> <img
 				src="/src/main/resources/static/img/clapperboard_cinema_icon-64px.png"
 				alt="" width="40" height="35" class="d-inline-block align-text-top">
 				CineCinco
@@ -49,12 +49,10 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Home</a></li>
+						aria-current="page" href="/">Home</a></li>
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Contacto</a></li>
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Quienes somos</a></li>
-
+						aria-current="page" href="/peliculas">Peliculas</a></li>
+					<li class="nav-item">
 				</ul>
 				<form class="d-flex">
 					<input class="form-control me-2" type="search" placeholder="Search"
@@ -90,7 +88,8 @@
 						height="40" class="imgicon"> Para todo publico </br> <img
 						src="/src/main/resources/static/img/iconmonstr-time.png"
 						width="40" height="40" class="imgicon"> 98 min </br> <a
-						href="Seleccionar.html" class="btn btn-danger">Comprar reserva</a>
+						href="@{/seleccionar/} + ${funcion.id}" class="btn btn-danger">Comprar
+						reserva</a>
 				</div>
 			</div>
 		</div>
@@ -98,8 +97,9 @@
 		<div class="col-xs-6 col-md-8">
 			<div class="containertrailer">
 				<!--Link Trailer Youtube-->
-				<iframe width="560" height="315" th:src="${pelicula.trailer}"> </iframe>
-				
+				<iframe width="560" height="315" th:src="${pelicula.trailer}">
+				</iframe>
+
 				<!--Nav Tabs-->
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
 					<li class="nav-item" role="presentation">
@@ -135,8 +135,14 @@
 									<div id="flush-collapseOne" class="accordion-collapse collapse"
 										aria-labelledby="flush-headingOne"
 										data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body">Horarios: 13:30 16:00 18:40
-											21:20</div>
+										<!-- Cambio en horario portada -->
+										<div class="accordion-body">
+											Horarios: <br> <input type="radio" name="horario"
+												value="rojo">22:30 <input type="radio"
+												name="horario" value="rojo">21:40 <input
+												type="radio" name="horario" value="verde">14:50
+
+										</div>
 									</div>
 								</div>
 								<div class="accordion-item">
@@ -149,8 +155,14 @@
 									<div id="flush-collapseTwo" class="accordion-collapse collapse"
 										aria-labelledby="flush-headingTwo"
 										data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body">Horarios 14:00 16:30 19:20
-											22:00</div>
+										<div class="accordion-body">
+											Horarios:
+											 <br> 
+											<input type="radio" name="horario"
+												value="rojo">22:30 <input type="radio"
+												name="horario" value="rojo">21:40 <input
+												type="radio" name="horario" value="rojo">14:50
+										</div>
 									</div>
 								</div>
 							</div>
@@ -158,14 +170,13 @@
 					</div>
 				</div>
 			</div>
-		</div>
 
 
 
-		<script src="js/jquery-3.2.1.min.js"></script>
-		<!--Link Bootstrap JS-->
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
-			integrity="undefined" crossorigin="anonymous"></script>
+			<script src="js/jquery-3.2.1.min.js"></script>
+			<!--Link Bootstrap JS-->
+			<script
+				src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+				integrity="undefined" crossorigin="anonymous"></script>
 </body>
 </html>

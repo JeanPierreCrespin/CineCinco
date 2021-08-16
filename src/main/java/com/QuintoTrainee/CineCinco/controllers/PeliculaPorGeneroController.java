@@ -29,18 +29,41 @@ public class PeliculaPorGeneroController {
 		try {
 			List<PeliculaModel> peliculaxgenero;
 
+			List<PeliculaModel> cartelxgenero;
+			
+
 			Set<Genero> generos = EnumSet.allOf(Genero.class);
 			generos.remove(Genero.DESHABILITADOS);
-			
 
 			if (genero != null) {
 				peliculaxgenero = peliculaService.listarPeliculasPorGenero(Genero.valueOf(genero));
+				
+				
 			} else {
 				peliculaxgenero = peliculaService.listarPeliculasActivasModels();
-			}modelo.put("peliculas", peliculaxgenero);
-		} catch (Exception ex) {
-			modelo.put("error", ex.getMessage());
+				
+			}
+			modelo.put("peliculas", peliculaxgenero);
 			
-		}return "peliculasporgenero.html";
+			if (genero != null) {
+			
+			cartelxgenero = peliculaService.listarPeliculasPorGeneroEnCartel(Genero.valueOf(genero));
+			
+		} else {
+			
+			cartelxgenero = peliculaService.listarPeliculasActivasModels();
+		}
+		
+		modelo.put("generoEnCartel", cartelxgenero);
+
+	} 
+		
+		catch (Exception ex) {
+			modelo.put("error", ex.getMessage());
+
+		}
+		return "peliculasporgenero.html";
 	}
+	
+	
 }
