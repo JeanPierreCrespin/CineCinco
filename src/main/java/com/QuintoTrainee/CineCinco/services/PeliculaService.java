@@ -154,8 +154,6 @@ public class PeliculaService {
 		return peliculaConverter.entitiesToModels(peliculaOrdenadaPorGenero.buscarPorGenero(4, genero));
 	}
 
-
-
 	public List<PeliculaModel> listarPeliculasPorGeneroEnCartel(Genero genero) throws WebException{
 		return peliculaConverter.entitiesToModels(peliculaOrdenadaPorGenero.buscarPorGeneroEnCartel(4, genero));
 	}

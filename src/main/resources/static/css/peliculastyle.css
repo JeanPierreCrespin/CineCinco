@@ -23,6 +23,12 @@ body {
 	background: url(../img/salacine.jpg) no-repeat center top;
 	background-size: cover;
 }
+
+/*----NavBar----*/
+.nav-item {
+	margin-left: 28px;
+}
+
 /*--------Categorias---------*/
 .nav-canvas a{
 	text-decoration: none;
