@@ -6,28 +6,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cine ABM</title>
     <link rel="stylesheet" href="/style.css">
+
 </th:block>
 
-<th:block th:fragment="nav_bar_usuario_logueado">
-    <nav class="navbar">
-        <a class="brand" href="/inicio">Cine ABM</a>
-        <ul>
-            <li>
-                <a href="/">Inicio</a>
-            </li>
-            <li>
-                <a href="/ABM/gestor_peliculas">Peliculas ABM</a>
-            </li>
-            <li>
-                <a href="/ABM/gestor_salas">Salas ABM</a>
-            </li>
-            <li>
-                <a href="/ABM/gestor_funciones">Funciones ABM</a>
-            </li>
-        </ul>
+<th:block th:fragment="nav_bar_sin_log">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"> <img
+                src="img/clapperboard_cinema_icon-32px.png" alt="" width="40"
+                height="35" class="d-inline-block align-text-top"> CineCinco
+            </a>
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active"
+                        aria-current="page" href="/peliculas">Categorias</a></li>
+                    <li class="nav-item"><a class="nav-link active"
+                        aria-current="page" href="#premiere">Proximos Estrenos</a></li>
+                    <li class="nav-item"><a class="nav-link active"
+                        aria-current="page" href="#cartelera">Cartelera</a></li>
+                    <li class="nav-item dropdown"></li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search"
+                        aria-label="Search">
+                    <button class="btn btn-outline-danger" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
     </nav>
     <br>
 </th:block>
+
+
+<th:block th:fragment="nav_bar_usuario_logueado">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+           <div class="container-fluid">
+             <a class="navbar-brand" href="/">
+               <img src="/img/clapperboard_cinema_icon-64px.png" alt="" width="40" height="35" class="d-inline-block align-text-top">
+                 Bienvenido a CineCinco
+             </a>
+             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+             </button>
+             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/peliculas">Categorias</a>
+                  </li>
+				  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#premiere">Proximos Estrenos</a>
+                  </li>
+				  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#cartelera">Cartelera</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                   Administrar
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/ABM/gestor_salas">Gestor Sala</a></li>
+                  <li><a class="dropdown-item" href="/ABM/gestor_peliculas">Gestor Pelicula</a></li>
+                  <li><a class="dropdown-item" href="/ABM/gestor_funciones">Gestor Funciones</a></li>
+                  </ul>
+                  </li>
+                   <li class="nav-item">
+                    <button type="button" class="btn btn-danger" href="#">Cerrar Sesión</button>
+                  </li>
+               </ul>
+			   <form class="d-flex">
+				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-danger" type="submit">Search</button>
+			  </form>
+             </div>
+           </div>
+         </nav>
+    <br>
+</th:block>
+
+<th:block th:fragment="nav_bar">
+    <div sec:authorize="isAuthenticated()">
+        <div th:replace="fragments :: nav_bar_usuario_logueado"></div>
+    </div>
+    <div sec:authorize="isAnonymous()">
+        <div th:replace="fragments :: nav_bar_sin_log"></div>
+    </div>
+</th:block>
+
 
 
 </html>
