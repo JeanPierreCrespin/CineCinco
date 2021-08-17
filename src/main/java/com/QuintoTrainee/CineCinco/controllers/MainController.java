@@ -81,7 +81,23 @@ public class MainController {
 	}
 
 	@GetMapping("/inicio")
-	public String inicio() {
+	public String inicio(ModelMap model) {
+		
+		List<PeliculaModel> peliculas;
+		try {
+			peliculas = peliculaService.listarPeliculasActivasModels();
+			model.put("peliculas", peliculas);
+			
+			List<PeliculaModel> estrenos = peliculaService.listarEstrenos();
+			model.put("estrenos", estrenos);
+			
+			List<PeliculaModel> enCartel = peliculaService.listarEnCartel();
+			model.put("enCartel", enCartel);
+		} catch (WebException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return "index.html";
 	}
 
