@@ -66,6 +66,7 @@
                     <a class="nav-link active" aria-current="page" href="#cartelera">Cartelera</a>
                   </li>
                   <li class="nav-item dropdown">
+                <div th:if="${session.usuariosession.rol.toString() == 'ADMIN'}">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                    Administrar
                   </a>
@@ -74,6 +75,7 @@
                   <li><a class="dropdown-item" href="/ABM/gestor_peliculas">Gestor Pelicula</a></li>
                   <li><a class="dropdown-item" href="/ABM/gestor_funciones">Gestor Funciones</a></li>
                   </ul>
+                </div>
                   </li>
                    <li class="nav-item">
                     <a class="btn-rojo-session" href="/logout">Cerrar Sesión</a>
