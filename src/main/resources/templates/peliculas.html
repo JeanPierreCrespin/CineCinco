@@ -19,7 +19,7 @@
 	<div class="container header">
 		<div class="row header">
 			<div class="col-xs-0 col-md-3  left-block "></div>
-			<div class="col-xs-12 col-md-6 body-block">CinemaCinco</div>
+			<div class="col-xs-12 col-md-6 body-block">CineCinco</div>
 			<div class="col-xs-0 col-md-3 rigth-block"></div>
 		</div>
 	</div>
@@ -42,10 +42,6 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/login">Iniciar Sesion</a>
-          </li>
-
         </ul>
         <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -103,7 +99,8 @@
 					</div>
 					<div class="card-block-premiere">
 						<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
-						<p th:text="${pelicula.sinopsis}" class="card-text"></p>
+						<br>
+						<br>
 						<p th:text="${pelicula.genero}" class="card-text"></p>
 						<a th:href="@{/portada/} +${pelicula.id}" class="btn-rojo">Ver más</a>
 					</div>
@@ -127,7 +124,8 @@
 					</div>
 					<div class="card-block-premiere">
 						<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
-						<p th:text="${pelicula.sinopsis}" class="card-text"></p>
+						<br>
+						<br>
 						<p th:text="${pelicula.genero}" class="card-text"></p>
 						<a th:href="@{/portada/} +${pelicula.id}" class="btn-rojo">Ver más</a>
 					</div>
