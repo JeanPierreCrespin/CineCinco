@@ -115,6 +115,7 @@
 						<br>
 						<p class="card-text">Accedé a tu cuenta para comprar tus entradas, recibir primicias y
 							beneficios</p>
+							<br>
 							<a class="btn-rojo" href="/registro">Registrarse</a>
 						    <a class="btn-rojo" href="/login">Iniciar Sesion</a>
 					</div>
@@ -127,6 +128,7 @@
 				<h3 class="card-title">Querés ver nuestras películas?</h3>
 						<p class="card-text">Accedé a tu cuenta para comprar tus entradas, recibir primicias y
 							beneficios</p>
+							<br>
 							<a class="btn-rojo" href="/peliculas">Peliculas</a>
 					</div>
 					</div>	    
@@ -151,6 +153,7 @@
 					</div>
 					<div class="card-block-premiere">
 						<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
+						<br>
 						<!-- Cambio en enlace de portada -->
 						<a th:href="@{/portada/} +${pelicula.id}" class="btn-rojo">Ver más</a>
 					</div>
@@ -174,6 +177,7 @@
 					</div>
 					<div class="card-block-premiere">
 						<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
+						<br>
 						<a th:href="@{/portada/} +${pelicula.id}" class="btn-rojo">Ver más</a>
 					</div>
 				</div>
