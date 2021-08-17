@@ -38,12 +38,43 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		passwordEncoder(new BCryptPasswordEncoder());
 	}
 	
+	private final String[] ADMIN_PATHLIST = {
+			"/ABM/**",
+			"/butaca/**",
+			"/compra/**",
+			"/inicio",
+			"/portada/**"
+			
+	};
+	private final String[] USER_PATHLIST = {
+			"/butaca/**",
+			"/compra/**",
+			"/inicio",
+			"/portada/redirigir/butacasFuncion"
+			
+	};
+	
+	private final String[] PERMIT_ALL_PATHLIST = {
+			"/css/",
+			"/js/","/",
+			"registro",
+			"/registro_usuario",
+			"/login",
+			"/oauth2/**",
+			"/index",
+			"/portada/{idPelicula}",
+			"/img/*",
+			"/pelicula/**"
+			
+	};
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers("/css/", "/js/","/oauth2/**", "/img/*").permitAll()
+				.antMatchers(PERMIT_ALL_PATHLIST).permitAll()
+				.antMatchers(ADMIN_PATHLIST).hasRole("ADMINISTRADOR")
+				.antMatchers(USER_PATHLIST).hasRole("CLIENTE")
 				.and().formLogin()
 					.loginPage("/login")
 						.loginProcessingUrl("/logincheck")
