@@ -44,6 +44,8 @@ public class Usuario {
 
 	private String infoTarjeta;
 
+	
+	
 	@Enumerated(EnumType.STRING)
 	private Rol rol;
 
