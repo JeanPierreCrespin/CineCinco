@@ -8,5 +8,5 @@ public class HorarioModel implements Serializable {
 
 	private static final long serialVersionUID = 4758698951798528563L;
 	private String id;
-	private String nombre;
+	private String hora;
 }

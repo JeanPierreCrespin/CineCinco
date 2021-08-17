@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -33,13 +34,14 @@ public class Funcion {
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date fecha;
-	@OneToMany
-	private List<Horario> horarios;
+	
+	@OneToOne
+	private Horario horario;
 
 	@Enumerated(EnumType.STRING)
 	private Idioma idioma;
 
-	private boolean idiomaExtranjero;
+	private boolean subtitulada;
 
 	@ManyToOne
 	private Pelicula pelicula;

@@ -23,13 +23,12 @@ public class FuncionModel implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date fecha;
 
-	private List<HorarioModel> horarios;
-	
-	private List<String> idsHorarios;
+	private HorarioModel horario;
+	private String idHorario;
 
 	private Idioma idioma;
 
-	private boolean idiomaExtranjero;
+	private boolean subtitulada;
 
 	private PeliculaModel pelicula;
 	private String idPelicula;
