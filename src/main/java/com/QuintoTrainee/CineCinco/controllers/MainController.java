@@ -55,6 +55,11 @@ public class MainController {
 		try {
 			List<PeliculaModel> peliculas = peliculaService.listarPeliculasActivasModels();
 			model.put("peliculas", peliculas);
+			
+			for (PeliculaModel peliculaModel : peliculas) {
+				System.out.println(peliculaModel.getTitulo());
+				System.out.println(peliculaModel.getFoto().getMime());
+			}
 
 			List<PeliculaModel> estrenos = peliculaService.listarEstrenos();
 			model.put("estrenos", estrenos);
