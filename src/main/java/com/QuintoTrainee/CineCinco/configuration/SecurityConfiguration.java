@@ -62,7 +62,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			"/login/",
 			"/oauth2/**",
 			"/index/",
-			"/portada/**",
+
+			"/portada/{idPelicula}",
 			"/img/*",
 			"/pelicula/**"
 			
