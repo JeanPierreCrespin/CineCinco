@@ -42,15 +42,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			"/ABM/**",
 			"/butaca/**",
 			"/compra/**",
-			"/inicio",
-			"/portada/**"
+			"/inicio"
+			
 			
 	};
 	private final String[] USER_PATHLIST = {
 			"/butaca/**",
 			"/compra/**",
-			"/inicio",
-			"/portada/redirigir/butacasFuncion"
+			"/inicio"
+			
 			
 	};
 	
@@ -62,7 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			"/login/",
 			"/oauth2/**",
 			"/index/",
-			"/portada/{idPelicula}/",
+			"/portada/**",
 			"/img/*",
 			"/pelicula/**"
 			
