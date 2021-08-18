@@ -21,7 +21,6 @@
 /*-------Body--------*/
 body {
 	background: url(../img/salacine.jpg) no-repeat center top;
-	background-size: cover;
 }
 
 /*----NavBar----*/
@@ -33,19 +32,30 @@ body {
 .nav-canvas a{
 	text-decoration: none;
 	color: #fff;
-	font-size: 19px;
+	font-size: 23px;
 }
 .nav-header {
-	font-size: 400px;
+	font-size: 30px;
+	color: #fff;
 }
 .main-menu {
-	height: 300px;
+	height: 450px;
+	border: 2px solid #fff;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	border-radius: 2px; 
+	padding: 8px;
 }
+
 /*-------Titulo cartelera-------*/
 .premiere {
-    font-style: oblique;
     color: #fff;
     background-color: #d82a3c;
+}
+.premiere-pelicula {
+    color: #fff;
+    background-color: #d82a3c;
+    height: 100px ;
+    padding: 5px;
 }
 .card {
 	border: none;
