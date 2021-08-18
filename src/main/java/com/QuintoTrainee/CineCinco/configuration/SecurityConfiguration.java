@@ -57,12 +57,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	private final String[] PERMIT_ALL_PATHLIST = {
 			"/css/",
 			"/js/","/",
-			"registro",
+			"/registro/",
 			"/registro_usuario",
-			"/login",
+			"/login/",
 			"/oauth2/**",
-			"/index",
-			"/portada/{idPelicula}",
+			"/index/",
+			"/portada/{idPelicula}/",
 			"/img/*",
 			"/pelicula/**"
 			

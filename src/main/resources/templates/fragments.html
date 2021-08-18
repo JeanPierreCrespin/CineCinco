@@ -66,7 +66,7 @@
                     <a class="nav-link active" aria-current="page" href="#cartelera">Cartelera</a>
                   </li>
                   <li class="nav-item dropdown">
-                <div th:if="${session.usuarioSession.rol.toString() == 'ADMINISTRADOR'}">
+                <div th:if="${session.usuarioSession.rol.toString() == 'ADMIN'}">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                    Administrar
                   </a>
