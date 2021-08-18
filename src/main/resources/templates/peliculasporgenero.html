@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"></html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+
 <head>
   <!--Meta links Requeridos-->
   <meta charset="UTF-8">
@@ -30,7 +31,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">
-        <img src="img/clapperboard_cinema_icon-96px.png" alt="" width="40" height="35"
+        <img src="/img/clapperboard_cinema_icon-96px.png" alt="" width="40" height="35"
           class="d-inline-block align-text-top">
         CineCinco
       </a>
@@ -44,10 +45,7 @@
             <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/peliculas">Peliculas</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/login">Iniciar Sesion</a>
+            <a class="nav-link active" aria-current="page" href="/pelicula">Peliculas</a>
           </li>
 
         </ul>
@@ -63,12 +61,12 @@
 <body>
 
 			<!-- Pelicula por género en cartel-->
-			<div class="premiere col-xs-12 col-md-12" id="cartelera">
+			<div class="premiere col-xs-12 col-md-12 mt-3" id="cartelera">
 				<h1 class="title-premiere">Cartelera</h1>
 				<h5 class="body-premiere">Consulta por promos con tarjetas seleccionadas</h1>
 			</div>
 			
-		</div>
+		
 
 		<div class="row premiere-card mt-3">
 			<!-- En cartel -->
