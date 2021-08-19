@@ -148,15 +148,21 @@ public class CompraController {
 		if (status.equals("approved")) {
 			System.out.println(status);
 
+			String nombresButacas = " ";
 			for (Boleto boleto : compra.getBoletos()) {
 				butacaService.ocuparButaca(boleto.getButaca());
+				nombresButacas = nombresButacas + boleto.getButaca().getNombre() + ", ";
 			}
 
 			compra.setFechaAprobacionPago(new Date());
 
 			compraRepository.save(compra);
-
-			notificacionMail.enviar("Se ha confirmado su pago.", "CineCino pago confirmado", usuario.getEmail());
+			
+			String cantBoletos = String.valueOf(compra.getBoletos().size());
+			String salaNombre = compra.getBoletos().get(0).getFuncion().getSala().getNombre();
+			String horaFuncion = compra.getBoletos().get(0).getFuncion().getHorario().getHora();
+			
+			notificacionMail.enviar("Ha comprado " + cantBoletos + " boletos, sus butacas seleccionadas son:" +nombresButacas+ "de la sala " +salaNombre+ " para la funcion de las " + horaFuncion,"Se ha confirmado su compra.", usuario.getEmail());
 
 		} else {
 			System.out.println(status);
