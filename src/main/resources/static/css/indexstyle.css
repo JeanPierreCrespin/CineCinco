@@ -84,6 +84,7 @@
 	font-style: oblique;
 	color: #fff;
 	background-color:#d82a3c;
+	margin-left: 10px;
 }
 .card {
 	border: none;
@@ -111,10 +112,12 @@
 	margin-top: 10px;
     margin-bottom: 25px;
 }
-.quien{
+.quienessomos{
 	background-color: #1C2833;
 	color: #fff;
-	height: 250px;
+	height: 320px;
+	width: 1000px;
+	margin-left: 30px;
 }
 .modal {
 	color: #000;
