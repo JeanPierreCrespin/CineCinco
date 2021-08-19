@@ -32,7 +32,7 @@ import com.QuintoTrainee.CineCinco.utils.UtilDate;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class MainController {
 
