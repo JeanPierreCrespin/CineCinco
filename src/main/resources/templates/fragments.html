@@ -131,6 +131,71 @@
 	</div>
 </th:block>
 
+<th:block th:fragment="cuadro_sin_log">
 
+	<div class="row">
+			<div class="col-sm-6">
+				<div class="bodylogin mt-3">
+					<div class="card-block">
+
+						<h3 class="card-title">Estás registrado en CineCinco?</h3>
+						<br>
+						<p class="card-text">Accedé a tu cuenta para comprar tus
+							entradas, recibir primicias y beneficios</p>
+						<br> <a class="btn-rojo" href="/registro">Registrarse</a> <a
+							class="btn-rojo" href="/login">Iniciar Sesion</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Cuadro de ver Películas -->
+			
+			<div class="col-sm-6">
+				<div class="bodylogin mt-3">
+					<div class="card-block">
+						<h3 class="card-title">Querés ver nuestras películas?</h3>
+						<br>
+						<p class="card-text">Accedé a tu cuenta para comprar tus
+							entradas, recibir primicias y beneficios</p>
+						<br> <a class="btn-rojo" href="/pelicula">Peliculas</a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+</th:block>
+
+<th:block th:fragment="cuadro_logueado">
+
+	
+			<!-- Cuadro de ver Películas -->
+			<div class="row">
+			<div class="col-sm-6">
+				<div class="bodylogin mt-3">
+					<div class="card-block">
+						<h3 class="card-title">Querés ver nuestras películas?</h3>
+						<br>
+						<p class="card-text">Accedé a tu cuenta para comprar tus
+							entradas, recibir primicias y beneficios</p>
+						<br> <a class="btn-rojo" href="/pelicula">Peliculas</a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+</th:block>
+
+<th:block th:fragment="cuadro_para_login">
+
+<div sec:authorize="isAuthenticated()">
+		<div th:replace="fragments :: cuadro_logueado"></div>
+	</div>
+	<div sec:authorize="isAnonymous()">
+		<div th:replace="fragments :: cuadro_sin_log"></div>
+	</div>
+
+</th:block>
 
 </html>
