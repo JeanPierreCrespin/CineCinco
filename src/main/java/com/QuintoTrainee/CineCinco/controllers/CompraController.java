@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.QuintoTrainee.CineCinco.converters.BoletoConverter;
+import com.QuintoTrainee.CineCinco.converters.CompraConverter;
 import com.QuintoTrainee.CineCinco.entities.Boleto;
 import com.QuintoTrainee.CineCinco.entities.Compra;
 import com.QuintoTrainee.CineCinco.entities.Usuario;
@@ -36,6 +37,7 @@ import com.mercadopago.resources.datastructures.preference.Item;
 
 import lombok.RequiredArgsConstructor;
 import lombok.var;
+import net.bytebuddy.dynamic.scaffold.MethodRegistry.Handler.ForAbstractMethod;
 
 @Controller
 @RequestMapping("/compra")
@@ -45,6 +47,8 @@ public class CompraController {
 	private CompraService compraService;
 	@Autowired
 	private CompraRepository compraRepository;
+	@Autowired
+	private CompraConverter compraConverter;
 	@Autowired
 	private FuncionService funcionService;
 	@Autowired
@@ -73,6 +77,22 @@ public class CompraController {
 		Usuario usuario = usuarioRepository.getOne(((Usuario) session.getAttribute("usuarioSession")).getId());
 
 		try {
+			
+			List<CompraModel> comprasBasura = compraConverter.entitiesToModels(compraRepository.getComprasBasura());
+			
+			//eliminando las compras que se vieron interrumpidas
+			if (!comprasBasura.isEmpty()) {
+				CompraModel compraBasura;
+				
+				for(int i = 0; i < comprasBasura.size(); i++) {
+					compraBasura = comprasBasura.get(i);
+					comprasBasura.remove(compraBasura);
+					compraService.eliminarCompraBasura(compraBasura);
+					compraBasura = null;
+					System.out.println("compra supuestamente eliminada");
+				}
+			}
+			
 			FuncionModel funcion = funcionService.getFuncionModelById(idFuncion);
 
 			for (String idButaca : idsButacas) {

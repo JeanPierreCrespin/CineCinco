@@ -6,10 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.QuintoTrainee.CineCinco.converters.CompraConverter;
+import com.QuintoTrainee.CineCinco.entities.Boleto;
+import com.QuintoTrainee.CineCinco.entities.Butaca;
 import com.QuintoTrainee.CineCinco.entities.Compra;
+import com.QuintoTrainee.CineCinco.entities.Usuario;
 import com.QuintoTrainee.CineCinco.exceptions.WebException;
 import com.QuintoTrainee.CineCinco.models.CompraModel;
+import com.QuintoTrainee.CineCinco.repositories.ButacaRepository;
 import com.QuintoTrainee.CineCinco.repositories.CompraRepository;
+import com.QuintoTrainee.CineCinco.repositories.UsuarioRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +26,12 @@ public class CompraService {
 	private CompraConverter compraConverter;
 	@Autowired
 	private CompraRepository compraRepository;
+	
+	@Autowired
+	private ButacaRepository butacaRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	public void validar(CompraModel compraModel) throws WebException {
 		
@@ -62,6 +73,20 @@ public class CompraService {
 		Compra compraEntity = compraConverter.modelToEntity(compraModel);
 		compraEntity.setBaja(new Date());
 		return compraRepository.save(compraEntity);
+	}
+
+	public void eliminarCompraBasura(CompraModel compraBasura) throws WebException {
+		
+		Compra compra = compraConverter.modelToEntity(compraBasura);
+		compraBasura = null;
+		
+		Usuario usuario = usuarioRepository.getUsuarioByCompra(compra.getId());
+		
+		System.out.println(usuario.getUsername());
+		System.out.println(usuario.getCompras().remove(compra));
+		usuarioRepository.save(usuario);
+		
+		System.out.println("final del metodo eliminar compra basura");
 	}
 
 }
