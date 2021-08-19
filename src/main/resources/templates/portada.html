@@ -20,53 +20,15 @@
 
 <title>Pelicula</title>
 
-<!-- Encabezado  -->
-<div class="container header">
-	<div class="row header">
-		<div class="col-xs-0 col-md-3  left-block "></div>
-		<div class="col-xs-12 col-md-6 body-block">CinemaCinco</div>
-		<div class="col-xs-0 col-md-3 rigth-block"></div>
-	</div>
-</div>
 </head>
 
-<!--NavBar-->
-<header>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="/"> <img
-				src="/img/clapperboard_cinema_icon-64px.png" alt="" width="40"
-				height="35" class="d-inline-block align-text-top"> CineCinco
-			</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/">Home</a></li>
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/peliculas">Categorias</a></li>
-				</ul>
-				<form class="d-flex">
-					<input class="form-control me-2" type="search" placeholder="Search"
-						aria-label="Search">
-					<button class="btn btn-outline-danger" type="submit">Buscar</button>
-				</form>
-			</div>
-		</div>
-	</nav>
-</header>
-<!--NavBar-->
-
-
 <body class="peliculabody">
-
+	<!--NavBar-->
+	<header>
+		<div th:replace="fragments :: nav_bar"></div>
+	</header>
+	
 	<div class="row mt-4">
-
 		<!-- Estrenos -->
 		<div class="col-xs-6 col-md-4">
 			<div class="card" style="width: 100%;">
