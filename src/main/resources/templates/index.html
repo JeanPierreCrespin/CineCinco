@@ -97,43 +97,10 @@
 				</div>
 			</div>
 		</div>
-		<!-- Login -->
+		<!-- Cuadro de Login -->
 
-		<div class="row">
-			<div class="col-sm-6">
-				<div class="bodylogin mt-3">
-					<div class="card-block">
-						<h3 class="card-title">Estás registrado en CineCinco?</h3>
-						<br>
-						<p class="card-text">Accedé a tu cuenta para comprar tus
-							entradas, recibir primicias y beneficios</p>
-						<br> <a class="btn-rojo" href="/registro">Registrarse</a> <a
-							class="btn-rojo" href="/login">Iniciar Sesion</a>
-					</div>
-				</div>
-			</div>
-
-
-			<div class="col-sm-6">
-				<div class="bodylogin mt-3">
-					<div class="card-block">
-						<h3 class="card-title">Querés ver nuestras películas?</h3>
-						<br>
-						<p class="card-text">Accedé a tu cuenta para comprar tus
-							entradas, recibir primicias y beneficios</p>
-						<br> <a class="btn-rojo" href="/pelicula">Peliculas</a>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<!-- 
- 
- 
-  -->
+	<div th:replace="fragments :: cuadro_para_login"></div>
+	
 	<div class="row premiere-card-title mt-3">
 		<!-- Titulos en cartel -->
 		<div class="premiere col-xs-12 col-md-12" id="cartelera">
