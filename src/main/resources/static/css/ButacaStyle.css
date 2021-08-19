@@ -151,16 +151,7 @@
 }
 
 .flex-container {
-	display: grid;
 	justify-content: center;
-	grid-auto-rows: 40px;
-	transform: rotate(90deg);
-	margin-left: 217px;
-	padding: 2px;
-}
-
-.flex-container>label {
-	margin-left: 5px;
 }
 
 /*-----Checkbox-----*/
@@ -176,6 +167,8 @@ input[type=checkbox] {
 	align-items: center;
 	justify-content: center;
 	border: 3px solid;
+	margin-left: 10px;
+	margin-bottom: 15px;
 }
 
 input[type=checkbox]::after {
