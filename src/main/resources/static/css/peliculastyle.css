@@ -103,3 +103,20 @@ body {
 	color: #000;
     text-decoration: none;
 }
+/*-----Boton rojo CERRAR SESION----*/
+.btn-rojo-session {
+    background-color:#d82a3c;
+    color: #fff;
+    border-radius: 4px;
+    display: inline-block;
+    padding: 5px 15px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    border: none;
+}
+.btn-rojo-session:hover {
+    background-color:#bd2433;
+    color: #000;
+    text-decoration: none;
+}
