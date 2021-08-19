@@ -19,4 +19,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, String>{
 	@Query("SELECT c FROM Usuario u, IN(u.compras) c WHERE c.fechaAprobacionPago IS NULL AND u.id LIKE :idUser ORDER BY c.alta DESC")
     public List<Compra> getCompraPendiente(@Param("idUser") String idUser);
 	
+	@Query("SELECT u FROM Usuario u, IN(u.compras) c WHERE c.fechaAprobacionPago IS NULL AND c.id LIKE :idCompra")
+	public Usuario getUsuarioByCompra(@Param("idCompra") String idCompra);
+	
 }

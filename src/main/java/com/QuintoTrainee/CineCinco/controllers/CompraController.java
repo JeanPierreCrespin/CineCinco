@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.QuintoTrainee.CineCinco.converters.BoletoConverter;
+import com.QuintoTrainee.CineCinco.converters.CompraConverter;
 import com.QuintoTrainee.CineCinco.entities.Boleto;
 import com.QuintoTrainee.CineCinco.entities.Compra;
 import com.QuintoTrainee.CineCinco.entities.Usuario;
@@ -36,6 +37,7 @@ import com.mercadopago.resources.datastructures.preference.Item;
 
 import lombok.RequiredArgsConstructor;
 import lombok.var;
+import net.bytebuddy.dynamic.scaffold.MethodRegistry.Handler.ForAbstractMethod;
 
 @Controller
 @RequestMapping("/compra")
@@ -46,6 +48,8 @@ public class CompraController {
 	@Autowired
 	private CompraRepository compraRepository;
 	@Autowired
+	private CompraConverter compraConverter;
+	@Autowired
 	private FuncionService funcionService;
 	@Autowired
 	private ButacaService butacaService;
@@ -54,14 +58,14 @@ public class CompraController {
 	@Autowired
 	private BoletoConverter boletoConverter;
 	@Autowired
-    private HttpSession session;
+	private HttpSession session;
 	@Autowired
 	private UsuarioService usuarioService;
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	@Autowired
-    private NotificacionMail notificacionMail;
-	
+	private NotificacionMail notificacionMail;
+
 	@PostMapping("/realizar_pago")
 	public String crearPago(@RequestParam(required = true) String idFuncion,
 			@RequestParam(required = true) String totalPagar, @RequestParam(required = true) List<String> idsButacas)
@@ -71,37 +75,52 @@ public class CompraController {
 		ArrayList<BoletoModel> boletos = new ArrayList<BoletoModel>();
 
 		Usuario usuario = usuarioRepository.getOne(((Usuario) session.getAttribute("usuarioSession")).getId());
-		
-		
+
 		try {
+			
+			List<CompraModel> comprasBasura = compraConverter.entitiesToModels(compraRepository.getComprasBasura());
+			
+			//eliminando las compras que se vieron interrumpidas
+			if (!comprasBasura.isEmpty()) {
+				CompraModel compraBasura;
+				
+				for(int i = 0; i < comprasBasura.size(); i++) {
+					compraBasura = comprasBasura.get(i);
+					comprasBasura.remove(compraBasura);
+					compraService.eliminarCompraBasura(compraBasura);
+					compraBasura = null;
+					System.out.println("compra supuestamente eliminada");
+				}
+			}
+			
 			FuncionModel funcion = funcionService.getFuncionModelById(idFuncion);
 
 			for (String idButaca : idsButacas) {
 				ButacaModel butaca = butacaService.getButacaModelById(idButaca);
-				
+
 				BoletoModel boleto = new BoletoModel();
 
 				boleto.setFuncion(funcion);
 				boleto.setButaca(butaca);
 				boleto = boletoConverter.entityToModel(boletoService.guardar(boleto));
-				
+
 				boletos.add(boleto);
 			}
 
 			float precioTotal = (float) (boletos.size() * funcion.getPrecioEntrada());
-			
+
 			compraModel.setBoletos(boletos);
 			compraModel.setPrecioTotal(precioTotal);
-			
+
 			Compra compraEntity = compraService.guardar(compraModel);
-			
+
 			usuarioService.agregarCompra(usuario, compraEntity);
-			
+
 			// SECCION MP
 			Preference preference = new Preference();
 			// Crea un ítem en la preferencia
 			Item item = new Item();
-			item.setTitle("Entradas para: "+funcion.getPelicula().getTitulo()).setQuantity(boletos.size())
+			item.setTitle("Entradas para: " + funcion.getPelicula().getTitulo()).setQuantity(boletos.size())
 					.setUnitPrice((float) funcion.getPrecioEntrada());
 
 			preference.appendItem(item);
@@ -125,26 +144,25 @@ public class CompraController {
 		Compra compra = usuarioService.getCompraPendiente(usuario);
 
 		System.out.println(usuario.getId());
-		
+
 		if (status.equals("approved")) {
 			System.out.println(status);
-			
-			for(Boleto boleto : compra.getBoletos()) {
+
+			for (Boleto boleto : compra.getBoletos()) {
 				butacaService.ocuparButaca(boleto.getButaca());
 			}
-			
+
 			compra.setFechaAprobacionPago(new Date());
-			
+
 			compraRepository.save(compra);
-			
+
 			notificacionMail.enviar("Se ha confirmado su pago.", "CineCino pago confirmado", usuario.getEmail());
-			
+
 		} else {
 			System.out.println(status);
 			usuarioService.eliminarCompra(usuario, compra);
 		}
-		
-		
+
 		return "redirect:/?status=" + status;
 
 	}

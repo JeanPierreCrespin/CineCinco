@@ -39,19 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	}
 	
 	private final String[] ADMIN_PATHLIST = {
-			"/ABM/**",
-			"/butaca/**",
-			"/compra/**",
-			"/inicio"
-			
-			
-	};
-	private final String[] USER_PATHLIST = {
-			"/butaca/**",
-			"/compra/**",
-			"/inicio"
-			
-			
+			"/ABM/**"	
 	};
 	
 	private final String[] PERMIT_ALL_PATHLIST = {
@@ -74,8 +62,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		http
 			.authorizeRequests()
 				.antMatchers(PERMIT_ALL_PATHLIST).permitAll()
+				.antMatchers("/butaca/**","/compra/**","/inicio","/portada/redirigir/butacasFuncion").hasAnyRole("CLIENTE","ADMINISTRADOR")
 				.antMatchers(ADMIN_PATHLIST).hasRole("ADMINISTRADOR")
-				.antMatchers(USER_PATHLIST).hasRole("CLIENTE")
 				.and().formLogin()
 					.loginPage("/login")
 						.loginProcessingUrl("/logincheck")

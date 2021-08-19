@@ -3,6 +3,7 @@ package com.QuintoTrainee.CineCinco.entities;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -49,7 +50,7 @@ public class Usuario {
 	@Enumerated(EnumType.STRING)
 	private Rol rol;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Compra> compras;
 
 	@Temporal(TemporalType.TIMESTAMP)
