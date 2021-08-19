@@ -39,23 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	}
 	
 	private final String[] ADMIN_PATHLIST = {
-<<<<<<< HEAD
-			"/ABM/**"
-=======
-			"/ABM/**",
-			"/butaca/**",
-			"/compra/**",
-			"/inicio"
-			
-			
-	};
-	private final String[] USER_PATHLIST = {
-			"/butaca/**",
-			"/compra/**",
-			"/inicio"
-			
->>>>>>> branch 'develop' of https://gitlab.com/octaviofarinia/cinecinco.git
-			
+			"/ABM/**"	
 	};
 	
 	private final String[] PERMIT_ALL_PATHLIST = {
