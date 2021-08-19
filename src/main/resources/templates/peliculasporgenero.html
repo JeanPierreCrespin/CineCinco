@@ -1,94 +1,67 @@
 <!DOCTYPE html>
-<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <!--Meta links Requeridos-->
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--Meta links Requeridos-->
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!--Link Bootstrap-->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" 
-  integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+<!--Link Bootstrap-->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
 <!-- The styles -->
 
 <!--Link estilos y logo pestaña-->
 <link rel="stylesheet" href="/css/peliculastyle.css">
-<link href="/img/clapperboard_cinema_icon-32px.png" rel="shortcut icon"/>
-  <title>CineCinco</title>
-  
-   <!-- Encabezado  -->
-	<div class="container header">
-		<div class="row header">
-			<div class="col-xs-0 col-md-3  left-block "></div>
-			<div class="col-xs-12 col-md-6 body-block">CineCinco</div>
-			<div class="col-xs-0 col-md-3 rigth-block"></div>
-		</div>
-	</div>
+<link href="/img/clapperboard_cinema_icon-32px.png" rel="shortcut icon" />
+<title>CineCinco</title>
 </head>
-
-<header>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">
-        <img src="/img/clapperboard_cinema_icon-96px.png" alt="" width="40" height="35"
-          class="d-inline-block align-text-top">
-        CineCinco
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/pelicula">Categorias</a>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-danger" type="submit">Buscar</button>
-        </form>
-      </div>
-    </div>
-  </nav>
-</header>
 
 <body>
 
-			<!-- Pelicula por género en cartel-->
-			<div class="premiere col-xs-12 col-md-12 mt-3" id="cartelera">
-				<h1 class="title-premiere">Cartelera</h1>
-				<h5 class="body-premiere">Consulta por promos con tarjetas seleccionadas</h5>
-			</div>
-			
-		
+	<!--NavBar-->
+	<header>
+		<div th:replace="fragments :: nav_bar"></div>
+	</header>
+	
+	<!-- Pelicula por género en cartel-->
+	<div class="premiere col-xs-12 col-md-12 mt-3" id="cartelera">
+		<h1 class="title-premiere">Cartelera</h1>
+		<h5 class="body-premiere">Consulta por promos con tarjetas
+			seleccionadas</h5>
+	</div>
 
-		<div class="row premiere-card mt-3">
-			<!-- En cartel -->
-			<div th:each="pelicula : ${generoEnCartel}" class="col-xs-6 col-md-3">
-				<div class="card">
-					<div class="card-img">
-						<img th:src="@{'data:/'+${pelicula.foto.mime}+';base64,'+${pelicula.foto.getImgData()}}" class="card-img-top img-fluid" alt="">
-					</div>
-					<div class="card-block-premiere">
-						<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
-						<br>
-						<br>
-						<br>
-						<a th:href="@{/portada/} +${pelicula.id}" class="btn-rojo">Ver más</a>
-					</div>
+
+
+	<div class="row premiere-card mt-3">
+		<!-- En cartel -->
+		<div th:each="pelicula : ${generoEnCartel}" class="col-xs-6 col-md-3">
+			<div class="card">
+				<div class="card-img">
+					<img
+						th:src="@{'data:/'+${pelicula.foto.mime}+';base64,'+${pelicula.foto.getImgData()}}"
+						class="card-img-top img-fluid" alt="">
+				</div>
+				<div class="card-block-premiere">
+					<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
+					<br> <br> <br> <a
+						th:href="@{/portada/} +${pelicula.id}" class="btn-rojo">Ver
+						más</a>
 				</div>
 			</div>
-			
+		</div>
+
 		<div class="row premiere-card-title mt-3">
 			<!-- Titulos Estrenos -->
 			<div class="premiere col-xs-12 col-md-12" id="premiere">
 				<h1 class="title-premiere">Proximos estrenos</h1>
-				<h5 class="body-premiere">Mirá lo que se viene y reserva tu lugar para la avant premiere</h5>
+				<h5 class="body-premiere">Mirá lo que se viene y reserva tu
+					lugar para la avant premiere</h5>
 			</div>
 		</div>
 
@@ -97,29 +70,30 @@
 			<div th:each="pelicula : ${peliculas}" class="col-xs-6 col-md-3">
 				<div class="card">
 					<div class="card-img">
-						<img th:src="@{'data:/'+${pelicula.foto.mime}+';base64,'+${pelicula.foto.getImgData()}}" class="card-img-top img-fluid" alt="">
+						<img
+							th:src="@{'data:/'+${pelicula.foto.mime}+';base64,'+${pelicula.foto.getImgData()}}"
+							class="card-img-top img-fluid" alt="">
 					</div>
 					<div class="card-block-premiere">
 						<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
-						<br>
-						<br>
-						<br>
-						<a th:href="@{/portada/} +${pelicula.id}" class="btn-rojo">Ver más</a>
+						<br> <br> <br> <a
+							th:href="@{/portada/} +${pelicula.id}" class="btn-rojo">Ver
+							más</a>
 					</div>
 				</div>
 			</div>
 			<div class="col-12 mt-5"></div>
 		</div>
-		</div>
+	</div>
 
-<!-- library for cookie management -->
-<script src="js/jquery.cookie.js"></script>
-<!-- library for making tables responsive -->
-<script src="bower_components/responsive-tables/responsive-tables.js"></script>
-<!-- jQuery -->
-<script src="bower_components/jquery/jquery.min.js"></script>
-<!-- application script for Charisma demo -->
-<script src="js/charisma.js"></script>
+	<!-- library for cookie management -->
+	<script src="js/jquery.cookie.js"></script>
+	<!-- library for making tables responsive -->
+	<script src="bower_components/responsive-tables/responsive-tables.js"></script>
+	<!-- jQuery -->
+	<script src="bower_components/jquery/jquery.min.js"></script>
+	<!-- application script for Charisma demo -->
+	<script src="js/charisma.js"></script>
 
 </body>
 </html>
