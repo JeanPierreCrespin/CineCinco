@@ -141,8 +141,8 @@
 
 /*-----Butaca------*/
 .containerbutaca {
-	background: white;
-	color: black;
+	background: #1C2833;
+	color: #fff;
 	padding: 70px 30px;
 	padding: 3%;
 	height: 130vh;
@@ -164,10 +164,11 @@ input[type=checkbox] {
 	border-radius: 5px;
 	cursor: pointer;
 	display: flex;
+	transform: translate(-160%, 1%);
 	align-items: center;
 	justify-content: center;
 	border: 3px solid;
-	margin-left: 10px;
+	margin-left: 8px;
 	margin-bottom: 15px;
 }
 
@@ -196,7 +197,7 @@ input[type=checkbox]#ocupado {
 	width: 180px;
 	cursor: pointer;
 	margin-top: 20px;
-	margin-left: 480px;
+	margin-left: -40px;
 }
 
 .Screen-AllAreas {
