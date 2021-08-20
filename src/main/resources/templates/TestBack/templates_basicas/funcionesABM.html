@@ -105,21 +105,21 @@
 
     <!-- LISTADO DE SALAS -->
     <h3>Listado de Funciones</h3>
-    <table border="1" align="center" bordercolor="black" border-collapse: collapse; border-spacing: 0;>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Horario Emision</th>
-                <th>Sala</th>
-                <th>Pelicula</th>
-                <th>Precio Entrada</th>
-                <th>Llena</th>
-                <th></th>
-                <th></th>
-            </tr>
-            <thead>
-                <tbody>
-                    <tr th:each="funcionListada: ${funciones}">
+    
+    
+    <table class="table wrap=hard" >
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">HORARIO DE EMISIÓN</th>
+				<th scope="col">SALA</th>
+				<th scope="col">PELÍCULA</th>
+				<th scope="col">PRECIO DE ENTRADA</th>
+				<th scope="col">LLENA</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="funcionListada: ${funciones}">
                         <td th:text="${funcionListada.id}"></td>
                         <td th:text="${funcionListada.horario.hora}"></td>
                         <td th:text="${funcionListada.sala.nombre}"></td>
@@ -139,8 +139,9 @@
 
                         </td>
                     </tr>
-                </tbody>
-    </table>
+
+		</tbody>
+	</table>
 
    <script src="js/jquery.js"></script>
       <!--Link Bootstrap JS-->
