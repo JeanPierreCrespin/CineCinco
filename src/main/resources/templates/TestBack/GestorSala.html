@@ -90,8 +90,8 @@
 			<div class="collapse multi-collapse" id="multiCollapseExample1">
 				<div class="card card-body">
 					<form action="/ABM/agregarSala" method="POST" th:object="${sala}">
-						<br /> <br /> <label>Nombre de la sala</label> <input type="text"
-							th:field="*{nombre}"></input> <br /> <br /> <label>Cantidad
+						<br /> <br /> <label>Nombre de la sala</label> <input
+							type="text" th:field="*{nombre}"></input> <br /> <br /> <label>Cantidad
 							de butacas</label> <input type="number" th:field="*{cantidadButacas}"></input>
 						<br /> <br /> <br />
 						<button type="submit" class="btn btn-danger">Guardar Sala</button>
@@ -166,6 +166,28 @@
 				<td class="table-dark" th:text="${salaListada.baja}"></td>
 				<td class="table-dark" th:text="${salaListada.modificacion}"></td>
 			</tr>
+		</tbody>
+	</table>
+
+	<table class="table wrap=hard">
+		<thead>
+			<tr>
+				<th scope="col">NOMBRE DE LA SALA</th>
+				<th scope="col">CANTIDAD DE BUTACAS</th>
+				<th scope="col">FECHA DE ALTA</th>
+				<th scope="col">FECHA DE BAJA</th>
+				<th scope="col">FECHA DE MODIFICACION</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="salaListada: ${salas}">
+				<td th:text="${salaListada.nombre}"></td>
+				<td th:text="${salaListada.cantidadButacas}"></td>
+				<td th:text="${salaListada.alta}"></td>
+				<td th:text="${salaListada.baja}"></td>
+				<td th:text="${salaListada.modificacion}"></td>
+			</tr>
+
 		</tbody>
 	</table>
 
