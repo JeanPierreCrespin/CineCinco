@@ -162,5 +162,9 @@ public class PeliculaService {
 		return peliculaConverter.entityToModel(peliculaRepository.getOne(idPelicula));
 	}
 
+	public List<PeliculaModel> listarTop3() throws WebException {
+		return peliculaConverter.entitiesToModels(peliculaRepository.listarTop3());
+	}
+
 
 }

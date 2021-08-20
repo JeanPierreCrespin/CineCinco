@@ -191,12 +191,10 @@
 				<div class="card-block">
 					<h3 class="card-title">TOP #3 de las más vistas</h3>
 					<hr>
-					<a class="card-link" href=" /portada/12801339-b3b4-4ea8-bd34-f193e4e68b9a">#1 Black Widow</a> <br>
-					<hr>
-					<a class="card-link" href="/portada/d9b4232f-0e62-4f21-ba78-bd3cc211635e">#2 La purga infinita</a>
-					<hr>
-					<a class="card-link" href="/portada/eaba6c5f-1f61-4101-8260-2fa75e86393b">#3 Un lugar en silencio 2</a> <br>
-
+					<div th:each="top , custStat: ${top3}">
+						<a class="card-link" th:href="@{/portada/} +${top.id}" th:text="'#' + ${custStat.index} + ' ' + ${top.titulo}"></a> <br>
+						<hr>
+					</div>
 				</div>
 			</div>
 		</div>

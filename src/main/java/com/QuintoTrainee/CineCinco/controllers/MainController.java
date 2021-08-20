@@ -67,6 +67,9 @@ public class MainController {
 			List<PeliculaModel> enCartel = peliculaService.listarEnCartel();
 			model.put("enCartel", enCartel);
 			
+			List<PeliculaModel> top3 = peliculaService.listarTop3();
+			model.put("top3", top3);
+			
 		} catch (WebException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,6 +93,10 @@ public class MainController {
 			
 			List<PeliculaModel> enCartel = peliculaService.listarEnCartel();
 			model.put("enCartel", enCartel);
+			
+			List<PeliculaModel> top3 = peliculaService.listarTop3();
+			model.put("top3", top3);
+			
 		} catch (WebException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

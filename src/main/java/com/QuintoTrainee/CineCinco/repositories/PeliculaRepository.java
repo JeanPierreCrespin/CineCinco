@@ -25,6 +25,9 @@ public interface PeliculaRepository extends JpaRepository<Pelicula, String>{
 	@Query( value="SELECT * FROM Pelicula  WHERE baja IS NULL ORDER BY alta ASC LIMIT 4" , nativeQuery=true)
 	public List<Pelicula> listarEnCartel();
 	
+	@Query( value="SELECT * FROM Pelicula  WHERE baja IS NULL ORDER BY trailer DESC LIMIT 3" , nativeQuery=true) //se ordena por trailer porque si no hay razon alguna que justifique ordenar por trailer las peliculas y traer las 3 primeras para el top 3, en el futuro habria que buscar la forma de obtener las mas vendidas o mas buscadas xddddd
+	public List<Pelicula> listarTop3();
+	
  }
 
 
