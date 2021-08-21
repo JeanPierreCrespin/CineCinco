@@ -114,20 +114,18 @@
     <table class="table wrap=hard" >
 		<thead>
 			<tr>
-				<th scope="col">ID</th>
-				<th scope="col">HORARIO DE EMISIÓN</th>
+				<th scope="col">PELÍCULA</th>		
 				<th scope="col">SALA</th>
-				<th scope="col">PELÍCULA</th>
+				<th scope="col">HORARIO DE EMISIÓN</th>
 				<th scope="col">PRECIO DE ENTRADA</th>
 				<th scope="col">LLENA</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="funcionListada: ${funciones}">
-                        <td th:text="${funcionListada.id}"></td>
-                        <td th:text="${funcionListada.horario.hora}"></td>
-                        <td th:text="${funcionListada.sala.nombre}"></td>
                         <td th:text="${funcionListada.pelicula.titulo}"></td>
+                        <td th:text="${funcionListada.sala.nombre}"></td>
+                        <td th:text="${funcionListada.horario.hora}"></td>
                         <td th:text="${funcionListada.precioEntrada}"></td>
                         <td th:text="${funcionListada.llena}"></td>
                         <td>
