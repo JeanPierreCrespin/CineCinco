@@ -21,16 +21,6 @@
 
 	<title>CineCinco</title>
 
-
-	<!-- Encabezado  -->
-	<div class="container header">
-		<div class="row header">
-			<div class="col-xs-0 col-md-3  left-block "></div>
-			<div class="col-xs-12 col-md-6 body-block">CineCinco</div>
-			<div class="col-xs-0 col-md-3 rigth-block"></div>
-		</div>
-	</div>
-
 </th:block>
 
 <th:block th:fragment="nav_bar_sin_log">
@@ -192,7 +182,7 @@
 					<h3 class="card-title">TOP #3 de las más vistas</h3>
 					<hr>
 					<div th:each="top , custStat: ${top3}">
-						<a class="card-link" th:href="@{/portada/} +${top.id}" th:text="'#' + ${custStat.index} + ' ' + ${top.titulo}"></a> <br>
+						<a class="card-link" th:href="@{/portada/} +${top.id}" th:text="'#' + ${custStat.index + 1} + ' ' + ${top.titulo}"></a> <br>
 						<hr>
 					</div>
 				</div>

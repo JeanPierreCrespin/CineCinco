@@ -28,65 +28,106 @@
 	<header>
 		<div th:replace="fragments :: nav_bar"></div>
 	</header>
-	
-	<!-- Pelicula por género en cartel-->
-	<div class="premiere col-xs-12 col-md-12 mt-3" id="cartelera">
-		<h1 class="title-premiere">Cartelera</h1>
-		<h5 class="body-premiere">Consulta por promos con tarjetas
-			seleccionadas</h5>
+
+	<!-- Categorías -->
+	<div class="container-peliculas">
+		<div class="row pelicula mt-5">
+
+			<div class="col-sm-2 col-lg-2">
+				<div class="sidebar-nav">
+					<div class="nav-canvas">
+
+						<ul class="nav nav-pills nav-stacked main-menu">
+							<h3 class="nav-header">Categorias</h3>
+							<ul>
+								<li><a class="ajax-link"
+									href="/pelicula/por_genero?genero=TERROR"><span>Terror</span></a></li>
+								<li><a class="ajax-link"
+									href="/pelicula/por_genero?genero=COMEDIA"><span>Comedia</span></a></li>
+								<li><a class="ajax-link"
+									href="/pelicula/por_genero?genero=ROMANTICA"><span>Romantica</span></a></li>
+								<li><a class="ajax-link"
+									href="/pelicula/por_genero?genero=CIENCIAFICCION"><span>Ciencia
+											Ficcion</span></a></li>
+								<li><a class="ajax-link"
+									href="/pelicula/por_genero?genero=DRAMA"><span>Drama</span></a></li>
+								<li><a class="ajax-link"
+									href="/pelicula/por_genero?genero=INFANTIL"><span>Infantil</span></a></li>
+								<li><a class="ajax-link"
+									href="/pelicula/por_genero?genero=ACCION"><span>Acción</span></a></li>
+								<li><a class="ajax-link"
+									href="/pelicula/por_genero?genero=SUSPENSO"><span>Suspenso</span></a></li>
+							</ul>
+
+						</ul>
+
+					</div>
+				</div>
+			</div>
+
+			<!-- Titulos en cartel -->
+			<div
+				class="premiere-pelicula col-xs-10 col-sm-10 col-lg-10 col-md-10 mt-2"
+				id="cartelera">
+				<h1 class="title-premiere">Cartelera</h1>
+				<h5 class="body-premiere">
+					Consulta por promos con tarjetas seleccionadas
+					</h1>
+
+					<div class="row premiere-card mt-5">
+						<!-- En cartel -->
+						<div th:each="pelicula : ${generoEnCartel}" class="col-xs-6 col-md-3">
+							<div class="card">
+								<div class="card-img">
+									<img
+										th:src="@{'data:/'+${pelicula.foto.mime}+';base64,'+${pelicula.foto.getImgData()}}"
+										class="card-img-top img-fluid" alt="">
+								</div>
+								<div class="card-block-premiere">
+									<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
+									<br> <br>
+									<p th:text="${pelicula.genero}" class="card-text"></p>
+									<a th:href="@{/portada/} +${pelicula.id}" class="btn-rojo">Ver
+										más</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="row premiere-card-title mt-3">
+							<!-- Titulos Estrenos -->
+							<div class="premiere col-xs-12 col-md-12" id="premiere">
+								<h1 class="title-premiere">Proximos estrenos</h1>
+								<h5 class="body-premiere">Mirá lo que se viene y reserva tu
+									lugar para la avant premiere</h5>
+							</div>
+						</div>
+
+						<div class="row premiere-card mt-3">
+							<!-- Estrenos -->
+							<div th:each="pelicula : ${peliculas}" class="col-xs-6 col-md-3">
+								<div class="card">
+									<div class="card-img">
+										<img
+											th:src="@{'data:/'+${pelicula.foto.mime}+';base64,'+${pelicula.foto.getImgData()}}"
+											class="card-img-top img-fluid" alt="">
+									</div>
+									<div class="card-block-premiere">
+										<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
+										<br> <br>
+										<p th:text="${pelicula.genero}" class="card-text"></p>
+										<a th:href="@{/portada/} +${pelicula.id}" class="btn-rojo">Ver
+											más</a> <br> <br> <br>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
 	</div>
 
 
 
-	<div class="row premiere-card mt-3">
-		<!-- En cartel -->
-		<div th:each="pelicula : ${generoEnCartel}" class="col-xs-6 col-md-3">
-			<div class="card">
-				<div class="card-img">
-					<img
-						th:src="@{'data:/'+${pelicula.foto.mime}+';base64,'+${pelicula.foto.getImgData()}}"
-						class="card-img-top img-fluid" alt="">
-				</div>
-				<div class="card-block-premiere">
-					<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
-					<br> <br> <br> <a
-						th:href="@{/portada/} +${pelicula.id}" class="btn-rojo">Ver
-						más</a>
-				</div>
-			</div>
-		</div>
-
-		<div class="row premiere-card-title mt-3">
-			<!-- Titulos Estrenos -->
-			<div class="premiere col-xs-12 col-md-12" id="premiere">
-				<h1 class="title-premiere">Proximos estrenos</h1>
-				<h5 class="body-premiere">Mirá lo que se viene y reserva tu
-					lugar para la avant premiere</h5>
-			</div>
-		</div>
-
-		<div class="row premiere-card mt-3">
-			<!-- Estrenos -->
-			<div th:each="pelicula : ${peliculas}" class="col-xs-6 col-md-3">
-				<div class="card">
-					<div class="card-img">
-						<img
-							th:src="@{'data:/'+${pelicula.foto.mime}+';base64,'+${pelicula.foto.getImgData()}}"
-							class="card-img-top img-fluid" alt="">
-					</div>
-					<div class="card-block-premiere">
-						<h3 th:text="${pelicula.titulo}" class="card-title"></h3>
-						<br> <br> <br> <a
-							th:href="@{/portada/} +${pelicula.id}" class="btn-rojo">Ver
-							más</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-12 mt-5 "></div>
-		</div>
-	</div>
-	
-	
 
 	<!-- library for cookie management -->
 	<script src="js/jquery.cookie.js"></script>
@@ -103,4 +144,5 @@
 		integrity="undefined" crossorigin="anonymous"></script>
 
 </body>
+<footer> </footer>
 </html>
