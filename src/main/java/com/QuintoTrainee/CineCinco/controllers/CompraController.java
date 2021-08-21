@@ -163,7 +163,7 @@ public class CompraController {
 			String horaFuncion = compra.getBoletos().get(0).getFuncion().getHorario().getHora();
 			String nombrePelicula = compra.getBoletos().get(0).getFuncion().getPelicula().getTitulo();
 			
-			notificacionMail.enviar("Ha comprado " + cantBoletos + " boletos para la pelicula " + nombrePelicula+ ", sus butacas seleccionadas son:" +nombresButacas+ "de la sala " +salaNombre+ " para la funcion de las " + horaFuncion,"Se ha confirmado su compra.", usuario.getEmail());
+			notificacionMail.enviar("Ha comprado " + cantBoletos + " boletos para la pelicula: " + nombrePelicula + ", sus butacas seleccionadas son:" +nombresButacas+ "de la sala " +salaNombre+ " para la función de las " + horaFuncion + " hs. ","Se ha confirmado su compra.", usuario.getEmail());
 
 		} else {
 			System.out.println(status);

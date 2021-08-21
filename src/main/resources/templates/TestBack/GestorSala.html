@@ -145,30 +145,6 @@
 	<!---Tabla de Salas-->
 	<h1>Ver todas las salas</h1>
 
-	<table class="table-dark">
-
-		<caption>Lista general de salas</caption>
-
-		<thead>
-			<tr class="table-dark">
-				<th scope="col">NOMBRE DE LA SALA</th>
-				<th scope="col">CANTIDAD DE BUTACAS</th>
-				<th scope="col">FECHA DE ALTA</th>
-				<th scope="col">FECHA DE BAJA</th>
-				<th scope="col">FECHA DE MODIFICACION</th>
-			</tr>
-		<thead>
-		<tbody>
-			<tr class="table-dark" th:each="salaListada: ${salas}">
-				<td class="table-dark" th:text="${salaListada.nombre}"></td>
-				<td class="table-dark" th:text="${salaListada.cantidadButacas}"></td>
-				<td class="table-dark" th:text="${salaListada.alta}"></td>
-				<td class="table-dark" th:text="${salaListada.baja}"></td>
-				<td class="table-dark" th:text="${salaListada.modificacion}"></td>
-			</tr>
-		</tbody>
-	</table>
-
 	<table class="table wrap=hard">
 		<thead>
 			<tr>
